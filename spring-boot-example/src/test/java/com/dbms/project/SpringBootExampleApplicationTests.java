@@ -1,4 +1,4 @@
-package com.javatpoint.springbootexample;
+package com.dbms.project;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
