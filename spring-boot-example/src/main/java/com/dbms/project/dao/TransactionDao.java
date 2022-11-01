@@ -18,8 +18,8 @@ public class TransactionDao {
     }
 
     public int insertTransaction(Transaction transaction) {
-        final String sql = "INSERT INTO Transaction(TransactionId,BankBranch,ProductType,AccountNumber,amount,mode,VerificationStatus,DateofTrans,BankName) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, transaction.getTransactionId(), transaction.getBankBranch(), transaction.getProductType(), transaction.getAccountNumber(), transaction.getAmount(), transaction.getMode(), transaction.getVerificationStatus(), transaction.getDateofTrans(), transaction.getBankName());
+        final String sql = "INSERT INTO Transaction(id,BankBranch,ProductType,AccountNumber,amount,mode,VerificationStatus,DateofTrans,BankName) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, transaction.getId(), transaction.getBankBranch(), transaction.getProductType(), transaction.getAccountNumber(), transaction.getAmount(), transaction.getMode(), transaction.getVerificationStatus(), transaction.getDateOfTransaction(), transaction.getBankName());
     }
 
     public List<Transaction> getAllTransactions() {
@@ -28,7 +28,7 @@ public class TransactionDao {
     }
 
     public Transaction getTransactionById(int id) {
-        final String sql = "SELECT * from Transaction WHERE TransactionId = ?";
+        final String sql = "SELECT * from Transaction WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(Transaction.class));
     }
 
@@ -38,7 +38,7 @@ public class TransactionDao {
     }
 
     public int updateTransaction(int id, Transaction transaction) {
-        final String sql = "UPDATE Transaction SET TransactionId = ?, BankBranch = ?,ProductType = ?,AccountNumber = ?,amount = ?,mode = ?,VerificationStatus = ?,DateofTrans = ?,BankName = ?";
-        return jdbcTemplate.update(sql, transaction.getTransactionId(), transaction.getBankBranch(), transaction.getProductType(), transaction.getAccountNumber(), transaction.getAmount(), transaction.getMode(), transaction.getVerificationStatus(), transaction.getDateofTrans(), transaction.getBankName());
+        final String sql = "UPDATE Transaction SET BankBranch = ?,ProductType = ?,AccountNumber = ?,amount = ?,mode = ?,VerificationStatus = ?,DateofTrans = ?,BankName = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, transaction.getBankBranch(), transaction.getProductType(), transaction.getAccountNumber(), transaction.getAmount(), transaction.getMode(), transaction.getVerificationStatus(), transaction.getDateOfTransaction(), transaction.getBankName(), id);
     }
 }
