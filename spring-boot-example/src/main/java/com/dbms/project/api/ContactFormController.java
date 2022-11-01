@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequestMapping("api/contactForm")
@@ -20,7 +22,7 @@ public class ContactFormController {
 
     @PostMapping
     @ResponseBody
-    public void addContactForm(@RequestBody ContactForm contactForm) {
+    public void addContactForm(@Valid @NotNull @RequestBody ContactForm contactForm) {
         contactFormService.insertContactForm(contactForm);
     }
 
@@ -44,7 +46,7 @@ public class ContactFormController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateContactForm(@PathVariable("id") int id, @RequestBody ContactForm contactForm) {
+    public void updateContactForm(@PathVariable("id") int id, @Valid @NotNull @RequestBody ContactForm contactForm) {
         contactFormService.updateContactForm(id, contactForm);
     }
 }

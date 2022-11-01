@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -24,7 +26,7 @@ public class BillController {
 
     @PostMapping
     @ResponseBody
-    public void addBill(@RequestBody Bill bill) {
+    public void addBill(@Valid @NotNull @RequestBody Bill bill) {
         billService.insertBill(bill);
     }
 

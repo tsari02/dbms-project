@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -46,7 +48,7 @@ public class SupplierOrderController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateSupplierOrder(@PathVariable("id") int id, @RequestBody SupplierOrder supplierOrder) {
+    public void updateSupplierOrder(@PathVariable("id") int id, @Valid @NotNull @RequestBody SupplierOrder supplierOrder) {
         supplierOrderService.updateSupplierOrder(id, supplierOrder);
     }
 }
