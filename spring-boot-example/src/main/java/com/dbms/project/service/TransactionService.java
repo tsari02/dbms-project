@@ -1,7 +1,7 @@
 package com.dbms.project.service;
 
-import com.dbms.project.dao.SupplierDao;
-import com.dbms.project.model.Supplier;
+import com.dbms.project.dao.TransactionDao;
+import com.dbms.project.model.Transaction;
 import com.dbms.project.model.Transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,6 @@ public class TransactionService {
     }
 
     public int updateTransaction(int id, Transaction transaction) {
-        return transactionDao.updateSupplier(id, transaction);
+        return transactionDao.updateTransaction(id, transaction);
     }
 }

@@ -15,7 +15,4 @@ public class Transaction {
     private String VerificationStatus;
     private Date DateofTrans;
     private String BankName;
-    public Object getMode() {
-        return null;
-    }
 }

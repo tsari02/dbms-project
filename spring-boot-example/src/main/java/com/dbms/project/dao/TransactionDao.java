@@ -1,9 +1,6 @@
 package com.dbms.project.dao;
 
-import com.dbms.project.model.Customer;
-import com.dbms.project.model.Supplier;
 import com.dbms.project.model.Transaction;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,9 +27,9 @@ public class TransactionDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Transaction.class));
     }
 
-    public Supplier getTransactionById(int id) {
+    public Transaction getTransactionById(int id) {
         final String sql = "SELECT * from Transaction WHERE TransactionId = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(Supplier.class));
+        return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(Transaction.class));
     }
 
     public int deleteTransaction(int id) {

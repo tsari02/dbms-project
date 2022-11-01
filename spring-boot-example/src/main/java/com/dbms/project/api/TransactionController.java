@@ -1,8 +1,7 @@
 package com.dbms.project.api;
 
-import com.dbms.project.model.Customer;
 import com.dbms.project.model.Transaction;
-import com.dbms.project.service.CustomerService;
+import com.dbms.project.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +38,7 @@ public class TransactionController {
 
     @GetMapping(path="{id}")
     @ResponseBody
-    public Customer getTransactionById(@PathVariable("id") int id) {
+    public Transaction getTransactionById(@PathVariable("id") int id) {
         return transactionService.getTransactionById(id);
     }
 
