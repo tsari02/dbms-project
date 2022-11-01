@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS customerOrder;
+DROP TABLE IF EXISTS productType;
