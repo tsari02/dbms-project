@@ -1,0 +1,50 @@
+package com.dbms.project.api;
+
+import com.dbms.project.model.ContactForm;
+import com.dbms.project.service.ContactFormService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RequestMapping("api/contactForm")
+@Controller
+public class ContactFormController {
+    private final ContactFormService contactFormService;
+
+    @Autowired
+    public ContactFormController(ContactFormService contactFormService) {
+        this.contactFormService = contactFormService;
+    }
+
+    @PostMapping
+    @ResponseBody
+    public void addContactForm(@RequestBody ContactForm contactForm) {
+        contactFormService.insertContactForm(contactForm);
+    }
+
+    @GetMapping
+    @ResponseBody
+    public List<ContactForm> getAllContactForms() {
+        return contactFormService.getAllContactForms();
+    }
+
+    @DeleteMapping(path="{id}")
+    @ResponseBody
+    public void deleteContactForm(@PathVariable("id") int id) {
+        contactFormService.deleteContactForm(id);
+    }
+
+    @GetMapping(path="{id}")
+    @ResponseBody
+    public ContactForm getContactFormById(@PathVariable("id") int id) {
+        return contactFormService.getContactFormById(id);
+    }
+
+    @PutMapping(path="{id}")
+    @ResponseBody
+    public void updateContactForm(@PathVariable("id") int id, @RequestBody ContactForm contactForm) {
+        contactFormService.updateContactForm(id, contactForm);
+    }
+}
