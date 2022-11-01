@@ -2,7 +2,6 @@ package com.dbms.project.service;
 
 import com.dbms.project.dao.CustomerOrderDao;
 import com.dbms.project.model.CustomerOrder;
-import com.dbms.project.model.CustomerOrder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

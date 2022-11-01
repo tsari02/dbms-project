@@ -38,7 +38,7 @@ public class ProductTypeDao {
     }
 
     public int updateProductType(int id, ProductType productType) {
-        final String sql = "UPDATE productType SET type = ?, productImage = ?, warrantyPeriod = ?, quantity = ?";
-        return jdbcTemplate.update(sql, productType.getType(), productType.getProductImage(), productType.getWarrantyPeriod(), productType.getQuantity());
+        final String sql = "UPDATE productType SET type = ?, productImage = ?, warrantyPeriod = ?, quantity = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, productType.getType(), productType.getProductImage(), productType.getWarrantyPeriod(), productType.getQuantity(), id);
     }
 }
