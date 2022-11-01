@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RequestMapping("api/supplierOrder")
 @Controller
@@ -20,7 +22,7 @@ public class SupplierOrderController {
 
     @PostMapping
     @ResponseBody
-    public void addSupplierOrder(@RequestBody SupplierOrder supplierOrder) {
+    public void addSupplierOrder(@Valid @NotNull @RequestBody SupplierOrder supplierOrder) {
         supplierOrderService.insertSupplierOrder(supplierOrder);
     }
 
@@ -38,7 +40,7 @@ public class SupplierOrderController {
 
     @GetMapping(path="{id}")
     @ResponseBody
-    public SupplierOrder getSupplierOrderById(@PathVariable("id") int id) {
+    public SupplierOrder getSupplierOrderById(@Valid @NotNull @PathVariable("id") int id) {
         return supplierOrderService.getSupplierOrderById(id);
     }
 

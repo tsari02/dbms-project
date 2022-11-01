@@ -5,13 +5,23 @@ import lombok.Data;
 import java.util.Date;
 import java.lang.Boolean;
 
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 public class CustomerOrder {
     private int id;
+    @NotBlank
     private String deliveryAgentAssigned;
+    @NotNull
     private Boolean verificationStatus;
+    @NotNull
     private Date deliveryDate;
+    @NotNull
     private Date orderedDate;
+    @NotNull
     private int customerId;
+    @NotNull
     private int employeeId;
 }

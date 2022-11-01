@@ -4,15 +4,26 @@ import lombok.Data;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 public class Transaction {
     private int id;
-    private String BankBranch;
-    private int ProductType;
-    private int AccountNumber;
+    @NotBlank
+    private String bankBranch;
+    @NotNull
+    private int productType;
+    @NotNull
+    private int accountNumber;
+    @NotNull
     private int amount;
+    @NotBlank
     private String mode;
-    private String VerificationStatus;
+    @NotBlank
+    private String verificationStatus;
+    @NotNull
     private Date dateOfTransaction;
-    private String BankName;
+    @NotBlank
+    private String bankName;
 }

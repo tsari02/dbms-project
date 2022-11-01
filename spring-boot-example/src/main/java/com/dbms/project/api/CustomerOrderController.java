@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+
 @RequestMapping("api/customerOrder")
 @Controller
 public class CustomerOrderController {
@@ -20,7 +24,7 @@ public class CustomerOrderController {
 
     @PostMapping
     @ResponseBody
-    public void addCustomerOrder(@RequestBody CustomerOrder customerOrder) {
+    public void addCustomerOrder(@Valid @NotNull @RequestBody CustomerOrder customerOrder) {
         customerOrderService.insertCustomerOrder(customerOrder);
     }
 
@@ -44,7 +48,7 @@ public class CustomerOrderController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateCustomerOrder(@PathVariable("id") int id, @RequestBody CustomerOrder customerOrder) {
+    public void updateCustomerOrder(@PathVariable("id") int id, @Valid @NotNull @RequestBody CustomerOrder customerOrder) {
         customerOrderService.updateCustomerOrder(id, customerOrder);
     }
 }

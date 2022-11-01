@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 
 @RequestMapping("api/workExperience")
 @Controller
@@ -20,7 +23,7 @@ public class WorkExperienceController {
 
     @PostMapping
     @ResponseBody
-    public void addWorkExperience(@RequestBody WorkExperience workExperience) {
+    public void addWorkExperience(@Valid @NotNull @RequestBody WorkExperience workExperience) {
         workExperienceService.insertWorkExperience(workExperience);
     }
 
@@ -44,7 +47,7 @@ public class WorkExperienceController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateWorkExperience(@PathVariable("id") int id, @RequestBody WorkExperience workExperience) {
+    public void updateWorkExperience(@PathVariable("id") int id, @Valid @NotNull @RequestBody WorkExperience workExperience) {
         workExperienceService.updateWorkExperience(id, workExperience);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @RequestMapping("api/employee")
 @Controller
@@ -19,7 +21,7 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseBody
-    public void addEmployee(@RequestBody Employee employee) {
+    public void addEmployee(@Valid @NotNull @RequestBody Employee employee) {
         employeeService.insertEmployee(employee);
     }
 
@@ -43,7 +45,7 @@ public class EmployeeController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateEmployee(@PathVariable("id") int id, @RequestBody Employee employee) {
+    public void updateEmployee(@PathVariable("id") int id, @Valid @NotNull @RequestBody Employee employee) {
         employeeService.updateEmployee(id, employee);
     }
 }
