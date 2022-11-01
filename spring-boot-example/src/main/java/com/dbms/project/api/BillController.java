@@ -7,6 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+
 
 @RequestMapping("api/bill")
 @Controller
@@ -32,7 +36,7 @@ public class BillController {
 
     @DeleteMapping(path="{id}")
     @ResponseBody
-    public void deleteBill(@PathVariable("id") int id) {
+    public void deleteBill(@Valid @NotNull @PathVariable("id") int id) {
         billService.deleteBill(id);
     }
 
@@ -44,7 +48,7 @@ public class BillController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateBill(@PathVariable("id") int id, @RequestBody Bill bill) {
+    public void updateBill(@PathVariable("id") int id, @Valid @NotNull @RequestBody Bill bill) {
         billService.updateBill(id, bill);
     }
 }

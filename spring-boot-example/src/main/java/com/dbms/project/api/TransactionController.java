@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 @RequestMapping("api/transactions")
 @Controller
 public class TransactionController {
@@ -20,7 +22,7 @@ public class TransactionController {
 
     @PostMapping
     @ResponseBody
-    public void addTransaction(@RequestBody Transaction transaction) {
+    public void addTransaction(@Valid @NotNull @RequestBody Transaction transaction) {
         transactionService.insertTransaction(transaction);
     }
 
@@ -44,7 +46,7 @@ public class TransactionController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateTransaction(@PathVariable("id") int id, @RequestBody Transaction transaction) {
+    public void updateTransaction(@PathVariable("id") int id, @Valid @NotNull @RequestBody Transaction transaction) {
         transactionService.updateTransaction(id, transaction);
     }
 }
