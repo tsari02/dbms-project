@@ -18,8 +18,8 @@ public class CustomerOrderDao {
     }
 
     public int insertCustomerOrder(CustomerOrder customerOrder) {
-        final String sql = "INSERT INTO customerOrder(customerOrderId,deliveryAgentAssigned,getVerificationStatus,deliveryDate,OrderedDate,customerId,employeeId) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, customerOrder.getCustomerOrderId(), customerOrder.getDeliveryAgentAssigned(), customerOrder.getVerificationStatus(), customerOrder.getDeliveryDate(), customerOrder.getOrderedDate(), customerOrder.getCustomerId(), customerOrder.getEmployeeId());
+        final String sql = "INSERT INTO customerOrder(id ,deliveryAgentAssigned ,verificationStatus ,deliveryDate ,orderedDate ,customerId, employeeId) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, customerOrder.getId(), customerOrder.getDeliveryAgentAssigned(), customerOrder.getVerificationStatus(), customerOrder.getDeliveryDate(), customerOrder.getOrderedDate(), customerOrder.getCustomerId(), customerOrder.getEmployeeId());
     }
 
     public List<CustomerOrder> getAllCustomerOrders() {
@@ -28,17 +28,17 @@ public class CustomerOrderDao {
     }
 
     public CustomerOrder getCustomerOrderById(int id) {
-        final String sql = "SELECT * from customerOrder WHERE customerOrderId = ?";
+        final String sql = "SELECT * from customerOrder WHERE id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(CustomerOrder.class));
     }
 
     public int deleteCustomerOrder(int id) {
-        final String sql = "DELETE FROM customerOrder WHERE customerOrderId = ?";
+        final String sql = "DELETE FROM customerOrder WHERE id = ?";
         return jdbcTemplate.update(sql, id);
     }
 
     public int updateCustomerOrder(int id, CustomerOrder customerOrder) {
-        final String sql = "UPDATE customerOrder SET customerOrderId = ?, deliveryAgentAssigned = ?,verificationStatus = ?,deliveryDate = ?,orderedDate = ?,customerId = ?,employeeId = ?";
-        return jdbcTemplate.update(sql, customerOrder.getCustomerOrderId(), customerOrder.getDeliveryAgentAssigned(), customerOrder.getVerificationStatus(), customerOrder.getDeliveryDate(), customerOrder.getOrderedDate(), customerOrder.getCustomerId(), customerOrder.getEmployeeId());
+        final String sql = "UPDATE customerOrder SET id = ?, deliveryAgentAssigned = ?,verificationStatus = ?,deliveryDate = ?,orderedDate = ?,customerId = ?,employeeId = ?";
+        return jdbcTemplate.update(sql, customerOrder.getId(), customerOrder.getDeliveryAgentAssigned(), customerOrder.getVerificationStatus(), customerOrder.getDeliveryDate(), customerOrder.getOrderedDate(), customerOrder.getCustomerId(), customerOrder.getEmployeeId());
     }
 }

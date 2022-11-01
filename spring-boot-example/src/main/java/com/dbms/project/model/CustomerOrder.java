@@ -7,7 +7,7 @@ import java.lang.Boolean;
 
 @Data
 public class CustomerOrder {
-    private int customerOrderId;
+    private int id;
     private String deliveryAgentAssigned;
     private Boolean verificationStatus;
     private Date deliveryDate;
