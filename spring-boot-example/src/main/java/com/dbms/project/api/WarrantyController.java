@@ -26,8 +26,8 @@ public class WarrantyController {
 
     @GetMapping
     @ResponseBody
-    public List<Warranty> getAllWarrantys() {
-        return warrantyService.getAllWarrantys();
+    public List<Warranty> getAllWarranties() {
+        return warrantyService.getAllWarranties();
     }
 
     @DeleteMapping(path="{id}")

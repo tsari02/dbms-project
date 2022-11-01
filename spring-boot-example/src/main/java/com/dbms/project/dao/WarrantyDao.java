@@ -22,7 +22,7 @@ public class WarrantyDao {
         return jdbcTemplate.update(sql, warranty.getCoverage(), warranty.getProductId(), warranty.getCustomerId(), warranty.getEndDate() );
     }
 
-    public List<Warranty> getAllWarrantys() {
+    public List<Warranty> getAllWarranties() {
         final String sql = "SELECT * from warranty";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Warranty.class));
     }

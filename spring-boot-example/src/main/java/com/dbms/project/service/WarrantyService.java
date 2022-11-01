@@ -20,8 +20,8 @@ public class WarrantyService {
         return warrantyDao.insertWarranty(warranty);
     }
 
-    public List<Warranty> getAllWarrantys() {
-        return warrantyDao.getAllWarrantys();
+    public List<Warranty> getAllWarranties() {
+        return warrantyDao.getAllWarranties();
     }
 
     public Warranty getWarrantyById(int id) {
