@@ -12,14 +12,14 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class Employee {
-    private int id;
+    private final int id;
     @NotBlank
     private String firstName;
     private String middleName;
     private String lastName;
     @NotBlank
     private String designation; 
-    @NotBlank
+    @NotNull
     private int salary;
     @NotBlank
     private String contactNumber;
