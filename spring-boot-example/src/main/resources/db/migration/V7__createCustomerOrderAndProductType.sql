@@ -6,9 +6,9 @@ CREATE TABLE customerOrder (
     orderedDate DATE NOT NULL,
     customerId INT NOT NULL,
     employeeId INT NOT NULL,
-    PRIMARY KEY(customerOrderId)
-    FOREIGN KEY (customerId) REFERENCES customer(id) ON DELETE SET NULL,
-    FOREIGN KEY (employeeId) REFERENCES employee(id) ON DELETE SET NULL
+    PRIMARY KEY(customerOrderId),
+    FOREIGN KEY (customerId) REFERENCES customer(id) ON DELETE CASCADE,
+    FOREIGN KEY (employeeId) REFERENCES employee(id) ON DELETE CASCADE
 );
 
 CREATE TABLE productType (
