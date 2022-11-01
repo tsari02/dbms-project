@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequestMapping("api/supplierOrder")
@@ -20,7 +22,7 @@ public class SupplierOrderController {
 
     @PostMapping
     @ResponseBody
-    public void addSupplierOrder(@RequestBody SupplierOrder supplierOrder) {
+    public void addSupplierOrder(@Valid @NotNull @RequestBody SupplierOrder supplierOrder) {
         supplierOrderService.insertSupplierOrder(supplierOrder);
     }
 
@@ -44,7 +46,7 @@ public class SupplierOrderController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateSupplierOrder(@PathVariable("id") int id, @RequestBody SupplierOrder supplierOrder) {
+    public void updateSupplierOrder(@PathVariable("id") int id, @Valid @NotNull @RequestBody SupplierOrder supplierOrder) {
         supplierOrderService.updateSupplierOrder(id, supplierOrder);
     }
 }

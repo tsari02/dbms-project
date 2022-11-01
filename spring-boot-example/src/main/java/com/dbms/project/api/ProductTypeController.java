@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequestMapping("api/productType")
@@ -20,7 +22,7 @@ public class ProductTypeController {
 
     @PostMapping
     @ResponseBody
-    public void addProductType(@RequestBody ProductType productType) {
+    public void addProductType(@Valid @NotNull @RequestBody ProductType productType) {
         productTypeService.insertProductType(productType);
     }
 
@@ -44,7 +46,7 @@ public class ProductTypeController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateProductType(@PathVariable("id") int id, @RequestBody ProductType productType) {
+    public void updateProductType(@PathVariable("id") int id, @Valid @NotNull @RequestBody ProductType productType) {
         productTypeService.updateProductType(id, productType);
     }
 }

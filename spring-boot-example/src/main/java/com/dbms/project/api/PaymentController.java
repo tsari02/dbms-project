@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequestMapping("api/payment")
@@ -20,7 +22,7 @@ public class PaymentController {
 
     @PostMapping
     @ResponseBody
-    public void addPayment(@RequestBody Payment payment) {
+    public void addPayment(@Valid @NotNull @RequestBody Payment payment) {
         paymentService.insertPayment(payment);
     }
 
@@ -44,7 +46,7 @@ public class PaymentController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updatePayment(@PathVariable("id") int id, @RequestBody Payment payment) {
+    public void updatePayment(@PathVariable("id") int id, @Valid @NotNull @RequestBody Payment payment) {
         paymentService.updatePayment(id, payment);
     }
 }

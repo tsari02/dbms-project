@@ -18,8 +18,8 @@ public class PaymentDao {
     }
 
     public int insertPayment(Payment payment) {
-        final String sql = "INSERT INTO payment(id,customerOrderId,transactionId,billId) VALUES(?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, payment.getId(), payment.getCustomerOrderId(), payment.getTransactionId(), payment.getBillId());
+        final String sql = "INSERT INTO payment(customerOrderId, transactionId, billId) VALUES(?, ?, ?)";
+        return jdbcTemplate.update(sql, payment.getCustomerOrderId(), payment.getTransactionId(), payment.getBillId());
     }
     
     public List<Payment> getAllPayments() {
@@ -38,7 +38,7 @@ public class PaymentDao {
     }
 
     public int updatePayment(int id, Payment payment) {
-        final String sql = "UPDATE payment SET iId = ?,customerOrderId = ?,transactionId = ?,billId = ?";
-        return jdbcTemplate.update(sql, payment.getId(), payment.getCustomerOrderId(), payment.getTransactionId(), payment.getBillId());
+        final String sql = "UPDATE payment SET customerOrderId = ?, transactionId = ?, billId = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, payment.getCustomerOrderId(), payment.getTransactionId(), payment.getBillId(), id);
     }
 }

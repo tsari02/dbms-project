@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequestMapping("api/leavesAndSalaries")
@@ -20,7 +22,7 @@ public class LeavesAndSalariesController {
 
     @PostMapping
     @ResponseBody
-    public void addLeavesAndSalaries(@RequestBody LeavesAndSalaries leavesAndSalaries) {
+    public void addLeavesAndSalaries(@Valid @NotNull @RequestBody LeavesAndSalaries leavesAndSalaries) {
         leavesAndSalariesService.insertLeavesAndSalaries(leavesAndSalaries);
     }
 
@@ -44,7 +46,7 @@ public class LeavesAndSalariesController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateLeavesAndSalaries(@PathVariable("id") int id, @RequestBody LeavesAndSalaries leavesAndSalaries) {
+    public void updateLeavesAndSalaries(@PathVariable("id") int id, @Valid @NotNull @RequestBody LeavesAndSalaries leavesAndSalaries) {
         leavesAndSalariesService.updateLeavesAndSalaries(id, leavesAndSalaries);
     }
 }

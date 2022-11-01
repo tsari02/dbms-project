@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS warranty;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS orderedProductType;
+ALTER TABLE bill RENAME COLUMN gstNumber TO GSTNumber;
+ALTER TABLE bill RENAME COLUMN amount TO Amount;
+ALTER TABLE bill RENAME COLUMN discount TO Discount;
+ALTER TABLE transaction RENAME COLUMN bankBranch TO BankBranch;
+ALTER TABLE transaction RENAME COLUMN productType TO ProductType;
+ALTER TABLE transaction RENAME COLUMN accountNumber TO AccountNumber;
+ALTER TABLE transaction RENAME COLUMN verificationStatus TO VerificationStatus;
+ALTER TABLE transaction RENAME COLUMN dateOfTransaction TO DateOfTransaction;
+ALTER TABLE transaction RENAME COLUMN bankName TO BankName;

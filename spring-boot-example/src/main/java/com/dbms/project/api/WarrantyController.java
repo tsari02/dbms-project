@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RequestMapping("api/warranty")
@@ -20,7 +22,7 @@ public class WarrantyController {
 
     @PostMapping
     @ResponseBody
-    public void addWarranty(@RequestBody Warranty warranty) {
+    public void addWarranty(@Valid @NotNull @RequestBody Warranty warranty) {
         warrantyService.insertWarranty(warranty);
     }
 
@@ -44,7 +46,7 @@ public class WarrantyController {
 
     @PutMapping(path="{id}")
     @ResponseBody
-    public void updateWarranty(@PathVariable("id") int id, @RequestBody Warranty warranty) {
+    public void updateWarranty(@PathVariable("id") int id, @Valid @NotNull @RequestBody Warranty warranty) {
         warrantyService.updateWarranty(id, warranty);
     }
 }
