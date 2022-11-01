@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS bill;
+DROP TABLE IF EXISTS feedback;
