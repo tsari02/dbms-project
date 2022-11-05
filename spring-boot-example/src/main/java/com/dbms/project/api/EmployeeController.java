@@ -1,6 +1,5 @@
 package com.dbms.project.api;
 
-import com.dbms.project.dao.UserDetailsImpl;
 import com.dbms.project.model.Employee;
 import com.dbms.project.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.w3c.dom.UserDataHandler;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 @Controller
 public class EmployeeController {
@@ -56,10 +52,12 @@ public class EmployeeController {
     }
 
     @GetMapping(path="/profile")
-    public String profile(Model model, Authentication authentication) {
-        String username = ((UserDetailsImpl)authentication.getPrincipal()).getUsername();
-        Employee employee = employeeService.getEmployeeByUsername(username);
-        model.addAttribute("employee", employee);
+    public String profile() {
         return "profile";
+    }
+
+    @GetMapping(path="/employee/new")
+    public String addEmployeeForm() {
+        return "employee-new";
     }
 }
