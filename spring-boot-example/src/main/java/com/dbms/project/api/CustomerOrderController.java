@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 
-// @RequestMapping("api/customerOrder")
+// @RequestMapping("api/order/customer")
 @Controller
 public class CustomerOrderController {
     private final CustomerOrderService customerOrderService;
@@ -24,31 +24,31 @@ public class CustomerOrderController {
         this.customerOrderService = customerOrderService;
     }
 
-    @PostMapping(path="/api/customerOrder")
+    @PostMapping(path="/api/order/customer")
     @ResponseBody
     public void addCustomerOrder(@Valid @NotNull @RequestBody CustomerOrder customerOrder) {
         customerOrderService.insertCustomerOrder(customerOrder);
     }
 
-    @GetMapping(path="/api/customerOrder")
+    @GetMapping(path="/api/order/customer")
     @ResponseBody
     public List<CustomerOrder> getAllCustomerOrders() {
         return customerOrderService.getAllCustomerOrders();
     }
 
-    @PostMapping(path="/api/customerOrder/{id}/delete")
+    @PostMapping(path="/api/order/customer/{id}/delete")
     @ResponseBody
     public void deleteCustomerOrder(@PathVariable("id") int id) {
         customerOrderService.deleteCustomerOrder(id);
     }
 
-    @GetMapping(path="/api/customerOrder/{id}")
+    @GetMapping(path="/api/order/customer/{id}")
     @ResponseBody
     public CustomerOrder getCustomerOrderById(@PathVariable("id") int id) {
         return customerOrderService.getCustomerOrderById(id);
     }
 
-    @PostMapping(path="/api/customerOrder/{id}/edit")
+    @PostMapping(path="/api/order/customer/{id}/edit")
     @ResponseBody
     public void updateCustomerOrder(@PathVariable("id") int id, @Valid @NotNull @RequestBody CustomerOrder customerOrder) {
         customerOrderService.updateCustomerOrder(id, customerOrder);
