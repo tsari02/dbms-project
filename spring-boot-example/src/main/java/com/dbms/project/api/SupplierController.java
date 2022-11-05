@@ -4,6 +4,7 @@ import com.dbms.project.model.Supplier;
 import com.dbms.project.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,10 +27,10 @@ public class SupplierController {
         supplierService.insertSupplier(supplier);
     }
 
-    @GetMapping(path="/api/supplier")
-    @ResponseBody
-    public List<Supplier> getAllSuppliers() {
-        return supplierService.getAllSuppliers();
+    @GetMapping(path="/supplier")
+    public String getAllSuppliers(Model model) {
+        model.addAttribute("employees", supplierService.getAllSuppliers());
+        return "show-suppliers";
     }
 
     @PostMapping(path="/api/supplier/{id}/delete")
