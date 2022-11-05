@@ -2,6 +2,8 @@ package com.dbms.project.model;
 
 
 import lombok.Data;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +33,7 @@ public class Employee implements UserDetails {
     private int salary;
     @NotBlank
     private String contactNumber;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private Date dateOfBirth;
     @NotBlank
