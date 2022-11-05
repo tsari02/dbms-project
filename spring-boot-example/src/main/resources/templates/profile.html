@@ -6,6 +6,16 @@
 <body class="g-sidenav-show  bg-gray-200">
 
 <!-- Add page content here within a div tag -->
+
+<div>
+  <a href="/profile/edit">  
+    <button class="btn btn-icon btn- btn-primary" type="button">
+      <span class="btn-inner--text">EDIT PROFILE</span>
+    </button>
+  </a>
+</div>
+
+
 <div>
 <!--    <h1 th:text="${principal.username}"></h1>-->
 <!--    <h3 th:text="${principal.authorities}"></h3>-->
@@ -21,9 +31,9 @@
                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                       alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                      <h5 th:text="${principal.username}"></h5>
-                      <!-- <h5 th:text="${principal.firstName}+' '+${principal.middleName==null?'':principal.middleName}+' '+${principal.lastName==null?'':principal.lastName}"></h5> -->
-                    <p>Web Designer</p>
+                      <h5 th:text="${#authentication.principal.username}"></h5>
+                      <!-- <h5 th:text="${#authentication.principal.firstName}+' '+${#authentication.principal.middleName==null?'':#authentication.principal.middleName}+' '+${#authentication.principal.lastName==null?'':#authentication.principal.lastName}"></h5> -->
+                    <!-- <p>Web Designer</p> -->
                     <i class="far fa-edit mb-5"></i>
                   </div>
                   <div class="col-md-8">
