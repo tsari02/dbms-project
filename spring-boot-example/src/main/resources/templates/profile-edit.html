@@ -8,7 +8,7 @@
 <div>
 
     <div class="p-4 bg-light">
-<form th:action="@{/profile/edit}" method="post" th:object="${profile}">
+<form th:action="@{/profile/edit}" method="post" th:object="${principal}">
     <input type="text" th:field="*{id}" hidden>
     <input type="text" th:field="*{firstName}" hidden>
     <input type="text" th:field="*{lastName}" hidden>
@@ -30,7 +30,7 @@
           <!-- <h8>Name</h8> -->
           <div class="input-group input-group-outline my-3">
             <label class="form-label">
-                <span th:text="${#authentication.principal.firstName}+' '+${#authentication.principal.middleName==null?'':#authentication.principal.middleName}+' '+${#authentication.principal.lastName==null?'':#authentication.principal.lastName}"></span>
+                <span th:text="${principal.firstName}+' '+${principal.middleName==null?'':principal.middleName}+' '+${principal.lastName==null?'':principal.lastName}"></span>
             </label>
             <input type="email" class="form-control" disabled>
           </div>
@@ -47,7 +47,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">
-            <span th:text="${#authentication.principal.emailId}"></span>
+            <span th:text="${principal.emailId}"></span>
         </label>
         <input type="email" class="form-control" disabled>
       </div>
@@ -64,7 +64,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">
-            <span th:text="${#authentication.principal.contactNumber}"></span>
+            <span th:text="${principal.contactNumber}"></span>
         </label>
         <input type="email" class="form-control" disabled>
       </div>
@@ -81,7 +81,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">
-            <span th:text="${#authentication.principal.city}"></span>
+            <span th:text="${principal.city}"></span>
         </label>
         <input type="email" class="form-control" disabled>
       </div>
@@ -98,7 +98,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">
-            <span th:text="${#authentication.principal.state}"></span>
+            <span th:text="${principal.state}"></span>
         </label>
         <input type="email" class="form-control" disabled>
       </div>
@@ -115,7 +115,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">
-            <span th:text="${#authentication.principal.postalCode}"></span>
+            <span th:text="${principal.postalCode}"></span>
         </label>
         <input type="email" class="form-control" disabled>
       </div>
@@ -132,7 +132,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">
-            <span th:text="${#authentication.principal.country}"></span>
+            <span th:text="${principal.country}"></span>
         </label>
         <input type="email" class="form-control" disabled>
       </div>
@@ -149,7 +149,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3">
         <label class="form-label">
-            <span th:text="${#authentication.principal.street}"></span>
+            <span th:text="${principal.street}"></span>
         </label>
         <input type="email" class="form-control" disabled>
       </div>

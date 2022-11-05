@@ -69,7 +69,7 @@ public class EmployeeController {
 
     @GetMapping(path="/profile/edit")
     public String profileEditForm(Authentication authentication, Model model) {
-        model.addAttribute("profile", ((Employee)(authentication.getPrincipal())));
+//        model.addAttribute("profile", ((Employee)(authentication.getPrincipal())));
         return "profile-edit";
     }
 

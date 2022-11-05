@@ -21,8 +21,8 @@
                     style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
                     <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
                       alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
-                      <h5 th:text="${#authentication.principal.username}"></h5>
-                      <!-- <h5 th:text="${#authentication.principal.firstName}+' '+${#authentication.principal.middleName==null?'':#authentication.principal.middleName}+' '+${#authentication.principal.lastName==null?'':#authentication.principal.lastName}"></h5> -->
+                      <h5 th:text="${principal.username}"></h5>
+                      <!-- <h5 th:text="${principal.firstName}+' '+${principal.middleName==null?'':principal.middleName}+' '+${principal.lastName==null?'':principal.lastName}"></h5> -->
                     <p>Web Designer</p>
                     <i class="far fa-edit mb-5"></i>
                   </div>
@@ -35,21 +35,21 @@
                         <div class="col-6 mb-3">
                           <h6>Name</h6>
                           <p class="text-muted">
-                            <span th:text="${#authentication.principal.firstName}+' '+${#authentication.principal.middleName==null?'':#authentication.principal.middleName}+' '+${#authentication.principal.lastName==null?'':#authentication.principal.lastName}"></span>
+                            <span th:text="${principal.firstName}+' '+${principal.middleName==null?'':principal.middleName}+' '+${principal.lastName==null?'':principal.lastName}"></span>
                           </p>
                         </div>
 
                         <div class="col-6 mb-3">
                             <h6>Employee ID</h6>
                             <p class="text-muted">
-                              <span th:text="${#authentication.principal.id}"></span>
+                              <span th:text="${principal.id}"></span>
                             </p>
                         </div>
                         
                         <div class="col-6 mb-3">
                             <h6>Designation</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.designation}"></span>
+                                <span th:text="${principal.designation}"></span>
                             </p>
                         </div>
 
@@ -57,13 +57,13 @@
                         <div class="col-6 mb-3">
                             <h6>Salary</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.salary}"></span>
+                                <span th:text="${principal.salary}"></span>
                             </p>
                         </div>
                         <div class="col-6 mb-3">
                             <h6>Contact Number</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.contactNumber}"></span>
+                                <span th:text="${principal.contactNumber}"></span>
                             </p>
                         </div>
 
@@ -71,49 +71,49 @@
                             <h6>Date of Birth</h6>
                             <p class="text-muted">
                               
-                                <span th:text="${#dates.format(#authentication.principal.dateOfBirth, 'dd/MM/yyyy')}"></span>
+                                <span th:text="${#dates.format(principal.dateOfBirth, 'dd/MM/yyyy')}"></span>
                             </p>
                         </div>
 
                         <div class="col-6 mb-3">
                             <h6>Email ID</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.emailId}"></span>
+                                <span th:text="${principal.emailId}"></span>
                             </p>
                         </div>
 
                         <div class="col-6 mb-3">
                             <h6>City</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.city}"></span>
+                                <span th:text="${principal.city}"></span>
                             </p>
                         </div>
 
                         <div class="col-6 mb-3">
                             <h6>State</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.state}"></span>
+                                <span th:text="${principal.state}"></span>
                             </p>
                         </div>
 
                         <div class="col-6 mb-3">
                             <h6>Postal Code</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.postalCode}"></span>
+                                <span th:text="${principal.postalCode}"></span>
                             </p>
                         </div>
 
                         <div class="col-6 mb-3">
                             <h6>Country</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.country}"></span>
+                                <span th:text="${principal.country}"></span>
                             </p>
                         </div>
 
                         <div class="col-6 mb-3">
                             <h6>Street</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.street}"></span>
+                                <span th:text="${principal.street}"></span>
                             </p>
                         </div>
 
