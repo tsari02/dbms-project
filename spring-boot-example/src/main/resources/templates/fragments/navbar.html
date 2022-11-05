@@ -1,33 +1,40 @@
-<nav th:fragment="navbar" class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
-    <div class="container-fluid ps-2 pe-0">
-        <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
-            Material Dashboard 2
-        </a>
-        <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon mt-2">
-                    <span class="navbar-toggler-bar bar1"></span>
-                    <span class="navbar-toggler-bar bar2"></span>
-                    <span class="navbar-toggler-bar bar3"></span>
-                  </span>
-        </button>
-        <div class="collapse navbar-collapse" id="navigation">
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="/dashboard">
-                        <i class="fa fa-chart-pie opacity-6 text-dark me-1"></i>
-                        Dashboard
+<nav th:fragment="navbar" class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+    <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+            </ol>
+            <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+<!--            <div class="ms-md-auto pe-md-3 d-flex align-items-center">-->
+<!--                <div class="input-group input-group-outline">-->
+<!--                    <label class="form-label">Type here...</label>-->
+<!--                    <input type="text" class="form-control">-->
+<!--                </div>-->
+<!--            </div>-->
+            <ul class="navbar-nav ms-md-auto justify-content-end">
+                <li class="nav-item d-flex align-items-center">
+                    <form th:href="@{/logout}" method="post" class="nav-link d-flex align-items-center">
+                        <button type="submit" class="btn font-weight-bold px-0 my-0">
+                            <span class="d-inline">Logout</span>
+                        </button>
+                    </form>
+                </li>
+                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                    <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                        <div class="sidenav-toggler-inner">
+                            <i class="sidenav-toggler-line"></i>
+                            <i class="sidenav-toggler-line"></i>
+                            <i class="sidenav-toggler-line"></i>
+                        </div>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link me-2" href="/profile">
-                        <i class="fa fa-user opacity-6 text-dark me-1"></i>
-                        Profile
+                <li class="nav-item px-3 d-flex align-items-center">
+                    <a href="javascript:;" class="nav-link text-body p-0">
+                        <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                     </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav d-lg-flex d-none">
-                <li class="nav-item">
-                    <a href="https://www.creative-tim.com/product/material-dashboard" class="btn btn-sm mb-0 me-1 bg-gradient-dark">Free download</a>
                 </li>
             </ul>
         </div>
