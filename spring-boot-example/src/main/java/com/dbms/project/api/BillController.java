@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 
 
-@RequestMapping("api/bill")
+// @RequestMapping("api/bill")
 @Controller
 public class BillController {
     private final BillService billService;
@@ -24,31 +24,31 @@ public class BillController {
         this.billService = billService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/bill")
     @ResponseBody
     public void addBill(@Valid @NotNull @RequestBody Bill bill) {
         billService.insertBill(bill);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/bill")
     @ResponseBody
     public List<Bill> getAllBills() {
         return billService.getAllBills();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/bill/{id}/delete")
     @ResponseBody
     public void deleteBill(@Valid @NotNull @PathVariable("id") int id) {
         billService.deleteBill(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/bill/{id}")
     @ResponseBody
     public Bill getBillById(@PathVariable("id") int id) {
         return billService.getBillById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/bill/{id}/edit")
     @ResponseBody
     public void updateBill(@PathVariable("id") int id, @Valid @NotNull @RequestBody Bill bill) {
         billService.updateBill(id, bill);

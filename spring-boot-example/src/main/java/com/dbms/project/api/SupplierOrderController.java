@@ -12,7 +12,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@RequestMapping("api/supplierOrder")
+// @RequestMapping("api/order/supplier")
 @Controller
 public class SupplierOrderController {
     private final SupplierOrderService supplierOrderService;
@@ -22,31 +22,31 @@ public class SupplierOrderController {
         this.supplierOrderService = supplierOrderService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/order/supplier")
     @ResponseBody
     public void addSupplierOrder(@Valid @NotNull @RequestBody SupplierOrder supplierOrder) {
         supplierOrderService.insertSupplierOrder(supplierOrder);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/order/supplier")
     @ResponseBody
     public List<SupplierOrder> getAllSupplierOrders() {
         return supplierOrderService.getAllSupplierOrders();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/order/supplier/{id}/delete")
     @ResponseBody
     public void deleteSupplierOrder(@PathVariable("id") int id) {
         supplierOrderService.deleteSupplierOrder(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/order/supplier/{id}")
     @ResponseBody
     public SupplierOrder getSupplierOrderById(@Valid @NotNull @PathVariable("id") int id) {
         return supplierOrderService.getSupplierOrderById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/order/supplier/{id}/edit")
     @ResponseBody
     public void updateSupplierOrder(@PathVariable("id") int id, @Valid @NotNull @RequestBody SupplierOrder supplierOrder) {
         supplierOrderService.updateSupplierOrder(id, supplierOrder);

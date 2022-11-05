@@ -31,13 +31,13 @@ public class EmployeeController {
         employeeService.insertEmployee(employee);
     }
 
-    @GetMapping(path="/employee")
+    @GetMapping(path="/api/employee")
     @ResponseBody
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
-    @DeleteMapping(path="/api/employee/{id}")
+    @PostMapping(path="/api/employee/{id}/delete")
     @ResponseBody
     public void deleteEmployee(@PathVariable("id") int id) {
         employeeService.deleteEmployee(id);
@@ -49,7 +49,7 @@ public class EmployeeController {
         return employeeService.getEmployeeById(id);
     }
 
-    @PutMapping(path="/api/employee/{id}")
+    @PostMapping(path="/api/employee/{id}/edit")
     @ResponseBody
     public void updateEmployee(@PathVariable("id") int id, @Valid @NotNull @RequestBody Employee employee) {
         employeeService.updateEmployee(id, employee);

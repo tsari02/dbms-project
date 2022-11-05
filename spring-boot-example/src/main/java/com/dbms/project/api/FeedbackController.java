@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 
-@RequestMapping("api/feedback")
+// @RequestMapping("api/feedback")
 @Controller
 public class FeedbackController {
     private final FeedbackService feedbackService;
@@ -23,31 +23,31 @@ public class FeedbackController {
         this.feedbackService = feedbackService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/feedback")
     @ResponseBody
     public void addFeedback(@Valid @NotNull @RequestBody Feedback feedback) {
         feedbackService.insertFeedback(feedback);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/feedback")
     @ResponseBody
     public List<Feedback> getAllFeedbacks() {
         return feedbackService.getAllFeedbacks();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/feedback/{id}/delete")
     @ResponseBody
     public void deleteFeedback(@PathVariable("id") int id) {
         feedbackService.deleteFeedback(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/feedback/{id}")
     @ResponseBody
     public Feedback getFeedbackById(@PathVariable("id") int id) {
         return feedbackService.getFeedbackById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/feedback/{id}/edit")
     @ResponseBody
     public void updateFeedback(@PathVariable("id") int id, @Valid @NotNull @RequestBody Feedback feedback) {
         feedbackService.updateFeedback(id, feedback);

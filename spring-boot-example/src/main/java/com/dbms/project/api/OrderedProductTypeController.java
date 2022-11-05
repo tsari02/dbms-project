@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RequestMapping("api/orderedProductType")
+// @RequestMapping("api/orderedProductType")
 @Controller
 public class OrderedProductTypeController {
     private final OrderedProductTypeService orderedProductTypeService;
@@ -20,31 +20,31 @@ public class OrderedProductTypeController {
         this.orderedProductTypeService = orderedProductTypeService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/orderedProductType")
     @ResponseBody
     public void addOrderedProductType(@Valid @NotNull @RequestBody OrderedProductType orderedProductType) {
         orderedProductTypeService.insertOrderedProductType(orderedProductType);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/orderedProductType")
     @ResponseBody
     public List<OrderedProductType> getAllOrderedProductTypes() {
         return orderedProductTypeService.getAllOrderedProductTypes();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/orderedProductType/{id}/delete")
     @ResponseBody
     public void deleteOrderedProductType(@PathVariable("id") int id) {
         orderedProductTypeService.deleteOrderedProductType(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/orderedProductType/{id}")
     @ResponseBody
     public OrderedProductType getOrderedProductTypeById(@PathVariable("id") int id) {
         return orderedProductTypeService.getOrderedProductTypeById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/orderedProductType/{id}/edit")
     @ResponseBody
     public void updateOrderedProductType(@PathVariable("id") int id, @Valid @NotNull @RequestBody OrderedProductType orderedProductType) {
         orderedProductTypeService.updateOrderedProductType(id, orderedProductType);

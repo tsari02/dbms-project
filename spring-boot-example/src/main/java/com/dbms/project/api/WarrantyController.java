@@ -12,7 +12,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@RequestMapping("api/warranty")
+// @RequestMapping("api/warranty")
 @Controller
 public class WarrantyController {
     private final WarrantyService warrantyService;
@@ -22,31 +22,31 @@ public class WarrantyController {
         this.warrantyService = warrantyService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/warranty")
     @ResponseBody
     public void addWarranty(@Valid @NotNull @RequestBody Warranty warranty) {
         warrantyService.insertWarranty(warranty);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/warranty")
     @ResponseBody
     public List<Warranty> getAllWarranties() {
         return warrantyService.getAllWarranties();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/warranty/{id}/delete")
     @ResponseBody
     public void deleteWarranty(@PathVariable("id") int id) {
         warrantyService.deleteWarranty(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/warranty{id}")
     @ResponseBody
     public Warranty getWarrantyById(@PathVariable("id") int id) {
         return warrantyService.getWarrantyById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/warranty{id}/edit")
     @ResponseBody
     public void updateWarranty(@PathVariable("id") int id, @Valid @NotNull @RequestBody Warranty warranty) {
         warrantyService.updateWarranty(id, warranty);
