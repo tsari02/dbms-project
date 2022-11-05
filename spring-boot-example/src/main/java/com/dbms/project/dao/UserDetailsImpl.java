@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Data
@@ -32,15 +33,15 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl build(Employee employee) {
         String designation = employee.getDesignation();
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        if (designation == "Employee") {
-            authorities.add(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
-        } else if (designation == "Manager") {
-            authorities.add(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
-        } else if (designation == "Admin") {
-            authorities.add(new SimpleGrantedAuthority("ROLE_EMPLOYEE"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        if (Objects.equals(designation, "Employee")) {
+            authorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
+        } else if (Objects.equals(designation, "Manager")) {
+            authorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
+            authorities.add(new SimpleGrantedAuthority("MANAGER"));
+        } else if (Objects.equals(designation, "Admin")) {
+            authorities.add(new SimpleGrantedAuthority("EMPLOYEE"));
+            authorities.add(new SimpleGrantedAuthority("MANAGER"));
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
         }
 
         return new UserDetailsImpl(

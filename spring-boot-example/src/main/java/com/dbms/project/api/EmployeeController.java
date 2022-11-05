@@ -3,7 +3,9 @@ package com.dbms.project.api;
 import com.dbms.project.model.Employee;
 import com.dbms.project.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -12,7 +14,6 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@RequestMapping("api/employee")
 @Controller
 public class EmployeeController {
     private final EmployeeService employeeService;
@@ -22,33 +23,40 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/employee")
     @ResponseBody
     public void addEmployee(@Valid @NotNull @RequestBody Employee employee) {
         employeeService.insertEmployee(employee);
     }
 
-    @GetMapping
+    @GetMapping(path="/employee")
     @ResponseBody
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
-    @DeleteMapping(path="{id}")
+    @DeleteMapping(path="/api/employee/{id}")
     @ResponseBody
     public void deleteEmployee(@PathVariable("id") int id) {
         employeeService.deleteEmployee(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/employee/{id}")
     @ResponseBody
     public Employee getEmployeeById(@PathVariable("id") int id) {
         return employeeService.getEmployeeById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PutMapping(path="/api/employee/{id}")
     @ResponseBody
     public void updateEmployee(@PathVariable("id") int id, @Valid @NotNull @RequestBody Employee employee) {
         employeeService.updateEmployee(id, employee);
+    }
+
+    @GetMapping(path="/profile")
+    public String profile(Model model, Authentication authentication) {
+//        Employee employee =
+        System.out.println(authentication.getPrincipal());
+        return "profile";
     }
 }

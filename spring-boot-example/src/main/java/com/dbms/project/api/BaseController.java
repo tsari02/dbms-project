@@ -1,5 +1,6 @@
 package com.dbms.project.api;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,11 @@ import javax.servlet.http.HttpSession;
 public class BaseController {
 
     @GetMapping("/")
-    public String index(Model model, String error, String logout, HttpSession session) {
+    public String index(Model model, Authentication authentication) {
+        System.out.println(authentication);
+        System.out.println(authentication.getPrincipal());
+        System.out.println(authentication.getAuthorities());
+
 //
 //        System.out.println(session.getAttribute("loggedUser").toString());
 //        if (authenticateService.isAuthenticated(session)) {
