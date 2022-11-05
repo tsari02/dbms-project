@@ -70,7 +70,8 @@
                         <div class="col-6 mb-3">
                             <h6>Date of Birth</h6>
                             <p class="text-muted">
-                                <span th:text="${#authentication.principal.dateOfBirth}"></span>
+                              
+                                <span th:text="${#dates.format(#authentication.principal.dateOfBirth, 'dd/MM/yyyy')}"></span>
                             </p>
                         </div>
 

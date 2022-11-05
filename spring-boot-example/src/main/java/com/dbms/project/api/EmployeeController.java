@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -55,6 +56,21 @@ public class EmployeeController {
     @GetMapping(path="/profile")
     public String profile() {
         return "profile";
+    }
+
+    @PostMapping(path = "/profile/edit")
+    public String profileEditSubmit(@Valid @ModelAttribute("profile") Employee profile, Authentication authentication, RedirectAttributes redirectAttributes) {
+        System.out.println(profile);
+        int result = employeeService.updateEmployee(profile.getId(), profile);
+        System.out.println(result);
+        System.out.println(employeeService.getEmployeeById(profile.getId()));
+        return "redirect:/profile";
+    }
+
+    @GetMapping(path="/profile/edit")
+    public String profileEditForm(Authentication authentication, Model model) {
+        model.addAttribute("profile", ((Employee)(authentication.getPrincipal())));
+        return "profile-edit";
     }
 
     @GetMapping(path="/employee/new")
