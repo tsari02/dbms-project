@@ -18,8 +18,8 @@ public class ProductTypeDao {
     }
 
     public int insertProductType(ProductType productType) {
-        final String sql = "INSERT INTO productType(type, productImage, warrantyPeriod, quantity) VALUES(?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, productType.getType(), productType.getProductImage(), productType.getWarrantyPeriod(), productType.getQuantity());
+        final String sql = "INSERT INTO productType(name, productImage, warrantyPeriod, quantity) VALUES(?, ?, ?, ?)";
+        return jdbcTemplate.update(sql, productType.getName(), productType.getProductImage(), productType.getWarrantyPeriod(), productType.getQuantity());
     }
 
     public List<ProductType> getAllProductTypes() {
@@ -38,7 +38,7 @@ public class ProductTypeDao {
     }
 
     public int updateProductType(int id, ProductType productType) {
-        final String sql = "UPDATE productType SET type = ?, productImage = ?, warrantyPeriod = ?, quantity = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, productType.getType(), productType.getProductImage(), productType.getWarrantyPeriod(), productType.getQuantity(), id);
+        final String sql = "UPDATE productType SET name = ?, productImage = ?, warrantyPeriod = ?, quantity = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, productType.getName(), productType.getProductImage(), productType.getWarrantyPeriod(), productType.getQuantity(), id);
     }
 }
