@@ -60,10 +60,7 @@ public class EmployeeController {
 
     @PostMapping(path = "/profile/edit")
     public String profileEditSubmit(@Valid @ModelAttribute("profile") Employee profile, Authentication authentication, RedirectAttributes redirectAttributes) {
-        System.out.println(profile);
-        int result = employeeService.updateEmployee(profile.getId(), profile);
-        System.out.println(result);
-        System.out.println(employeeService.getEmployeeById(profile.getId()));
+        employeeService.updateEmployee(profile.getId(), profile);
         return "redirect:/profile";
     }
 
