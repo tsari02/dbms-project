@@ -2,6 +2,7 @@ package com.dbms.project.model;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -12,7 +13,11 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class Employee {
-    private final int id;
+    private int id;
+    @NotBlank
+    private String username;
+    @NotBlank
+    private String password;
     @NotBlank
     private String firstName;
     private String middleName;
