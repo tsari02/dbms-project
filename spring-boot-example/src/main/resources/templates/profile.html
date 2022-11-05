@@ -1,12 +1,13 @@
 
 <!DOCTYPE html>
-<html th:replace="~{layout :: layout(title=~{},content=~{:: div}, script=~{})}">
+<html th:replace="~{layout :: layout(title=~{},content=~{:: div}, script=~{})}"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body class="g-sidenav-show  bg-gray-200">
 
 <!-- Add page content here within a div tag -->
 <div>
-    <h1 th:text="${employee.getUsername()}"></h1>
+    <h1 th:text="${#authentication.principal.username}"></h1>
 </div>
 </body>
 
