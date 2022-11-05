@@ -45,4 +45,8 @@ public class EmployeeService implements UserDetailsService {
         Employee employee = employeeDao.findEmployeeByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
         return UserDetailsImpl.build(employee);
     }
+
+    public Employee getEmployeeByUsername(String username) {
+        return employeeDao.findEmployeeByUsername(username).get();
+    }
 }
