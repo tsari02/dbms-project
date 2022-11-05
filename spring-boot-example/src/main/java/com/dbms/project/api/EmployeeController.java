@@ -27,10 +27,10 @@ public class EmployeeController {
         employeeService.insertEmployee(employee);
     }
 
-    @GetMapping(path="/api/employee")
-    @ResponseBody
-    public List<Employee> getAllEmployees() {
-        return employeeService.getAllEmployees();
+    @GetMapping(path="/employee")
+    public String getAllEmployees(Model model) {
+        model.addAttribute("employees", employeeService.getAllEmployees());
+        return "show-employees";
     }
 
     @PostMapping(path="/api/employee/{id}/delete")
