@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 public class ProductType {
     private int id;
     @NotBlank
-    private String type;
+    private String name;
     @NotBlank
     private String productImage;
     @NotNull
