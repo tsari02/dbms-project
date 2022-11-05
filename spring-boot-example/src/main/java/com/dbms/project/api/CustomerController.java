@@ -4,6 +4,7 @@ import com.dbms.project.model.Customer;
 import com.dbms.project.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,10 +27,10 @@ public class CustomerController {
         customerService.insertCustomer(customer);
     }
 
-    @GetMapping(path="/api/customer")
-    @ResponseBody
-    public List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
+    @GetMapping(path="/customer")
+    public String getAllCustomers(Model model) {
+        model.addAttribute("customers", customerService.getAllCustomers());
+        return "show-customers";
     }
 
     @PostMapping(path="/api/customer/{id}/delete")
