@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 
-@RequestMapping("api/leavesAndSalaries")
+// @RequestMapping("api/leavesAndSalaries")
 @Controller
 public class LeavesAndSalariesController {
     private final LeavesAndSalariesService leavesAndSalariesService;
@@ -23,31 +23,31 @@ public class LeavesAndSalariesController {
         this.leavesAndSalariesService = leavesAndSalariesService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/leavesAndSalaries")
     @ResponseBody
     public void addLeavesAndSalaries(@Valid @NotNull @RequestBody LeavesAndSalaries leavesAndSalaries) {
         leavesAndSalariesService.insertLeavesAndSalaries(leavesAndSalaries);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/leavesAndSalaries")
     @ResponseBody
     public List<LeavesAndSalaries> getAllLeavesAndSalaries() {
         return leavesAndSalariesService.getAllLeavesAndSalaries();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/leavesAndSalaries/{id}/delete")
     @ResponseBody
     public void deleteLeavesAndSalaries(@PathVariable("id") int id) {
         leavesAndSalariesService.deleteLeavesAndSalaries(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/leavesAndSalaries/{id}")
     @ResponseBody
     public LeavesAndSalaries getLeavesAndSalariesById(@PathVariable("id") int id) {
         return leavesAndSalariesService.getLeavesAndSalariesById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/leavesAndSalaries/{id}/edit")
     @ResponseBody
     public void updateLeavesAndSalaries(@PathVariable("id") int id, @Valid @NotNull @RequestBody LeavesAndSalaries leavesAndSalaries) {
         leavesAndSalariesService.updateLeavesAndSalaries(id, leavesAndSalaries);

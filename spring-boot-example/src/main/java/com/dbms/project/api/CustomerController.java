@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RequestMapping("api/customer")
+// @RequestMapping("api/customer")
 @Controller
 public class CustomerController {
     private final CustomerService customerService;
@@ -20,31 +20,31 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping
+    @PostMapping(path="api/customer")
     @ResponseBody
     public void addCustomer(@Valid @NotNull @RequestBody Customer customer) {
         customerService.insertCustomer(customer);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/customer")
     @ResponseBody
     public List<Customer> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/customer/{id}/delete")
     @ResponseBody
     public void deleteCustomer(@PathVariable("id") int id) {
         customerService.deleteCustomer(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/customer/{id}")
     @ResponseBody
     public Customer getCustomerById(@PathVariable("id") int id) {
         return customerService.getCustomerById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/customer/{id}/edit")
     @ResponseBody
     public void updateCustomer(@PathVariable("id") int id, @Valid @NotNull @RequestBody Customer customer) {
         customerService.updateCustomer(id, customer);

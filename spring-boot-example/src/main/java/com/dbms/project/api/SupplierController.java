@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RequestMapping("api/supplier")
+// @RequestMapping("api/supplier")
 @Controller
 public class SupplierController {
     private final SupplierService supplierService;
@@ -20,31 +20,31 @@ public class SupplierController {
         this.supplierService = supplierService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/supplier")
     @ResponseBody
     public void addSupplier(@Valid @NotNull @RequestBody Supplier supplier) {
         supplierService.insertSupplier(supplier);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/supplier")
     @ResponseBody
     public List<Supplier> getAllSuppliers() {
         return supplierService.getAllSuppliers();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/supplier/{id}/delete")
     @ResponseBody
     public void deleteSupplier(@PathVariable("id") int id) {
         supplierService.deleteSupplier(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/supplier/{id}")
     @ResponseBody
     public Supplier getSupplierById(@PathVariable("id") int id) {
         return supplierService.getSupplierById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/supplier/{id}/edit")
     @ResponseBody
     public void updateSupplier(@PathVariable("id") int id, @Valid @NotNull @RequestBody Supplier supplier) {
         supplierService.updateSupplier(id, supplier);

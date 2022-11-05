@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RequestMapping("api/product")
+// @RequestMapping("api/product")
 @Controller
 public class ProductController {
     private final ProductService productService;
@@ -20,31 +20,31 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/product")
     @ResponseBody
     public void addProduct(@Valid @NotNull @RequestBody Product product) {
         productService.insertProduct(product);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/product")
     @ResponseBody
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/product/{id}/delete")
     @ResponseBody
     public void deleteProduct(@PathVariable("id") int id) {
         productService.deleteProduct(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/product/{id}")
     @ResponseBody
     public Product getProductById(@PathVariable("id") int id) {
         return productService.getProductById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/product/{id}/edit")
     @ResponseBody
     public void updateProduct(@PathVariable("id") int id, @Valid @NotNull @RequestBody Product product) {
         productService.updateProduct(id, product);

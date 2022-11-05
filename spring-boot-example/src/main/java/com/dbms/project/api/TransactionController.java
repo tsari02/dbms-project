@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RequestMapping("api/transactions")
+// @RequestMapping("api/transactions")
 @Controller
 public class TransactionController {
     private final TransactionService transactionService;
@@ -20,31 +20,31 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/transactions")
     @ResponseBody
     public void addTransaction(@Valid @NotNull @RequestBody Transaction transaction) {
         transactionService.insertTransaction(transaction);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/transactions")
     @ResponseBody
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/transactions/{id}/delete")
     @ResponseBody
     public void deleteTransaction(@PathVariable("id") int id) {
         transactionService.deleteTransaction(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/transactions/{id}")
     @ResponseBody
     public Transaction getTransactionById(@PathVariable("id") int id) {
         return transactionService.getTransactionById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/transactions/{id}/edit")
     @ResponseBody
     public void updateTransaction(@PathVariable("id") int id, @Valid @NotNull @RequestBody Transaction transaction) {
         transactionService.updateTransaction(id, transaction);

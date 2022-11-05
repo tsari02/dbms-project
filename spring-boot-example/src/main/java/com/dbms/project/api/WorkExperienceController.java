@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 
-@RequestMapping("api/workExperience")
+// @RequestMapping("api/workExperience")
 @Controller
 public class WorkExperienceController {
     private final WorkExperienceService workExperienceService;
@@ -23,31 +23,31 @@ public class WorkExperienceController {
         this.workExperienceService = workExperienceService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/workExperience")
     @ResponseBody
     public void addWorkExperience(@Valid @NotNull @RequestBody WorkExperience workExperience) {
         workExperienceService.insertWorkExperience(workExperience);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/workExperience")
     @ResponseBody
     public List<WorkExperience> getAllWorkExperiences() {
         return workExperienceService.getAllWorkExperiences();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/workExperience/{id}/delete")
     @ResponseBody
     public void deleteWorkExperience(@PathVariable("id") int id) {
         workExperienceService.deleteWorkExperience(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/workExperience/{id}")
     @ResponseBody
     public WorkExperience getWorkExperienceById(@PathVariable("id") int id) {
         return workExperienceService.getWorkExperienceById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/workExperience/{id}/edit")
     @ResponseBody
     public void updateWorkExperience(@PathVariable("id") int id, @Valid @NotNull @RequestBody WorkExperience workExperience) {
         workExperienceService.updateWorkExperience(id, workExperience);

@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RequestMapping("api/payment")
+// @RequestMapping("api/payment")
 @Controller
 public class PaymentController {
     private final PaymentService paymentService;
@@ -20,31 +20,31 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/payment")
     @ResponseBody
     public void addPayment(@Valid @NotNull @RequestBody Payment payment) {
         paymentService.insertPayment(payment);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/payment")
     @ResponseBody
     public List<Payment> getAllPayments() {
         return paymentService.getAllPayments();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/payment/{id}/delete")
     @ResponseBody
     public void deletePayment(@PathVariable("id") int id) {
         paymentService.deletePayment(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/payment/{id}")
     @ResponseBody
     public Payment getPaymentById(@PathVariable("id") int id) {
         return paymentService.getPaymentById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/payment/{id}/edit")
     @ResponseBody
     public void updatePayment(@PathVariable("id") int id, @Valid @NotNull @RequestBody Payment payment) {
         paymentService.updatePayment(id, payment);

@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RequestMapping("api/contactForm")
+// @RequestMapping("/api/contactForm")
 @Controller
 public class ContactFormController {
     private final ContactFormService contactFormService;
@@ -20,31 +20,31 @@ public class ContactFormController {
         this.contactFormService = contactFormService;
     }
 
-    @PostMapping
+    @PostMapping(path="/api/contactForm")
     @ResponseBody
     public void addContactForm(@Valid @NotNull @RequestBody ContactForm contactForm) {
         contactFormService.insertContactForm(contactForm);
     }
 
-    @GetMapping
+    @GetMapping(path="/api/contactForm")
     @ResponseBody
     public List<ContactForm> getAllContactForms() {
         return contactFormService.getAllContactForms();
     }
 
-    @DeleteMapping(path="{id}")
+    @PostMapping(path="/api/contactForm/{id}/delete")
     @ResponseBody
     public void deleteContactForm(@PathVariable("id") int id) {
         contactFormService.deleteContactForm(id);
     }
 
-    @GetMapping(path="{id}")
+    @GetMapping(path="/api/contactForm/{id}")
     @ResponseBody
     public ContactForm getContactFormById(@PathVariable("id") int id) {
         return contactFormService.getContactFormById(id);
     }
 
-    @PutMapping(path="{id}")
+    @PostMapping(path="/api/contactForm/{id}/edit")
     @ResponseBody
     public void updateContactForm(@PathVariable("id") int id, @Valid @NotNull @RequestBody ContactForm contactForm) {
         contactFormService.updateContactForm(id, contactForm);
