@@ -41,8 +41,9 @@ public class EmployeeController {
 
     @GetMapping(path="/api/employee/{id}")
     @ResponseBody
-    public Employee getEmployeeById(@PathVariable("id") int id) {
-        return employeeService.getEmployeeById(id);
+    public String getEmployeeById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("employee", employeeService.getEmployeeById(id));
+        return "profile";
     }
 
     @PostMapping(path="/api/employee/{id}/edit")
