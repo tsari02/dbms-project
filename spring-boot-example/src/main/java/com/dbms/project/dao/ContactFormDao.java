@@ -26,12 +26,9 @@ public class ContactFormDao {
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, contactForm.getEmailId());
-            ps.setString(2, contactForm.getName());
-            ps.setString(3, contactForm.getContactNumber());
-            ps.setString(4, contactForm.getReply());
-            ps.setString(5, contactForm.getQuery());
-            ps.setInt(6, contactForm.getCustomerId());
+            ps.setString(1, contactForm.getReply());
+            ps.setString(2, contactForm.getQuery());
+            ps.setInt(3, contactForm.getCustomerId());
 
             return ps;
         }, keyholder);
@@ -57,7 +54,7 @@ public class ContactFormDao {
     }
 
     public int updateContactForm(int id, ContactForm contactForm) {
-        final String sql = "UPDATE contactForm SET emailId = ?,name = ?,contactNumber = ?,reply = ?,query = ?,customerId = ? WHERE id= ?";
-        return jdbcTemplate.update(sql, contactForm.getEmailId(), contactForm.getName(), contactForm.getContactNumber(), contactForm.getReply(), contactForm.getQuery(), contactForm.getCustomerId(),id);
+        final String sql = "UPDATE contactForm reply = ?,query = ?,customerId = ? WHERE id= ?";
+        return jdbcTemplate.update(sql, contactForm.getReply(), contactForm.getQuery(), contactForm.getCustomerId(), id);
     }
 }

@@ -14,5 +14,6 @@ public class SupplierOrder {
     private java.sql.Date dateOfOrder;
     @NotBlank
     private String status;
+    @NotNull
     private int supplierId;
 }

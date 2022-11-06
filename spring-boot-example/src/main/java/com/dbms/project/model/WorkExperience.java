@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class WorkExperience {
     private int id;
-    @NotBlank
+    @NotNull
     private int employeeId;
     @NotBlank
     private String designation; 

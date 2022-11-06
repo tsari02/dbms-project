@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
 import javax.validation.constraints.Email;
-
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -30,6 +30,7 @@ public class Employee implements UserDetails {
     @NotBlank
     private String designation; 
     @NotNull
+    @Min(0)
     private int salary;
     @NotBlank
     private String contactNumber;
