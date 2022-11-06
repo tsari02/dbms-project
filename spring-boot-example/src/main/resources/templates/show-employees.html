@@ -56,7 +56,7 @@
                   <span class="badge badge-dot me-4">
                     <i class="bg-info"></i>
                     <span class="text-dark text-xs">
-                        <span th:text="${emp.firstName}+' '+${middleName == null ? '':middleName}+' '+${lastName == null ? '':middleName}"></span>
+                        <span th:text="${emp.firstName}+' '+${emp.middleName == null ? '':emp.middleName}+' '+${emp.lastName == null ? '':emp.lastName}"></span>
                     </span>
                   </span>
                 </td>
