@@ -23,7 +23,7 @@ public class Employee implements UserDetails {
     private String username;
     @NotBlank
     private String password;
-    @NotBlank
+    @NotBlank(message = "First name is mandatory")
     private String firstName;
     private String middleName;
     private String lastName;

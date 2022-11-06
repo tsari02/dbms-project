@@ -5,6 +5,9 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 @Data
@@ -16,6 +19,7 @@ public class Customer {
     private String lastName;
     @NotBlank
     private String contactNumber;
+    // @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private java.sql.Date dateOfBirth;
     @Email

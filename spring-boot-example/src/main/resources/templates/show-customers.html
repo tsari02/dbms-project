@@ -7,7 +7,7 @@
 <!-- Add page content here within a div tag -->
 
 <div>
-  <a href="/customer/add">  
+  <a href="/customer/new">  
     <button class="btn btn-icon btn- btn-primary" type="button">
       <span class="btn-inner--text">ADD CUSTOMER</span>
     </button>
@@ -48,7 +48,7 @@
                   <span class="badge badge-dot me-4">
                     <i class="bg-info"></i>
                     <span class="text-dark text-xs">
-                        <span th:text="${cust.firstName}+' '+${middleName == null ? '':middleName}+' '+${lastName == null ? '':middleName}"></span>
+                        <span th:text="${cust.firstName}+' '+${cust.middleName == null ? '':cust.middleName}+' '+${cust.lastName == null ? '':cust.lastName}"></span>
                     </span>
                   </span>
                 </td>
