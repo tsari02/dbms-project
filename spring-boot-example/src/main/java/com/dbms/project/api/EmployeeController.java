@@ -3,7 +3,6 @@ package com.dbms.project.api;
 import com.dbms.project.model.Employee;
 import com.dbms.project.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -52,23 +51,6 @@ public class EmployeeController {
     @ResponseBody
     public void updateEmployee(@PathVariable("id") int id, @Valid @NotNull @RequestBody Employee employee) {
         employeeService.updateEmployee(id, employee);
-    }
-
-    @GetMapping(path="/profile")
-    public String profile() {
-        return "profile";
-    }
-
-    @PostMapping(path = "/profile/edit")
-    public String profileEditSubmit(@Valid @ModelAttribute("profile") Employee profile, Authentication authentication, RedirectAttributes redirectAttributes) {
-        employeeService.updateEmployee(profile.getId(), profile);
-        return "redirect:/profile";
-    }
-
-    @GetMapping(path="/profile/edit")
-    public String profileEditForm(Authentication authentication, Model model) {
-//        model.addAttribute("profile", ((Employee)(authentication.getPrincipal())));
-        return "profile-edit";
     }
 
     @GetMapping(path="/employee/new")
