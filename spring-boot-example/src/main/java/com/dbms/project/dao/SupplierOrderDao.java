@@ -4,8 +4,12 @@ import com.dbms.project.model.SupplierOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,20 @@ public class SupplierOrderDao {
 
     public int insertSupplierOrder(SupplierOrder supplierOrder) {
         final String sql = "INSERT INTO supplierOrder(dateOfOrder, status, supplierId) VALUES(?, ?, ?)";
-        return jdbcTemplate.update(sql, supplierOrder.getDateOfOrder(), supplierOrder.getStatus(), supplierOrder.getSupplierId());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setDate(1, supplierOrder.getDateOfOrder());
+            ps.setString(2, supplierOrder.getStatus());
+            ps.setInt(3, supplierOrder.getSupplierId());
+
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        supplierOrder.setId(id);
+        return id;    
     }
 
     public List<SupplierOrder> getAllSupplierOrders() {

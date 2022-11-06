@@ -4,8 +4,12 @@ import com.dbms.project.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,19 @@ public class ProductDao {
 
     public int insertProduct(Product product) {
         final String sql = "INSERT INTO product(supplierOrderId, productTypeId, customerOrderId) VALUES(?, ?, ?)";
-        return jdbcTemplate.update(sql, product.getSupplierOrderId(), product.getProductTypeId(), product.getCustomerOrderId());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, product.getSupplierOrderId());
+            ps.setInt(2, product.getProductTypeId());
+            ps.setInt(3, product.getCustomerOrderId());
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        product.setId(id);
+        return id;
     }
 
     public List<Product> getAllProducts() {

@@ -4,8 +4,12 @@ import com.dbms.project.model.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,20 @@ public class PaymentDao {
 
     public int insertPayment(Payment payment) {
         final String sql = "INSERT INTO payment(customerOrderId, transactionId, billId) VALUES(?, ?, ?)";
-        return jdbcTemplate.update(sql, payment.getCustomerOrderId(), payment.getTransactionId(), payment.getBillId());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, payment.getCustomerOrderId());
+            ps.setInt(2, payment.getTransactionId());
+            ps.setInt(3, payment.getBillId());
+          
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        payment.setId(id);
+        return id;
     }
     
     public List<Payment> getAllPayments() {

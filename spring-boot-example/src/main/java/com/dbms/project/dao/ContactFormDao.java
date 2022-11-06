@@ -4,8 +4,12 @@ import com.dbms.project.model.ContactForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -18,8 +22,23 @@ public class ContactFormDao {
     }
 
     public int insertContactForm(ContactForm contactForm) {
-        final String sql = "INSERT INTO contactForm(id,emailId,name,contactNumber,reply,query,customerId) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, contactForm.getId(), contactForm.getEmailId(), contactForm.getName(), contactForm.getContactNumber(), contactForm.getReply(), contactForm.getQuery(), contactForm.getCustomerId());
+        final String sql = "INSERT INTO contactForm(emailId,name,contactNumber,reply,query,customerId) VALUES(?, ?, ?, ?, ?, ?)";
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, contactForm.getEmailId());
+            ps.setString(2, contactForm.getName());
+            ps.setString(3, contactForm.getContactNumber());
+            ps.setString(4, contactForm.getReply());
+            ps.setString(5, contactForm.getQuery());
+            ps.setInt(6, contactForm.getCustomerId());
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        contactForm.setId(id);
+        return id;
     }
 
     public List<ContactForm> getAllContactForms() {
@@ -38,7 +57,7 @@ public class ContactFormDao {
     }
 
     public int updateContactForm(int id, ContactForm contactForm) {
-        final String sql = "UPDATE contactForm SET id = ?,emailId = ?,name = ?,contactNumber = ?,reply = ?,query = ?,customerId = ?";
-        return jdbcTemplate.update(sql, contactForm.getId(), contactForm.getEmailId(), contactForm.getName(), contactForm.getContactNumber(), contactForm.getReply(), contactForm.getQuery(), contactForm.getCustomerId());
+        final String sql = "UPDATE contactForm SET emailId = ?,name = ?,contactNumber = ?,reply = ?,query = ?,customerId = ? WHERE id= ?";
+        return jdbcTemplate.update(sql, contactForm.getEmailId(), contactForm.getName(), contactForm.getContactNumber(), contactForm.getReply(), contactForm.getQuery(), contactForm.getCustomerId(),id);
     }
 }
