@@ -4,8 +4,12 @@ import com.dbms.project.model.WorkExperience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,21 @@ public class WorkExperienceDao {
 
     public int insertWorkExperience(WorkExperience workExperience) {
         final String sql = "INSERT INTO workExperience(employeeId, designation, joiningDate, leavingDate) VALUES(?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, workExperience.getEmployeeId(), workExperience.getDesignation(), workExperience.getJoiningDate(), workExperience.getLeavingDate());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, workExperience.getEmployeeId());
+            ps.setString(2, workExperience.getDesignation());
+            ps.setDate(3, workExperience.getJoiningDate());
+            ps.setDate(4, workExperience.getLeavingDate());
+
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        workExperience.setId(id);
+        return id;
     }
 
     public List<WorkExperience> getAllWorkExperiences() {

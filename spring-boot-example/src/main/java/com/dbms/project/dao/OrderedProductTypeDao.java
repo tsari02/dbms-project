@@ -4,8 +4,12 @@ import com.dbms.project.model.OrderedProductType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,20 @@ public class OrderedProductTypeDao {
 
     public int insertOrderedProductType(OrderedProductType orderedProductType) {
         final String sql = "INSERT INTO orderedProductType(supplierOrderId, quantity, productTypeId, numberDelivered) VALUES(?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, orderedProductType.getSupplierOrderId(), orderedProductType.getQuantity(), orderedProductType.getProductTypeId(), orderedProductType.getNumberDelivered());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, orderedProductType.getSupplierOrderId());
+            ps.setInt(2, orderedProductType.getQuantity());
+            ps.setInt(3, orderedProductType.getProductTypeId());
+            ps.setInt(4, orderedProductType.getNumberDelivered());
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        orderedProductType.setId(id);
+        return id;    
     }
 
     public List<OrderedProductType> getAllOrderedProductTypes() {

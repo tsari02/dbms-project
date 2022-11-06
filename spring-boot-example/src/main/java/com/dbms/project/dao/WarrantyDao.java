@@ -4,8 +4,12 @@ import com.dbms.project.model.Warranty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,20 @@ public class WarrantyDao {
 
     public int insertWarranty(Warranty warranty) {
         final String sql = "INSERT INTO warranty(coverage, productId, customerId, endDate) VALUES(?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, warranty.getCoverage(), warranty.getProductId(), warranty.getCustomerId(), warranty.getEndDate() );
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, warranty.getCoverage());
+            ps.setInt(2, warranty.getProductId());
+            ps.setInt(3, warranty.getCustomerId());
+            ps.setDate(4, warranty.getEndDate());
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        warranty.setId(id);
+        return id;
     }
 
     public List<Warranty> getAllWarranties() {

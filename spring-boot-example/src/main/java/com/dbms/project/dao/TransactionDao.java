@@ -4,8 +4,12 @@ import com.dbms.project.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,24 @@ public class TransactionDao {
 
     public int insertTransaction(Transaction transaction) {
         final String sql = "INSERT INTO transaction(bankBranch, productType, accountNumber, amount, mode, verificationStatus, dateOfTransaction, bankName) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, transaction.getBankBranch(), transaction.getProductType(), transaction.getAccountNumber(), transaction.getAmount(), transaction.getMode(), transaction.getVerificationStatus(), transaction.getDateOfTransaction(), transaction.getBankName());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, transaction.getBankBranch());
+            ps.setInt(2, transaction.getProductType());
+            ps.setInt(3, transaction.getAccountNumber());
+            ps.setInt(4, transaction.getAmount());
+            ps.setString(5, transaction.getMode());
+            ps.setString(6, transaction.getVerificationStatus());
+            ps.setDate(7, transaction.getDateOfTransaction());
+            ps.setString(8, transaction.getBankName());
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        transaction.setId(id);
+        return id;
     }
 
     public List<Transaction> getAllTransactions() {

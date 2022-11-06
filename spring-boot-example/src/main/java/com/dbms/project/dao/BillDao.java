@@ -4,8 +4,12 @@ import com.dbms.project.model.Bill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,20 @@ public class BillDao {
 
     public int insertBill(Bill bill) {
         final String sql = "INSERT INTO bill(gstNumber, amount, discount, netAmount) VALUES(?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, bill.getGstNumber(), bill.getAmount(), bill.getDiscount(), bill.getNetAmount());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, bill.getGstNumber());
+            ps.setInt(2, bill.getAmount());
+            ps.setInt(3, bill.getDiscount());
+            ps.setInt(4, bill.getNetAmount());
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        bill.setId(id);
+        return id;
     }
 
     public List<Bill> getAllBills() {
