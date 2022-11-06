@@ -112,6 +112,14 @@
                     </span>
                   </div>
                 </td>
+
+                <td>
+                  <form th:action="@{'/api/customer/' + ${cust.id} + '/delete'}" method="post" class="nav-link d-flex align-items-center">
+                    <button type="submit" class="btn btn-danger">
+                        <span class="d-inline">Delete</span>
+                    </button>
+                </form>
+                </td>
               </tr>
             </tbody>
           </table>
