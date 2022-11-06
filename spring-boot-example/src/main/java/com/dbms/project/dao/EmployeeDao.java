@@ -5,8 +5,11 @@ import com.dbms.project.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +23,28 @@ public class EmployeeDao {
     }
 
     public int insertEmployee(Employee employee) {
-        final String sql = "INSERT INTO employee(firstName, middleName, lastName, designation, salary, contactNumber, dateOfBirth, emailID, city, state, postalCode, country, street) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, employee.getFirstName(), employee.getMiddleName(), employee.getLastName(), employee.getDesignation(), employee.getSalary(), employee.getContactNumber(), employee.getDateOfBirth(), employee.getEmailId(), employee.getCity(), employee.getState(), employee.getPostalCode(), employee.getCountry(), employee.getStreet());
+        final String sql = "INSERT INTO employee(firstName, middleName, lastName, designation, salary, contactNumber, dateOfBirth, emailID, city, state, postalCode, country, street, username, password) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, employee.getFirstName());
+            ps.setString(2, employee.getMiddleName());
+            ps.setString(1, employee.getLastName());
+            ps.setInt(4, employee.getSalary());
+            ps.setString(5, employee.getContactNumber());
+            ps.setDate(6, employee.getDateOfBirth());
+            ps.setString(7, employee.getEmailId());
+            ps.setString(8, employee.getCity());
+            ps.setString(9, employee.getState());
+            ps.setString(10, employee.getPostalCode());
+            ps.setString(11, employee.getCountry());
+            ps.setString(12, employee.getStreet());
+            ps.setString(13, employee.getUsername());
+            ps.setString(14, employee.getPassword());
+
+            return ps;
+        }, keyholder);
+        return (int) keyholder.getKey();
     }
 
     public List<Employee> getAllEmployees() {

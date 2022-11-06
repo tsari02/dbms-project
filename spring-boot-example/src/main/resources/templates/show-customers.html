@@ -20,10 +20,8 @@
           <table class="table align-items-center mb-0" id="example">
             <thead>
               <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employee ID</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Username</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer ID</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Salary</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contact Number</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date of Birth</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email ID</th>
@@ -47,11 +45,6 @@
                   </div>
                 </td>
                 <td>
-                  <p class="text-xs font-weight-normal mb-0">
-                    <span th:text="${cust.username}"></span>
-                  </p>
-                </td>
-                <td>
                   <span class="badge badge-dot me-4">
                     <i class="bg-info"></i>
                     <span class="text-dark text-xs">
@@ -59,21 +52,14 @@
                     </span>
                   </span>
                 </td>
-      
-                <td class="align-middle">
-                  <div class="d-flex align-items-center">
-                    <span class="me-2 text-xs">
-                        <span th:text="${cust.salary}"></span>
-                    </span>
-                  </button>
-                </td>
+
 
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${cust.contactNumber}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
 
                 <td class="align-middle">
@@ -81,7 +67,7 @@
                     <span class="me-2 text-xs">
                         <span th:text="${cust.dateOfBirth}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
 
                 <td class="align-middle">
@@ -89,42 +75,42 @@
                     <span class="me-2 text-xs">
                         <span th:text="${cust.emailId}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${cust.city}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${cust.state}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${cust.postalCode}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${cust.country}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${cust.street}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
               </tr>
             </tbody>
