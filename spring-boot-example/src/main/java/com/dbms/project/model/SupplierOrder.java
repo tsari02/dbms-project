@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 public class SupplierOrder {
     private int id;
     @NotNull
-    private Date dateOfOrder;
+    private java.sql.Date dateOfOrder;
     @NotBlank
     private String status;
     private int supplierId;

@@ -16,7 +16,7 @@ public class WorkExperience {
     @NotBlank
     private String designation; 
     @NotNull
-    private Date joiningDate;
+    private java.sql.Date joiningDate;
     @NotNull
-    private Date leavingDate;
+    private java.sql.Date leavingDate;
 }

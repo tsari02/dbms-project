@@ -23,7 +23,7 @@ public class Transaction {
     @NotBlank
     private String verificationStatus;
     @NotNull
-    private Date dateOfTransaction;
+    private java.sql.Date dateOfTransaction;
     @NotBlank
     private String bankName;
 }

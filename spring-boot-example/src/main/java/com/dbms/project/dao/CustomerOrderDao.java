@@ -4,8 +4,12 @@ import com.dbms.project.model.CustomerOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,23 @@ public class CustomerOrderDao {
 
     public int insertCustomerOrder(CustomerOrder customerOrder) {
         final String sql = "INSERT INTO customerOrder(id ,deliveryAgentAssigned ,verificationStatus ,deliveryDate ,orderedDate ,customerId, employeeId) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, customerOrder.getId(), customerOrder.getDeliveryAgentAssigned(), customerOrder.getVerificationStatus(), customerOrder.getDeliveryDate(), customerOrder.getOrderedDate(), customerOrder.getCustomerId(), customerOrder.getEmployeeId());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, customerOrder.getDeliveryAgentAssigned());
+            ps.setBoolean(2, customerOrder.getVerificationStatus());
+            ps.setDate(3, customerOrder.getDeliveryDate());
+            ps.setDate(4, customerOrder.getOrderedDate());
+            ps.setInt(5, customerOrder.getCustomerId());
+            ps.setInt(6, customerOrder.getEmployeeId());
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        customerOrder.setId(id);
+        return id;
+
     }
 
     public List<CustomerOrder> getAllCustomerOrders() {
@@ -38,7 +58,7 @@ public class CustomerOrderDao {
     }
 
     public int updateCustomerOrder(int id, CustomerOrder customerOrder) {
-        final String sql = "UPDATE customerOrder SET id = ?, deliveryAgentAssigned = ?,verificationStatus = ?,deliveryDate = ?,orderedDate = ?,customerId = ?,employeeId = ?";
+        final String sql = "UPDATE customerOrder SET id = ?, deliveryAgentAssigned = ?,verificationStatus = ?,deliveryDate = ?,orderedDate = ?,customerId = ?,customerOrderId = ?";
         return jdbcTemplate.update(sql, customerOrder.getId(), customerOrder.getDeliveryAgentAssigned(), customerOrder.getVerificationStatus(), customerOrder.getDeliveryDate(), customerOrder.getOrderedDate(), customerOrder.getCustomerId(), customerOrder.getEmployeeId());
     }
 }

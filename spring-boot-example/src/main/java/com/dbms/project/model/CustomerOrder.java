@@ -17,9 +17,9 @@ public class CustomerOrder {
     @NotNull
     private Boolean verificationStatus;
     @NotNull
-    private Date deliveryDate;
+    private java.sql.Date deliveryDate;
     @NotNull
-    private Date orderedDate;
+    private java.sql.Date orderedDate;
     @NotNull
     private int customerId;
     @NotNull

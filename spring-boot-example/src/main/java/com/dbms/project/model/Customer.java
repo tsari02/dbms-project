@@ -17,7 +17,7 @@ public class Customer {
     @NotBlank
     private String contactNumber;
     @NotNull
-    private Date dateOfBirth;
+    private java.sql.Date dateOfBirth;
     @Email
     @NotBlank
     private String emailId;

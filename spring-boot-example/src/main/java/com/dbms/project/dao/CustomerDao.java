@@ -4,8 +4,12 @@ import com.dbms.project.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -19,7 +23,28 @@ public class CustomerDao {
 
     public int insertCustomer(Customer customer) {
         final String sql = "INSERT INTO customer(firstName, middleName, lastName, contactNumber, dateOfBirth, emailId, city, state, postalCode, country, street) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        return jdbcTemplate.update(sql, customer.getFirstName(), customer.getMiddleName(), customer.getLastName(), customer.getContactNumber(), customer.getDateOfBirth(), customer.getEmailId(), customer.getCity(), customer.getState(), customer.getPostalCode(), customer.getCountry(), customer.getStreet());
+        KeyHolder keyholder = new GeneratedKeyHolder();
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, customer.getFirstName());
+            ps.setString(2, customer.getMiddleName());
+            ps.setString(3, customer.getLastName());
+            ps.setString(4, customer.getContactNumber());
+            
+            ps.setDate(5, customer.getDateOfBirth());
+            ps.setString(6, customer.getEmailId());
+            ps.setString(7, customer.getCity());
+            ps.setString(8, customer.getState());
+            ps.setString(9, customer.getPostalCode());
+            ps.setString(10, customer.getCountry());
+            ps.setString(11, customer.getStreet());
+
+            return ps;
+        }, keyholder);
+        int id = keyholder.getKey().intValue();
+
+        customer.setId(id);
+        return id;
     }
 
     public List<Customer> getAllCustomers() {
