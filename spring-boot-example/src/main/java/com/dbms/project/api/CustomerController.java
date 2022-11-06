@@ -40,9 +40,9 @@ public class CustomerController {
     }
 
     @PostMapping(path="/api/customer/{id}/delete")
-    @ResponseBody
-    public void deleteCustomer(@PathVariable("id") int id) {
+    public String deleteCustomer(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
         customerService.deleteCustomer(id);
+        return "redirect:/customer";
     }
 
     @GetMapping(path="/api/customer/{id}")
