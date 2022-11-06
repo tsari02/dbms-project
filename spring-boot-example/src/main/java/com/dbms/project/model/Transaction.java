@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +18,7 @@ public class Transaction {
     @NotNull
     private int accountNumber;
     @NotNull
+    @Min(0)
     private int amount;
     @NotBlank
     private String mode;
