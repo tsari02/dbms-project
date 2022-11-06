@@ -24,8 +24,9 @@ public class EmployeeController {
 
     @PostMapping(path="/api/employee")
     @ResponseBody
-    public void addEmployee(@Valid @NotNull @RequestBody Employee employee) {
+    public Employee addEmployee(@Valid @NotNull @RequestBody Employee employee) {
         employeeService.insertEmployee(employee);
+        return employee;
     }
 
     @GetMapping(path="/employee")
