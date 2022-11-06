@@ -22,7 +22,7 @@ public class ContactFormDao {
     }
 
     public int insertContactForm(ContactForm contactForm) {
-        final String sql = "INSERT INTO contactForm(emailId,name,contactNumber,reply,query,customerId) VALUES(?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO contactForm(reply,query,customerId) VALUES(?, ?, ?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

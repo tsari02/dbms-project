@@ -22,7 +22,7 @@ public class CustomerOrderDao {
     }
 
     public int insertCustomerOrder(CustomerOrder customerOrder) {
-        final String sql = "INSERT INTO customerOrder(id ,deliveryAgentAssigned ,verificationStatus ,deliveryDate ,orderedDate ,customerId, employeeId) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO customerOrder(deliveryAgentAssigned ,verificationStatus ,deliveryDate ,orderedDate ,customerId, employeeId) VALUES(?, ?, ?, ?, ?, ?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -58,7 +58,7 @@ public class CustomerOrderDao {
     }
 
     public int updateCustomerOrder(int id, CustomerOrder customerOrder) {
-        final String sql = "UPDATE customerOrder SET id = ?, deliveryAgentAssigned = ?,verificationStatus = ?,deliveryDate = ?,orderedDate = ?,customerId = ?,customerOrderId = ?";
-        return jdbcTemplate.update(sql, customerOrder.getId(), customerOrder.getDeliveryAgentAssigned(), customerOrder.getVerificationStatus(), customerOrder.getDeliveryDate(), customerOrder.getOrderedDate(), customerOrder.getCustomerId(), customerOrder.getEmployeeId());
+        final String sql = "UPDATE customerOrder SET deliveryAgentAssigned = ?,verificationStatus = ?,deliveryDate = ?,orderedDate = ?,customerId = ?,employeeId = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, customerOrder.getDeliveryAgentAssigned(), customerOrder.getVerificationStatus(), customerOrder.getDeliveryDate(), customerOrder.getOrderedDate(), customerOrder.getCustomerId(), customerOrder.getEmployeeId(), id);
     }
 }

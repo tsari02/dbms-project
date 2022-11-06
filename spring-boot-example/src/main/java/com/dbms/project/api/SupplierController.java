@@ -29,7 +29,7 @@ public class SupplierController {
 
     @GetMapping(path="/supplier")
     public String getAllSuppliers(Model model) {
-        model.addAttribute("employees", supplierService.getAllSuppliers());
+        model.addAttribute("suppliers", supplierService.getAllSuppliers());
         return "show-suppliers";
     }
 
