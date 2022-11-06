@@ -38,19 +38,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+//                Only enable api routes while developing the application
+                .antMatchers("/api","/api/**").permitAll()
+//                .antMatchers(HttpMethod.PUT,"/api","/api/**").permitAll()
+//                .antMatchers(HttpMethod.POST, "/api","/api/**").permitAll()
+//                .antMatchers(HttpMethod.DELETE, "/api","/api/**").permitAll()
                 .antMatchers("/assets/**").permitAll()
                 .antMatchers("/profile").hasAuthority("EMPLOYEE")
                 .antMatchers("/employee").hasAuthority("MANAGER")
-//                Only enable api routes while developing the application
-                .antMatchers("/api/**").permitAll()
-                .antMatchers(HttpMethod.PUT,"/api/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+//                .antMatchers("/orders/customer").hasAuthority("MANAGER")
                 .anyRequest().authenticated()
             .and()
                 .csrf()
-                .ignoringAntMatchers("/login", "/logout")
-            .and()
+//                Only for testing rest api
+                .disable()
+//                .ignoringAntMatchers("/login", "/logout")
+//            .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")

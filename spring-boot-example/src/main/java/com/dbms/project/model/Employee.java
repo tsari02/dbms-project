@@ -35,7 +35,7 @@ public class Employee implements UserDetails {
     private String contactNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
-    private Date dateOfBirth;
+    private java.sql.Date dateOfBirth;
     @NotBlank
     @Email
     private String emailId;
