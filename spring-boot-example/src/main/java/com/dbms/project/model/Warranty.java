@@ -17,5 +17,5 @@ public class Warranty {
     @NotNull
     private int customerId; //FK
     @NotNull
-    private Date endDate;
+    private java.sql.Date endDate;
 }
