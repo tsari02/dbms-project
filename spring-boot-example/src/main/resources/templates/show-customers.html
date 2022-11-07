@@ -31,6 +31,7 @@
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Country</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Street</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -119,6 +120,15 @@
                         <span class="d-inline">Delete</span>
                     </button>
                   </form>
+                </td>
+                <td>
+                  <div>
+                    <a th:href="@{'/customer/' + ${cust.id} + '/edit'}">
+                      <button class="btn btn-icon btn-primary" type="button">
+                        <span class="btn-inner--text">Edit</span>
+                      </button>
+                    </a>
+                  </div>
                 </td>
               </tr>
             </tbody>

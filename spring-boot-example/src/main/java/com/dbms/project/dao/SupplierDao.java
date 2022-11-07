@@ -60,7 +60,7 @@ public class SupplierDao {
     }
 
     public int updateSupplier(int id, Supplier supplier) {
-        final String sql = "UPDATE supplier SET firstName = ?, middleName = ?, lastName = ?, contactNumber = ?, city = ?, state = ?, street = ?, postalCode = ?, country = ?, street = ? WHERE id = ?";
+        final String sql = "UPDATE supplier SET firstName = ?, middleName = ?, lastName = ?, contactNumber = ?, city = ?, state = ?, postalCode = ?, country = ?, street = ? WHERE id = ?";
         return jdbcTemplate.update(sql, supplier.getFirstName(), supplier.getMiddleName(), supplier.getLastName(), supplier.getContactNumber(), supplier.getCity(), supplier.getState(), supplier.getPostalCode(), supplier.getCountry(), supplier.getStreet(), id);
     }
 }

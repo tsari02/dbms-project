@@ -63,7 +63,11 @@ public class SupplierController {
 
 
     @PostMapping(path = "/supplier/{id}/edit")
-    public String supplierEditSubmit(@PathVariable("id") int id, @Valid @ModelAttribute("supplier") Supplier supplier, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String supplierEditSubmit(@PathVariable("id") int id, @Valid @ModelAttribute("supplier") Supplier supplier, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("supplier", supplier);
+            return "supplier-new";
+        }
         supplierService.updateSupplier(id, supplier);
         return "redirect:/supplier";
     }

@@ -39,13 +39,13 @@ public class AuthenticationController {
     }
 
     @PostMapping(path = "/profile/edit")
-    public String profileEditSubmit(@Valid @ModelAttribute("profile") Employee profile, Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String profileEditSubmit(@Valid @ModelAttribute("profile") Employee profile, RedirectAttributes redirectAttributes) {
         employeeService.updateEmployee(profile.getId(), profile);
         return "redirect:/profile";
     }
 
     @GetMapping(path="/profile/edit")
-    public String profileEditForm(Authentication authentication, Model model) {
+    public String profileEditForm() {
         return "profile-edit";
     }
 }

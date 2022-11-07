@@ -38,8 +38,6 @@ public class EmployeeController {
     public String addEmployee(@Valid @ModelAttribute Employee employee, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("employee", employee);
-            System.out.println(employee);
-            System.out.println(employee.getFirstName() == null || employee.getFirstName() == "");
             return "employee-new";
         }
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
