@@ -17,12 +17,11 @@
     <input type="text" th:field="*{designation}" hidden>
     <input type="text" th:field="*{username}" hidden>
     <input type="text" th:field="*{password}" hidden>
-    <input type="text" th:field="*{dateOfBirth}" hidden>
     <div class="row">
         <div class="col-md-6">
           <div class="input-group input-group-outline my-3">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" disabled value="">
+            <input type="text" class="form-control" disabled th:value="${principal.firstName}+' '+${principal.middleName==null?'':principal.middleName}+' '+${principal.lastName==null?'':principal.lastName}">
           </div>
         </div>
         <!-- <p>Name</p> -->
@@ -41,7 +40,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3 is-filled">
         <label class="form-label">Email</label>
-        <input required type="email" class="form-control" th:field="*{emailId}" required maxlength="255">
+        <input type="email" class="form-control" th:field="*{emailId}" required maxlength="255">
       </div>
     </div>
     <div class="col-md-6">
@@ -58,7 +57,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3 is-filled">
         <label class="form-label">Contact Number</label>
-        <input required type="text" class="form-control" th:field="*{contactNumber}" required maxlength="20">
+        <input type="text" class="form-control" th:field="*{contactNumber}" required maxlength="20">
       </div>
     </div>
     <div class="col-md-6">
@@ -75,7 +74,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3 is-filled">
         <label class="form-label">City</label>
-        <input required type="text" class="form-control" th:field="*{city}" required maxlength="50">
+        <input type="text" class="form-control" th:field="*{city}" required maxlength="50">
       </div>
     </div>
     <div class="col-md-6">
@@ -92,7 +91,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3 is-filled">
         <label class="form-label">State</label>
-        <input required type="text" class="form-control" th:field="*{state}" required maxlength="50">
+        <input type="text" class="form-control" th:field="*{state}" required maxlength="50">
       </div>
     </div>
     <div class="col-md-6">
@@ -109,7 +108,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3 is-filled">
         <label class="form-label">Postal Code</label>
-        <input required type="text" class="form-control" th:field="*{postalCode}" required maxlength="10">
+        <input type="text" class="form-control" th:field="*{postalCode}" required maxlength="10">
       </div>
     </div>
     <div class="col-md-6">
@@ -126,7 +125,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3 is-filled">
         <label class="form-label">Country</label>
-        <input required type="text" class="form-control" th:field="*{country}" required maxlength="50">
+        <input type="text" class="form-control" th:field="*{country}" required maxlength="50">
       </div>
     </div>
     <div class="col-md-6">
@@ -143,7 +142,7 @@
     <div class="col-md-6">
       <div class="input-group input-group-outline my-3 is-filled">
         <label class="form-label">Street</label>
-        <input required type="text" class="form-control" th:field="*{street}" required maxlength="50">
+        <input type="text" class="form-control" th:field="*{street}" required maxlength="50">
       </div>
     </div>
     <div class="col-md-6">

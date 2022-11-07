@@ -22,7 +22,7 @@
           <label class="form-label">
               <span th:text="${supplier.firstName}"></span>
           </label>
-          <input type="text" class="form-control" disabled>
+          <input required type="text" class="form-control" disabled>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
       <div class="col-md-6">
         <div class="input-group input-group-outline my-3 is-filled">
           <label class="form-label">Middle Name</label>
-          <input required type="text" class="form-control" th:field="*{middleName}">
+          <input type="text" class="form-control" th:field="*{middleName}">
         </div>
       </div>
       <div class="col-md-6">
@@ -48,7 +48,7 @@
       <div class="col-md-6">
         <div class="input-group input-group-outline my-3 is-filled">
           <label class="form-label"> Last Name </label>
-          <input required type="text" class="form-control" th:field="*{lastName}">
+          <input type="text" class="form-control" th:field="*{lastName}">
         </div>
       </div>
       <div class="col-md-6">
