@@ -4,6 +4,7 @@ import com.dbms.project.model.Customer;
 import com.dbms.project.model.Supplier;
 import com.dbms.project.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,14 +52,31 @@ public class SupplierController {
         return supplierService.getSupplierById(id);
     }
 
+
+
     @PostMapping(path="/api/supplier/{id}/edit")
     @ResponseBody
     public void updateSupplier(@PathVariable("id") int id, @Valid @NotNull @RequestBody Supplier supplier) {
         supplierService.updateSupplier(id, supplier);
     }
+
+
+
+    @PostMapping(path = "/supplier/{id}/edit")
+    public String supplierEditSubmit(@PathVariable("id") int id, @Valid @ModelAttribute("supplier") Supplier supplier, Authentication authentication, RedirectAttributes redirectAttributes) {
+        supplierService.updateSupplier(id, supplier);
+        return "redirect:/supplier";
+    }
+
     @GetMapping(path="/supplier/new")
     public String addSupplierForm(Model model) {
         model.addAttribute("supplier", new Supplier());
         return "supplier-new";
+    }
+
+    @GetMapping(path="/supplier/{id}/edit")
+    public String supplierEditForm(@PathVariable("id") int id,Authentication authentication, Model model) {
+        model.addAttribute("supplier", supplierService.getSupplierById(id));
+        return "supplier-edit";
     }
 }
