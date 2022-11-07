@@ -3,52 +3,48 @@ package com.dbms.project.model;
 
 import lombok.Data;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 @Data
 public class Employee implements UserDetails {
     private static final long serialVersionUID = 1L;
     private int id;
-    @NotBlank
-    private String username;
-    @NotBlank
-    private String password;
+    @NotBlank(message="Username cannot be blank")
+    private String username = null;
+    @NotEmpty(message="Password cannot be empty")
+    @Size(min = 8, message="Password must have atleast 8 characters")
+    private String password = null;
     @NotBlank(message = "First name is mandatory")
-    private String firstName;
+    private String firstName = null;
     private String middleName;
     private String lastName;
-    @NotBlank
+    @NotBlank(message="Designation cannot be blank")
     private String designation; 
-    @NotNull
-    @Min(0)
+    @NotNull(message="Salary cannot be empty")
+    @Min(value = 0, message = "Salary must be positive")
     private int salary;
-    @NotBlank
+    @NotBlank(message="Contact number cannot be blank")
     private String contactNumber;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull
+    @NotNull(message = "Date cannot be empty")
     private java.sql.Date dateOfBirth;
-    @NotBlank
-    @Email
+    @NotBlank(message="Email id cannot be blank")
+    @Email(message="Email id must be valid")
     private String emailId;
-    @NotBlank
+    @NotBlank(message = "City cannot be blank")
     private String city;
-    @NotBlank
+    @NotBlank(message = "State cannot be blank")
     private String state;
-    @NotBlank
+    @NotBlank(message = "Postal code cannot be blank")
     private String postalCode;
-    @NotBlank
+    @NotBlank(message = "Country cannot be blank")
     private String country;
-    @NotBlank
+    @NotBlank(message = "Street address cannot be blank")
     private String street;
 
     @Override

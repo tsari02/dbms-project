@@ -3,8 +3,10 @@ package com.dbms.project.api;
 import com.dbms.project.model.Employee;
 import com.dbms.project.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,16 +18,33 @@ import java.util.List;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
+    public PasswordEncoder passwordEncoder;
+
     @Autowired
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService, PasswordEncoder passwordEncoder) {
         this.employeeService = employeeService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping(path="/api/employee")
-    @ResponseBody
-    public Employee addEmployee(@Valid @NotNull @RequestBody Employee employee) {
+    @GetMapping(path="/employee/new")
+    public String addEmployeeForm(Model model) {
+        Employee employee = new Employee();
+        model.addAttribute("employee", employee);
+        System.out.println(employee);
+        return "employee-new";
+    }
+
+    @PostMapping(path="/employee")
+    public String addEmployee(@Valid @ModelAttribute Employee employee, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("employee", employee);
+            System.out.println(employee);
+            System.out.println(employee.getFirstName() == null || employee.getFirstName() == "");
+            return "employee-new";
+        }
+        employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         employeeService.insertEmployee(employee);
-        return employee;
+        return "redirect:/employee";
     }
 
     @GetMapping(path="/employee")
@@ -51,10 +70,5 @@ public class EmployeeController {
     @ResponseBody
     public void updateEmployee(@PathVariable("id") int id, @Valid @NotNull @RequestBody Employee employee) {
         employeeService.updateEmployee(id, employee);
-    }
-
-    @GetMapping(path="/employee/new")
-    public String addEmployeeForm() {
-        return "employee-new";
     }
 }

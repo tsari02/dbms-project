@@ -13,17 +13,6 @@ public class BaseController {
 
     @GetMapping("/")
     public String index(Model model, Authentication authentication) {
-        System.out.println(authentication);
-        System.out.println(authentication.getPrincipal());
-        System.out.println(authentication.getAuthorities());
-
-//
-//        System.out.println(session.getAttribute("loggedUser").toString());
-//        if (authenticateService.isAuthenticated(session)) {
-//            return "redirect:/welcome";
-//        }
-//        model.addAttribute("user", new User());
-
         return "dashboard";
     }
 }
