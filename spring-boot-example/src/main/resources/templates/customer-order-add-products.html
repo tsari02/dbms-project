@@ -1,15 +1,97 @@
 
 <!DOCTYPE html>
-<html th:replace="~{layout :: layout(title=~{},content=~{:: div}, script=~{})}">
+<html th:replace="~{layout :: layout(title=~{},content=~{:: div}, script=~{}, pageName=${'Customers'})}">
 
 <body class="g-sidenav-show  bg-gray-200">
 
 <!-- Add page content here within a div tag -->
+
 <div>
-    <h1>
-        Customer Order Template
-    </h1>
+    <div class="card">
+        <div class="table-responsive">
+          <table class="table align-items-center mb-0" id="example">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+                <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer ID</th> -->
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Name</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Image</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Warranty Period</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Quantity</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Order Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each = "ptype, status : ${productTypes}">
+
+                <td>
+                  <div class="d-flex px-2">
+                    <div class="my-auto">
+                      <h6 class="mb-0 text-xs">
+                        <span th:text="${status.index}+1"></span>
+                      </h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <span class="badge badge-dot me-4">
+                    <i class="bg-info"></i>
+                    <span class="text-dark text-xs">
+                        <span th:text="${ptype.name}"></span>
+                    </span>
+                  </span>
+                </td>
+
+
+                <td class="align-middle">
+                  <div class="d-flex align-items-center">
+                    <span class="me-2 text-xs">
+                        <span th:text="${ptype.productImage}"></span>
+                    </span>
+                  </div>
+                </td>
+
+                <td class="align-middle">
+                  <div class="d-flex align-items-center">
+                    <span class="me-2 text-xs">
+                        <span th:text="${ptype.warrantyPeriod}"></span>
+                    </span>
+                  </div>
+                </td>
+
+                <td class="align-middle">
+                  <div class="d-flex align-items-center">
+                    <span class="me-2 text-xs">
+                        <span th:text="${ptype.Quantity}"></span>
+                    </span>
+                  </div>
+                </td>
+
+                <td class="align-middle">
+                    <form>
+                        <input type="number" name="quantity">
+                        <input type="text" name="productType" th:value="${ptype.id}" hidden />
+                    </form>
+                </td>
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
 </div>
+
+<div>
+    <form th:action="@{'/order/cutomer/'+${customerOrder.Id}+'/add'}" method="post">
+        <input type="text" name="orderId" th:value="${customerOrder.id}" hidden />
+        <!-- <input type="number" name="customerId" th:value="${cust.id}" hidden /> -->
+    <button class="btn btn-icon btn-primary" type="submit">
+        <span class="btn-inner--text">SUBMIT</span>
+    </button>
+    </form>
+</div>
+
+
 </body>
 
 </html>
