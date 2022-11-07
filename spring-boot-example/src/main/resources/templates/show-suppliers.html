@@ -55,7 +55,7 @@
                     <span class="me-2 text-xs">
                         <span th:text="${sup.contactNumber}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
 
                 
@@ -64,35 +64,43 @@
                     <span class="me-2 text-xs">
                         <span th:text="${sup.city}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${sup.state}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${sup.postalCode}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${sup.country}"></span>
                     </span>
-                  </button>
+                  </div>
                 </td>
                 <td class="align-middle">
                   <div class="d-flex align-items-center">
                     <span class="me-2 text-xs">
                         <span th:text="${sup.street}"></span>
                     </span>
-                  </button>
+                  </div>
+                </td>
+
+                <td>
+                  <form th:action="@{'/api/supplier/' + ${sup.id} + '/delete'}" method="post" class="nav-link d-flex align-items-center">
+                    <button type="submit" class="btn btn-danger">
+                      <span class="d-inline">Delete</span>
+                    </button>
+                  </form>
                 </td>
               </tr>
             </tbody>

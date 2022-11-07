@@ -41,11 +41,10 @@ public class SupplierController {
     }
 
     @PostMapping(path="/api/supplier/{id}/delete")
-    @ResponseBody
-    public void deleteSupplier(@PathVariable("id") int id) {
+    public String deleteSupplier(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
         supplierService.deleteSupplier(id);
+        return "redirect:/supplier";
     }
-
     @GetMapping(path="/api/supplier/{id}")
     @ResponseBody
     public Supplier getSupplierById(@PathVariable("id") int id) {
