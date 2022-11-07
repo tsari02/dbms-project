@@ -66,4 +66,11 @@ public class CustomerDao {
         final String sql = "UPDATE customer SET firstName = ?, middleName = ?, lastName = ?, contactNumber = ?, dateOfBirth = ?, emailId = ?, city = ?, state = ?, postalCode = ?, country = ?, street = ? WHERE id = ?";
         return jdbcTemplate.update(sql, customer.getFirstName(), customer.getMiddleName(), customer.getLastName(), customer.getContactNumber(), customer.getDateOfBirth(), customer.getEmailId(), customer.getCity(), customer.getState(), customer.getPostalCode(), customer.getCountry(), customer.getStreet(), id);
     }
+
+    public List<Customer> findCustomersByContactNo(String contactNo) {
+        final String sql = "SELECT * FROM customer WHERE contactNumber LIKE ?";
+        List<Customer> customers = jdbcTemplate.query(sql, new Object[] { String.format("%%%s%%", contactNo)}, new BeanPropertyRowMapper<>(Customer.class));
+        System.out.println(customers);
+        return customers;
+    }
 }

@@ -35,4 +35,8 @@ public class CustomerService {
     public int updateCustomer(int id, Customer customer) {
         return customerDao.updateCustomer(id, customer);
     }
+
+    public List<Customer> findCustomerByContactNo(String contactNo) {
+        return customerDao.findCustomersByContactNo(contactNo);
+    }
 }
