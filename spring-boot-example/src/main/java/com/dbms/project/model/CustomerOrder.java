@@ -16,7 +16,6 @@ public class CustomerOrder {
     private int id;
     @NotBlank(message = "Delivery Agent Assigned cannot be blank")
     private String deliveryAgentAssigned;
-    @NotNull(message="Verification Status cannot be empty")
     private Boolean verificationStatus;
     @NotNull(message = "Date cannot be empty")
     private java.sql.Date deliveryDate;
