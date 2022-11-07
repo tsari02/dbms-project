@@ -19,7 +19,6 @@ public class Customer {
     private String lastName;
     @NotBlank
     private String contactNumber;
-    // @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     private java.sql.Date dateOfBirth;
     @Email
