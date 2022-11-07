@@ -15,11 +15,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 public class CustomerOrder {
     private int id;
-    @Size(min=1, max=25, message="Length of Delivery Agent Assigned must be between 1 and 25 characters")
-    @NotBlank(message = "Delivery Agent Assigned cannot be blank")
-    private String deliveryAgentAssigned;
+    private Boolean deliveryAgentAssigned;
     private Boolean verificationStatus;
-    @NotNull(message = "Date cannot be empty")
     private java.sql.Date deliveryDate;
     @NotNull(message = "Date cannot be empty")
     private java.sql.Date orderedDate;

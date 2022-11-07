@@ -52,8 +52,8 @@
 
                 <td>
                   <div>
-                    <form th:action="@{'/order/customer/' + ${cust.id}}" method = "post">
-                        <!-- <input type="number" th:field="*{id}" hidden /> -->
+                    <form th:action="@{'/order/customer/'}" method = "post">
+                         <input type="number" name="customerId" th:value="${cust.id}" hidden />
                         <button class="btn btn-icon btn-primary" type="submit">
                             <span class="btn-inner--text">SELECT</span>
                         </button>

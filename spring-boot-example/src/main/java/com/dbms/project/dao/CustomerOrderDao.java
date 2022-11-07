@@ -26,7 +26,7 @@ public class CustomerOrderDao {
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, customerOrder.getDeliveryAgentAssigned());
+            ps.setBoolean(1, customerOrder.getDeliveryAgentAssigned());
             ps.setBoolean(2, customerOrder.getVerificationStatus());
             ps.setDate(3, customerOrder.getDeliveryDate());
             ps.setDate(4, customerOrder.getOrderedDate());
