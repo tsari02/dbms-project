@@ -1,20 +1,20 @@
 package com.dbms.project.api;
 
 import com.dbms.project.model.ProductType;
+import com.dbms.project.service.ProductService;
 import com.dbms.project.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
-// @RequestMapping("api/productType")
 @Controller
 public class ProductTypeController {
     private final ProductTypeService productTypeService;
@@ -29,6 +29,22 @@ public class ProductTypeController {
     public void addProductType(@Valid @NotNull @RequestBody ProductType productType) {
         productTypeService.insertProductType(productType);
     }
+   
+    @PostMapping(path="/product")
+    public String addProductType(@Valid ProductType productType, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("productType", productType);
+            return "productType-new";
+        }
+        productTypeService.insertProductType(productType);
+        return "redirect:/product";
+    }
+
+    @GetMapping(path="/product/new")
+    public String addProductTypeForm(Model model) {
+        model.addAttribute("productType", new ProductType());
+        return "productType-new";
+    }
 
     @GetMapping(path="/api/productType")
     @ResponseBody
@@ -36,7 +52,7 @@ public class ProductTypeController {
         return productTypeService.getAllProductTypes();
     }
 
-    @GetMapping(path="/products")
+    @GetMapping(path="/product")
     public String getAllProductTypes(Model model) {
         model.addAttribute("productTypes", productTypeService.getAllProductTypes());
         return "show-product-types";

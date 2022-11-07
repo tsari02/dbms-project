@@ -31,7 +31,7 @@ public class OrderedProductTypeController {
     public List<OrderedProductType> getAllOrderedProductTypes() {
         return orderedProductTypeService.getAllOrderedProductTypes();
     }
-
+    
     @PostMapping(path="/api/orderedProductType/{id}/delete")
     @ResponseBody
     public void deleteOrderedProductType(@PathVariable("id") int id) {
