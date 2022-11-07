@@ -8,7 +8,7 @@
 <div>
 
     <div class="p-4 bg-light">
-<form th:action="@{'/supplier/' + ${supplier.id} + '/edit'}" method="post" th:object="${supplier}">
+<form th:action="@{'/customer/' + ${customer.id} + '/edit'}" method="post" th:object="${customer}">
     <input type="text" th:field="*{id}" hidden>
     <div class="row">
       <div class="col-md-6">
@@ -20,7 +20,7 @@
       <div class="col-md-6">
         <div class="input-group input-group-outline my-3">
           <label class="form-label">
-              <span th:text="${supplier.firstName}"></span>
+              <span th:text="${customer.firstName}"></span>
           </label>
           <input type="text" class="form-control" disabled>
         </div>
@@ -31,13 +31,13 @@
       <div class="col-md-6">
         <div class="input-group input-group-outline my-3 is-filled">
           <label class="form-label">Middle Name</label>
-          <input required type="text" class="form-control" th:field="*{middleName}">
+          <input type="text" class="form-control" th:field="*{middleName}">
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-group input-group-outline my-3">
           <label class="form-label">
-              <span th:text="${supplier.middleName}"></span>
+              <span th:text="${customer.middleName}"></span>
           </label>
           <input type="text" class="form-control" disabled>
         </div>
@@ -48,13 +48,13 @@
       <div class="col-md-6">
         <div class="input-group input-group-outline my-3 is-filled">
           <label class="form-label"> Last Name </label>
-          <input required type="text" class="form-control" th:field="*{lastName}">
+          <input type="text" class="form-control" th:field="*{lastName}">
         </div>
       </div>
       <div class="col-md-6">
         <div class="input-group input-group-outline my-3">
           <label class="form-label">
-              <span th:text="${supplier.lastName}"></span>
+              <span th:text="${customer.lastName}"></span>
           </label>
           <input type="text" class="form-control" disabled>
         </div>
@@ -73,9 +73,54 @@
   <div class="col-md-6">
     <div class="input-group input-group-outline my-3">
       <label class="form-label">
-          <span th:text="${supplier.contactNumber}"></span>
+          <span th:text="${customer.contactNumber}"></span>
       </label>
       <input type="text" class="form-control" disabled>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-md-6">
+      <div class="input-group input-group-static my-3" th:classappend="${customer.dateOfBirth!=null}?is-filled">
+          <label class="form-label">
+              Date of Birth
+          </label>
+          <input type="date" class="form-control" th:field="*{dateOfBirth}" required>
+      </div>
+      <div th:each="err : ${#fields.errors('dateOfBirth')}" class="fs-6">
+          <span th:text="${err}"></span>
+      </div>
+  </div>
+  <div class="col-md-6">
+    <div class="input-group input-group-static my-3" th:classappend="${customer.dateOfBirth!=null}?is-filled">
+        <label class="form-label">
+            Date of Birth
+        </label>
+        <input type="date" class="form-control" th:field="*{dateOfBirth}" required disabled>
+    </div>
+    <div th:each="err : ${#fields.errors('dateOfBirth')}" class="fs-6">
+        <span th:text="${err}"></span>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="input-group input-group-outline my-3 is-filled">
+      <label class="form-label">Email Id</label>
+      <input type="email" class="form-control" th:field="*{emailId}">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="input-group input-group-outline my-3">
+      <label class="form-label">
+        <span th:text="${customer.emailId}"></span>
+      </label>
+      <input type="email" class="form-control" disabled>
     </div>
   </div>
 </div>
@@ -90,7 +135,7 @@
   <div class="col-md-6">
     <div class="input-group input-group-outline my-3">
       <label class="form-label">
-          <span th:text="${supplier.street}"></span>
+          <span th:text="${customer.street}"></span>
       </label>
       <input type="text" class="form-control" disabled>
     </div>
@@ -107,7 +152,7 @@
   <div class="col-md-6">
     <div class="input-group input-group-outline my-3">
       <label class="form-label">
-          <span th:text="${supplier.city}"></span>
+          <span th:text="${customer.city}"></span>
       </label>
       <input type="text" class="form-control" disabled>
     </div>
@@ -124,7 +169,7 @@
   <div class="col-md-6">
     <div class="input-group input-group-outline my-3">
       <label class="form-label">
-          <span th:text="${supplier.state}"></span>
+          <span th:text="${customer.state}"></span>
       </label>
       <input type="text" class="form-control" disabled>
     </div>
@@ -141,7 +186,7 @@
   <div class="col-md-6">
     <div class="input-group input-group-outline my-3">
       <label class="form-label">
-          <span th:text="${supplier.postalCode}"></span>
+          <span th:text="${customer.postalCode}"></span>
       </label>
       <input type="text" class="form-control" disabled>
     </div>
@@ -158,7 +203,7 @@
   <div class="col-md-6">
     <div class="input-group input-group-outline my-3">
       <label class="form-label">
-          <span th:text="${supplier.country}"></span>
+          <span th:text="${customer.country}"></span>
       </label>
       <input type="text" class="form-control" disabled>
     </div>
