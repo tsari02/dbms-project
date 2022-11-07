@@ -8,12 +8,14 @@ import java.lang.Boolean;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class CustomerOrder {
     private int id;
+    @Size(min=1, max=25, message="Length of Delivery Agent Assigned must be between 1 and 25 characters")
     @NotBlank(message = "Delivery Agent Assigned cannot be blank")
     private String deliveryAgentAssigned;
     private Boolean verificationStatus;

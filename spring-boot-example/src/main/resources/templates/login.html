@@ -39,11 +39,11 @@
                             <form role="form" class="text-start" th:action="@{/login}" method="post">
                                 <div class="input-group input-group-outline my-3">
                                     <label class="form-label">Username</label>
-                                    <input type="text" id="username" name="username" class="form-control">
+                                    <input type="text" id="username" name="username" class="form-control" required>
                                 </div>
                                 <div class="input-group input-group-outline mb-3">
                                     <label class="form-label">Password</label>
-                                    <input type="password" id="password" name="password" class="form-control">
+                                    <input type="password" id="password" name="password" class="form-control" minlength="8">
                                 </div>
 
                                 <div class="text-center">
