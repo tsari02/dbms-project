@@ -35,11 +35,7 @@ public class ProductDao {
         int id = keyholder.getKey().intValue();
 
         final String sql2 = "UPDATE productType SET quantity = quantity + 1 WHERE id = ?";
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, product.getProductTypeId());
-            return ps;
-        }, keyholder);
+        jdbcTemplate.update(sql2, product.getProductTypeId());
 
         product.setId(id);
         return id;

@@ -45,7 +45,7 @@
                         <label>Designation</label>
                         <select class="form-control" th:field="*{designation}" required>
                             <option value="Employee">Employee</option>
-                            <option value="Manager">Manager</option>
+                            <option th:if="${principal.hasRole('ADMIN')}" value="Manager">Manager</option>
                             <option th:if="${principal.hasRole('ADMIN')}" value="Admin">Admin</option>
                         </select>
                     </div>
