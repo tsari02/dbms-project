@@ -8,13 +8,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderedProductType {
     private int id;
-    @NotNull
     private int supplierOrderId;
-    @NotNull
-    @Min(0)
+    @Min(value=0,message="Quantity must be positive")
     private int quantity;
-    @NotNull
     private int productTypeId;
-    @NotNull
     private int numberDelivered;
 }

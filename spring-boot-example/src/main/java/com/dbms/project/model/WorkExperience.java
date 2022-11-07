@@ -11,12 +11,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class WorkExperience {
     private int id;
-    @NotNull
     private int employeeId;
-    @NotBlank
+    @NotBlank(message="Designation cannot be blank")
     private String designation; 
-    @NotNull
+    @NotNull(message="Date cannot be empty")
     private java.sql.Date joiningDate;
-    @NotNull
+    @NotNull(message="Date cannot be empty")
     private java.sql.Date leavingDate;
 }

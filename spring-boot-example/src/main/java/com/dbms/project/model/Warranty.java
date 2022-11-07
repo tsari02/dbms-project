@@ -10,12 +10,10 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Warranty {
     private int id;
-    @NotBlank
+    @NotBlank(message="Coverage cannot be blank")
     private String coverage;
-    @NotNull
     private int productId ; //FK
-    @NotNull
     private int customerId; //FK
-    @NotNull
+    @NotNull(message="Date cannot be empty")
     private java.sql.Date endDate;
 }

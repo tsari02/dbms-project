@@ -13,25 +13,25 @@ import java.util.Date;
 @Data
 public class Customer {
     private int id;
-    @NotBlank
+    @NotBlank(message="First Name cannot be blank")
     private String firstName;
     private String middleName;
     private String lastName;
-    @NotBlank
+    @NotBlank(message="Contact Number cannot be blank")
     private String contactNumber;
-    @NotNull
+    @NotNull(message="Date cannot be empty")
     private java.sql.Date dateOfBirth;
-    @Email
-    @NotBlank
+    @Email(message="Email id must be valid")
+    @NotBlank(message="Email id cannot be blank")
     private String emailId;
-    @NotBlank
+    @NotBlank(message = "City cannot be blank")
     private String city;
-    @NotBlank
+    @NotBlank(message = "State cannot be blank")
     private String state;
-    @NotBlank
+    @NotBlank(message = "Postal code cannot be blank")
     private String postalCode;
-    @NotBlank
+    @NotBlank(message = "Country cannot be blank")
     private String country;
-    @NotBlank
+    @NotBlank(message = "Street address cannot be blank")
     private String street;
 }
