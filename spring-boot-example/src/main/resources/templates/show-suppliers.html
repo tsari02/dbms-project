@@ -23,7 +23,8 @@
           <table class="table align-items-center mb-0" id="example">
             <thead>
               <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Supplier ID</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+                <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Supplier ID</th> -->
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contact Number</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">City</th>
@@ -33,11 +34,21 @@
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Street</th>
                 <th></th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each = "sup : ${suppliers}">
+              <tr th:each = "sup, status : ${suppliers}">
                 <td>
+                  <div class="d-flex px-2">
+                    <div class="my-auto">
+                      <h6 class="mb-0 text-xs">
+                        <span th:text="${status.index}+1"></span>
+                      </h6>
+                    </div>
+                  </div>
+                </td>
+                <!-- <td>
                   <div class="d-flex px-2">
                     <div class="my-auto">
                       <h6 class="mb-0 text-xs">
@@ -45,7 +56,7 @@
                       </h6>
                     </div>
                   </div>
-                </td>
+                </td> -->
                 <td>
                   <span class="badge badge-dot me-4">
                     <i class="bg-info"></i>
@@ -101,6 +112,16 @@
                 </td>
 
                 <td>
+                  <div>
+                    <a th:href="@{'/supplier/' + ${sup.id}}">
+                      <button class="btn btn-icon btn-primary" type="button">
+                        <span class="btn-inner--text">VIEW</span>
+                      </button>
+                    </a>
+                  </div>
+                </td>
+
+                <td>
                   <form th:action="@{'/api/supplier/' + ${sup.id} + '/delete'}" method="post" class="nav-link d-flex align-items-center">
                     <button type="submit" class="btn btn-danger">
                       <span class="d-inline">Delete</span>
@@ -116,6 +137,8 @@
                     </a>
                   </div>
                 </td>
+
+                
 
               </tr>
             </tbody>

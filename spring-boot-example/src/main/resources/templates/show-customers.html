@@ -20,7 +20,8 @@
           <table class="table align-items-center mb-0" id="example">
             <thead>
               <tr>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer ID</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+                <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Customer ID</th> -->
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Contact Number</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date of Birth</th>
@@ -32,11 +33,23 @@
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Street</th>
                 <th></th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr th:each = "cust : ${customers}">
+              <tr th:each = "cust, status : ${customers}">
+
                 <td>
+                  <div class="d-flex px-2">
+                    <div class="my-auto">
+                      <h6 class="mb-0 text-xs">
+                        <span th:text="${status.index}+1"></span>
+                      </h6>
+                    </div>
+                  </div>
+                </td>
+
+                <!-- <td>
                   <div class="d-flex px-2">
                     <div class="my-auto">
                       <h6 class="mb-0 text-xs">
@@ -44,7 +57,7 @@
                       </h6>
                     </div>
                   </div>
-                </td>
+                </td> -->
                 <td>
                   <span class="badge badge-dot me-4">
                     <i class="bg-info"></i>
@@ -111,6 +124,16 @@
                     <span class="me-2 text-xs">
                         <span th:text="${cust.street}"></span>
                     </span>
+                  </div>
+                </td>
+
+                <td>
+                  <div>
+                    <a th:href="@{'/customer/' + ${cust.id}}">
+                      <button class="btn btn-icon btn-primary" type="button">
+                        <span class="btn-inner--text">VIEW</span>
+                      </button>
+                    </a>
                   </div>
                 </td>
 
