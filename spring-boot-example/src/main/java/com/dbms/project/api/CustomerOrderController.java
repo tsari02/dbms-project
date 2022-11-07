@@ -1,16 +1,19 @@
 package com.dbms.project.api;
 
 import com.dbms.project.model.CustomerOrder;
+import com.dbms.project.model.Employee;
 import com.dbms.project.service.CustomerOrderService;
 import com.dbms.project.service.CustomerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -41,6 +44,18 @@ public class CustomerOrderController {
         model.addAttribute("orders", new CustomerOrder());
         model.addAttribute("customers", customerService.getAllCustomers());
         return "customer-order-new";
+    }
+
+    @PostMapping(path="/order/customer/")
+    public String initializeCustomerOrder(@RequestParam("customerId") int customerId, Authentication authentication, Model model) {
+        CustomerOrder customerOrder = new CustomerOrder();
+        customerOrder.setCustomerId(customerId);
+        customerOrder.setEmployeeId(((Employee)authentication.getPrincipal()).getId());
+        customerOrder.setOrderedDate(new Date(System.currentTimeMillis()));
+        customerOrder.setDeliveryAgentAssigned(false);
+        customerOrder.setVerificationStatus(false);
+        customerOrderService.insertCustomerOrder(customerOrder);
+        return "customer-order-add-products";
     }
 
     @PostMapping(path="/api/order/customer")
