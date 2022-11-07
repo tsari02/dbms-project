@@ -79,4 +79,10 @@ public class CustomerController {
         model.addAttribute("customer", new Customer());
         return "customer-new";
     }
+
+    @GetMapping(path="/api/customer/contact/{contactNo}")
+    @ResponseBody
+    public List<Customer> customerByContactNo(@PathVariable("contactNo") String contactNo) {
+        return customerService.findCustomerByContactNo(contactNo);
+    }
 }
