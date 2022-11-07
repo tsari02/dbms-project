@@ -4,12 +4,15 @@ import com.dbms.project.model.CustomerOrder;
 import com.dbms.project.model.Employee;
 import com.dbms.project.service.CustomerOrderService;
 import com.dbms.project.service.CustomerService;
+import com.dbms.project.service.ProductService;
+import com.dbms.project.service.ProductTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,11 +28,15 @@ import javax.validation.constraints.NotNull;
 public class CustomerOrderController {
     private final CustomerOrderService customerOrderService;
     private final CustomerService customerService;
+    private final ProductService productService;
+    private final ProductTypeService productTypeService;
 
     @Autowired
-    public CustomerOrderController(CustomerOrderService customerOrderService, CustomerService customerService) {
+    public CustomerOrderController(CustomerOrderService customerOrderService, CustomerService customerService, ProductService productService, ProductTypeService productTypeService) {
         this.customerOrderService = customerOrderService;
         this.customerService = customerService;
+        this.productService = productService;
+        this.productTypeService = productTypeService;
     }
 
 
@@ -47,7 +54,7 @@ public class CustomerOrderController {
     }
 
     @PostMapping(path="/order/customer/")
-    public String initializeCustomerOrder(@RequestParam("customerId") int customerId, Authentication authentication, Model model) {
+    public String initializeCustomerOrder(@RequestParam("customerId") int customerId, Authentication authentication, RedirectAttributes redirectAttributes) {
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setCustomerId(customerId);
         customerOrder.setEmployeeId(((Employee)authentication.getPrincipal()).getId());
@@ -55,8 +62,24 @@ public class CustomerOrderController {
         customerOrder.setDeliveryAgentAssigned(false);
         customerOrder.setVerificationStatus(false);
         customerOrderService.insertCustomerOrder(customerOrder);
+        return "redirect:/order/customer/" + customerOrder.getId() + "/add";
+    }
+
+    @GetMapping(path="/order/customer/{id}/add")
+    public String addProductsToCustomerOrder(@PathVariable("id") int id, Model model) {
+        // model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("customerOrder", customerOrderService.getCustomerOrderById(id));
+        model.addAttribute("productTypes", productTypeService.getAllProductTypes());
         return "customer-order-add-products";
     }
+
+    // @PostMapping(path="/order/customer/{id}/add")
+    // @ResponseBody
+    // public String (@RequestParam("orderId") int orderId, @RequestParam("quantity") int quantity, @RequestParam("productType") String productType, Authentication authentication, RedirectAttributes redirectAttributes){
+    //     CustomerOrder customerOrder = customerOrderService.getCustomerOrderById(orderId);
+    //     System.out.println(quantity);
+    //     return "redirect:/order/customer/" + orderId + "/add";
+    // }
 
     @PostMapping(path="/api/order/customer")
     @ResponseBody
