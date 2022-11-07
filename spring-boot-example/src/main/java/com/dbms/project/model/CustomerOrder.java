@@ -14,18 +14,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 public class CustomerOrder {
     private int id;
-    @NotBlank
+    @NotBlank(message = "Delivery Agent Assigned cannot be blank")
     private String deliveryAgentAssigned;
-    @NotNull
+    @NotNull(message="Verification Status cannot be empty")
     private Boolean verificationStatus;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull
+    @NotNull(message = "Date cannot be empty")
     private java.sql.Date deliveryDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull
+    @NotNull(message = "Date cannot be empty")
     private java.sql.Date orderedDate;
-    @NotNull
     private int customerId;
-    @NotNull
     private int employeeId;
 }

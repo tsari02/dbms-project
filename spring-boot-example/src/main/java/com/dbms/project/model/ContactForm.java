@@ -8,10 +8,9 @@ import lombok.Data;
 @Data
 public class ContactForm {
     private int id;
-    @NotBlank
+    @NotBlank(message="Reply cannot be blank")
     private String reply;
-    @NotBlank
+    @NotBlank(message="Query cannot be blank")
     private String query;
-    @NotNull
     private int customerId;
 }

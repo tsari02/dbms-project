@@ -2,34 +2,27 @@ package com.dbms.project.model;
 
 import lombok.Data;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Data
 public class LeavesAndSalaries {
     private int id;
-    @NotNull
-    @Min(0)
+    @Min(value=0, message="Leaves Taken should be positive")
     private int leavesTaken;
-    @NotNull
-    @Min(0)
+    @Min(value=0, message="Leaves Allowed should be positive")
     private int leavesAllowed;
-    @NotNull
-    @Min(0)
-    private int year; 
-    @NotNull
-    @Min(0)
+    @Min(value=0, message="Year should be positive")
+    private int year;
+    @Min(value=1, message="Month must be between 1 and 12")
+    @Max(value=12, message="Month must be between 1 and 12")
     private int month;
-    @NotNull
-    @Min(0)
+    @Min(value=0, message="Overtime should be positive")
     private int overtime;
-    @NotNull
-    @Min(0)
+    @Min(value=0, message="Bonus should be positive")
     private int bonus;
-    @NotNull
-    @Min(0)
+    @Min(value=0, message="Penalty should be positive")
     private int penalty;
-    @NotNull
-    @Min(0)
     private int employeeId;
 }

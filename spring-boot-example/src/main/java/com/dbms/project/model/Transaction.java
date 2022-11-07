@@ -11,21 +11,18 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Transaction {
     private int id;
-    @NotBlank
+    @NotBlank(message="Bank Branch cannot be blank")
     private String bankBranch;
-    @NotNull
     private int productType;
-    @NotNull
     private int accountNumber;
-    @NotNull
-    @Min(0)
+    @Min(value=0, message="Amount must be positive")
     private int amount;
-    @NotBlank
+    @NotBlank(message="Mode cannot be blank")
     private String mode;
-    @NotBlank
+    @NotBlank(message="Verification Status cannot be blank")
     private String verificationStatus;
-    @NotNull
+    @NotNull(message="Date cannot be empty")
     private java.sql.Date dateOfTransaction;
-    @NotBlank
+    @NotBlank(message="Bank Name cannot be blank")
     private String bankName;
 }

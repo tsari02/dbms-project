@@ -10,16 +10,14 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Feedback {
     private int id;
-    @NotBlank
+    @NotBlank(message="Reviews cannot be blank")
     private String reviews;
-    @NotBlank
+    @NotBlank(message="Complaints cannot be blank")
     private String complaints;
-    @NotBlank
+    @NotBlank(message="Suggestions cannot be blank")
     private String suggestions;
-    @NotNull
-    @Min(0)
-    @Max(10)
+    @Min(value=0, message="Rating must be between 0 and 10")
+    @Max(value=10, message="Rating must be between 0 and 10")
     private int rating;
-    @NotNull
     private int customerOrderId; //FK    
 }

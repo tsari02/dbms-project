@@ -9,15 +9,12 @@ import javax.validation.constraints.NotNull;
 @Data
 public class Bill {
     private int id;
-    @NotBlank
+    @NotBlank(message="GST Number cannot be blank")
     private String gstNumber;
-    @NotNull
-    @Min(0)
+    @Min(value=0,message="Amount must be positive")
     private int amount;
-    @NotNull
-    @Min(0)
+    @Min(value=0,message="Discount must be positive")
     private int discount;
-    @NotNull
-    @Min(0)
+    @Min(value=0,message="Net Amount must be positive")
     private int netAmount;
 }

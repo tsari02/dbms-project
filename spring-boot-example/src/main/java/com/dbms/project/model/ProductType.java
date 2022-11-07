@@ -9,12 +9,10 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ProductType {
     private int id;
-    @NotBlank
+    @NotBlank(message="Name cannot be blank")
     private String name;
-    @NotBlank
+    @NotBlank(message="Product Image cannot be blank")
     private String productImage;
-    @NotNull
     private int warrantyPeriod;
-    @NotNull
     private int quantity;
 }
