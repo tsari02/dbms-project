@@ -59,11 +59,10 @@ public class EmployeeController {
         employeeService.deleteEmployee(id);
     }
 
-    @GetMapping(path="/api/employee/{id}")
-    @ResponseBody
+    @GetMapping(path="/employee/{id}")
     public String getEmployeeById(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", employeeService.getEmployeeById(id));
-        return "profile";
+        return "employee";
     }
 
     @PostMapping(path="/api/employee/{id}/edit")
