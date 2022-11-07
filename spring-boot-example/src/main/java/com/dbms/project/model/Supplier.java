@@ -11,9 +11,9 @@ public class Supplier {
     @Size(min=1, max=25, message="Length of First Name must be between 1 and 25 characters")
     @NotBlank(message="First Name cannot be blank")
     private String firstName;
-    @Size(min=1, max=50, message="Length of Middle Name must be between 1 and 50 characters")
+    @Size(min=0, max=50, message="Length of Middle Name must be between 0 and 50 characters")
     private String middleName;
-    @Size(min=1, max=25, message="Length of Last Name must be between 1 and 25 characters")
+    @Size(min=0, max=25, message="Length of Last Name must be between 0 and 25 characters")
     private String lastName;
     @Size(min=1, max=20, message="Length of Contact Number must be between 1 and 20 characters")
     @NotBlank(message="Contact Number cannot be blank")
