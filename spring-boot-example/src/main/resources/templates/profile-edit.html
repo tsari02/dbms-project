@@ -22,7 +22,7 @@
         <div class="col-md-6">
           <div class="input-group input-group-outline my-3">
             <label class="form-label">Name</label>
-            <input type="email" class="form-control" disabled value="">
+            <input type="text" class="form-control" disabled value="">
           </div>
         </div>
         <!-- <p>Name</p> -->
@@ -32,7 +32,7 @@
             <label class="form-label">
                 <span th:text="${principal.firstName}+' '+${principal.middleName==null?'':principal.middleName}+' '+${principal.lastName==null?'':principal.lastName}"></span>
             </label>
-            <input type="email" class="form-control" disabled>
+            <input type="text" class="form-control" disabled>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
         <label class="form-label">
             <span th:text="${principal.contactNumber}"></span>
         </label>
-        <input type="email" class="form-control" disabled>
+        <input type="text" class="form-control" disabled>
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@
         <label class="form-label">
             <span th:text="${principal.city}"></span>
         </label>
-        <input type="email" class="form-control" disabled>
+        <input type="text" class="form-control" disabled>
       </div>
     </div>
   </div>
@@ -100,7 +100,7 @@
         <label class="form-label">
             <span th:text="${principal.state}"></span>
         </label>
-        <input type="email" class="form-control" disabled>
+        <input type="text" class="form-control" disabled>
       </div>
     </div>
   </div>
@@ -117,7 +117,7 @@
         <label class="form-label">
             <span th:text="${principal.postalCode}"></span>
         </label>
-        <input type="email" class="form-control" disabled>
+        <input type="text" class="form-control" disabled>
       </div>
     </div>
   </div>
@@ -134,7 +134,7 @@
         <label class="form-label">
             <span th:text="${principal.country}"></span>
         </label>
-        <input type="email" class="form-control" disabled>
+        <input type="text" class="form-control" disabled>
       </div>
     </div>
   </div>
@@ -151,7 +151,7 @@
         <label class="form-label">
             <span th:text="${principal.street}"></span>
         </label>
-        <input type="email" class="form-control" disabled>
+        <input type="text" class="form-control" disabled>
       </div>
     </div>
   </div>

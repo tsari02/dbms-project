@@ -17,5 +17,7 @@ public class ProductType {
     @NotBlank(message="Product Image cannot be blank")
     private String productImage;
     private int warrantyPeriod;
+    @NotNull
+    @Min(0)
     private int quantity;
 }
