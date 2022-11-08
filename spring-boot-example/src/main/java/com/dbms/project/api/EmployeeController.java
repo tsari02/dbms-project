@@ -54,7 +54,7 @@ public class EmployeeController {
         return "show-employees";
     }
 
-    @PostMapping(path="/api/employee/{id}/delete")
+    @PostMapping(path="/employee/{id}/delete")
     public String deleteEmployee(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
         employeeService.deleteEmployee(id);
         return "redirect:/employee";

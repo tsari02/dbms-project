@@ -34,7 +34,7 @@
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Street</th>
                 <th></th>
                 <th></th>
-                <th></th>
+<!--                <th></th>-->
               </tr>
             </thead>
             <tbody>
@@ -120,13 +120,13 @@
                   </div>
                 </td>
 
-                <td>
-                  <form th:action="@{'/api/supplier/' + ${sup.id} + '/delete'}" method="post" class="nav-link d-flex align-items-center">
-                    <button type="submit" class="btn btn-danger">
-                      <span class="d-inline">Delete</span>
-                    </button>
-                  </form>
-                </td>
+<!--                <td>-->
+<!--                  <form th:action="@{'/api/supplier/' + ${sup.id} + '/delete'}" method="post" class="nav-link d-flex align-items-center">-->
+<!--                    <button type="submit" class="btn btn-danger">-->
+<!--                      <span class="d-inline">Delete</span>-->
+<!--                    </button>-->
+<!--                  </form>-->
+<!--                </td>-->
                 <td>
                   <div>
                     <a th:href="@{'/supplier/' + ${sup.id} + '/edit'}">

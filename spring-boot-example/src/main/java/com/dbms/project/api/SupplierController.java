@@ -41,7 +41,7 @@ public class SupplierController {
         return "show-suppliers";
     }
 
-    @PostMapping(path="/api/supplier/{id}/delete")
+    @PostMapping(path="/supplier/{id}/delete")
     public String deleteSupplier(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
         supplierService.deleteSupplier(id);
         return "redirect:/supplier";
@@ -51,13 +51,6 @@ public class SupplierController {
         model.addAttribute("supplier", supplierService.getSupplierById(id));
         model.addAttribute("orders", supplierService.getAllSupplierOrders(id));
         return "supplier";
-    }
-
-
-    @PostMapping(path="/api/supplier/{id}/edit")
-    @ResponseBody
-    public void updateSupplier(@PathVariable("id") int id, @Valid @NotNull @RequestBody Supplier supplier) {
-        supplierService.updateSupplier(id, supplier);
     }
 
 
