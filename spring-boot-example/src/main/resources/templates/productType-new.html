@@ -22,19 +22,7 @@
       </div>
     </div>
 
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="input-group input-group-outline my-3" th:classappend="${productType.productImage!=null}?is-filled">
-        <label class="form-label">
-            Product Images
-        </label>
-        <input type="text" class="form-control" th:field="*{productImage}" required maxlength="255">
-        </div>
-        <div th:each="err : ${#fields.errors('productImage')}" class="fs-6">
-        <span th:text="${err}"></span>
-      </div>
-    </div>
-  </div>
+  
 
 
   <div class="row justify-content-center">
@@ -51,6 +39,19 @@
     </div>
   </div>
 
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="input-group input-group-outline my-3" th:classappend="${productType.price!=null}?is-filled">
+        <label class="form-label">
+            Price
+        </label>
+        <input type="text" class="form-control" th:field="*{price}">
+        </div>
+        <div th:each="err : ${#fields.errors('price')}" class="fs-6">
+        <span th:text="${err}"></span>
+      </div>
+    </div>
+  </div>
 
  
 
