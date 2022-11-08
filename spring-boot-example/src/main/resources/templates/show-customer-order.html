@@ -27,6 +27,7 @@
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Delivery Date</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Delivery Agent assigned</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Verification Status</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Order Completed</th>
                 <th></th>
               </tr>
             </thead>
@@ -102,7 +103,15 @@
                   </div>
                 </td>
 
-                <td>
+                <td class="align-middle">
+                  <div class="d-flex align-items-center">
+                    <span class="me-2 text-xs">
+                        <span th:text="${order.orderCompleted}"></span>
+                    </span>
+                  </div>
+                </td>
+
+                <td th:if="${order.orderCompleted == true}">
                   <div>
                     <a th:href="@{'/order/customer/' + ${order.id} + '/edit'}">
                       <button class="btn btn-icon btn-primary" type="button">
@@ -111,6 +120,29 @@
                     </a>
                   </div>
                 </td>
+
+                <td th:if="${order.orderCompleted == false}">
+                  <div>
+                    <a th:href="@{'/order/customer/' + ${order.id} + '/add'}">
+                      <button class="btn btn-icon btn-primary" type="button">
+                        <span class="btn-inner--text">Continue</span>
+                      </button>
+                    </a>
+                  </div>
+                </td>
+
+                <td th:if="${order.orderCompleted == false}">
+                  <div>
+                    <form th:action="@{'/order/customer/' + ${order.id} + '/delete'}" method="post" class="nav-link d-flex align-items-center">
+                      <button type="submit" class="btn btn-danger">
+                          <span class="d-inline">Delete</span>
+                      </button>
+                    </form>
+                  </div>
+                </td>
+
+
+
               </tr>
             </tbody>
           </table>
