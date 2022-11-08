@@ -80,12 +80,11 @@ public class ProductTypeDao {
     }
 
     public List<ProductType> getAllProductTypesInSupplierOrder(int supplierOrderId) {
-        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  "
-                +
-                "FROM product p2 " +
-                "WHERE p2.productTypeId = p.id AND " +
-                "p2.customerOrderId = ?) as 'quantity' " +
-                "FROM productType p ";
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', SUM(o1.quantity) as 'quantity' " +
+        "FROM productType p " +
+        "JOIN orderedProductType o1 ON o1.productTypeId = p.id " +
+        "WHERE o1.supplierOrderId = ? " +
+        "GROUP BY p.id, p.name, p.warrantyPeriod,p.price ";
         List<ProductType> products = jdbcTemplate.query(sql, new Object[] { supplierOrderId }, new BeanPropertyRowMapper<>(ProductType.class));
         return products;
     }
