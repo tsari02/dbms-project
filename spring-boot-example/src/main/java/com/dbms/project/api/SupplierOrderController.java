@@ -84,7 +84,7 @@ public class SupplierOrderController {
     @PostMapping(path="/order/supplier/{id}/add")
     public String addProductsToSupplierOrder(@PathVariable("id") int supplierOrderId, @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId, Authentication authentication, RedirectAttributes redirectAttributes){
         productTypeService.addProductTypeToSupplierOrder(productTypeId, quantity, supplierOrderId);
-        return "redirect:/order/customer/" + supplierOrderId + "/add";
+        return "redirect:/order/supplier/" + supplierOrderId + "/add";
     }
 
 
