@@ -9,7 +9,7 @@
 <div>
 
     <div class="p-4 bg-light">
-<form th:action="@{}" method="post" th:object="${transaction}">
+<form th:action="@{'/order/customer/transaction/'+${paymentId} }" method="post" th:object="${transaction}">
 
     <input type="number" th:field="*{id}" hidden>
     <input type="number" th:field="*{amount}" hidden>

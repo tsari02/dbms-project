@@ -1,10 +1,13 @@
 package com.dbms.project.api;
 
 import com.dbms.project.model.Transaction;
+import com.dbms.project.model.Payment;
 import com.dbms.project.service.TransactionService;
+import com.dbms.project.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,10 +17,12 @@ import java.util.List;
 @Controller
 public class TransactionController {
     private final TransactionService transactionService;
+    private final PaymentService paymentService;
 
     @Autowired
-    public TransactionController(TransactionService transactionService) {
+    public TransactionController(TransactionService transactionService, PaymentService paymentService) {
         this.transactionService = transactionService;
+        this.paymentService = paymentService;
     }
 
     @PostMapping(path="/api/transactions")
@@ -48,5 +53,20 @@ public class TransactionController {
     @ResponseBody
     public void updateTransaction(@PathVariable("id") int id, @Valid @NotNull @RequestBody Transaction transaction) {
         transactionService.updateTransaction(id, transaction);
+    }
+
+    @GetMapping(path = "/order/customer/transaction/{id}")
+    public String completeTransaction(@PathVariable("id") int paymentId, RedirectAttributes redirectAttributes) {
+        
+        return "invoice";
+    }
+
+    @PostMapping(path = "/order/customer/transaction/{id}")
+    public String completeTransaction(@Valid @NotNull @RequestBody Transaction transaction, @PathVariable("id") int paymentId, RedirectAttributes redirectAttributes) {
+        int transactionId = transactionService.insertTransaction(transaction);
+        Payment payment = paymentService.getPaymentById(paymentId);
+        payment.setTransactionId(transactionId);
+        paymentService.updatePayment(paymentId,payment);
+        return "redirect:/order/customer/transaction/" + paymentId;
     }
 }
