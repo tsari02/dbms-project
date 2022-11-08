@@ -247,6 +247,95 @@
           </table>
         </div>
       </div>
+
+      <div class="mt-5">
+        <a th:href="@{'/employee/' + ${employee.id} + '/workExperience/add'}">
+          <button class="btn btn-icon btn- btn-primary" type="button">
+              <span class="btn-inner--text">ADD WORK EXPERIENCE</span>
+          </button>
+        </a>
+      </div>
+
+
+      <div class="text-center text-secondary font-weight-bolder mt-4">
+        <h4>Work Experience</h4>
+      </div>
+      <div class="card mx-8 my-2">
+        <div class="table-responsive">
+          <table class="table align-items-center mb-0">
+            <thead>
+            <tr>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
+              <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">monthomer ID</th> -->
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Designation</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Joining Date</th>
+              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Leaving Date</th>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ex, status : ${workExperiences}">
+
+              <td>
+                <div class="d-flex px-2">
+                  <div class="my-auto">
+                    <h6 class="mb-0 text-xs">
+                      <span th:text="${status.index}+1"></span>
+                    </h6>
+                  </div>
+                </div>
+              </td>
+
+              <!-- <td>
+                      <div class="d-flex px-2">
+                        <div class="my-auto">
+                          <h6 class="mb-0 text-xs">
+                            <span th:text="${month.id}"></span>
+                          </h6>
+                        </div>
+                      </div>
+                    </td> -->
+
+
+              <td class="align-middle">
+                <div class="d-flex align-items-center">
+                    <span class="me-2 text-xs">
+                      <span th:text="${ex.designation}"></span>
+                    </span>
+                </div>
+              </td>
+
+              <td class="align-middle">
+                <div class="d-flex align-items-center">
+                    <span class="me-2 text-xs">
+                      <span th:text="${ex.joiningDate}"></span>
+                    </span>
+                </div>
+              </td>
+
+              <td class="align-middle">
+                <div class="d-flex align-items-center">
+                    <span class="me-2 text-xs">
+                      <span th:text="${ex.leavingDate}"></span>
+                    </span>
+                </div>
+
+
+              <!-- <td>
+                <div>
+                  <a th:href="@{'/month/' + ${month.id} + '/edit'}">
+                    <button class="btn btn-icon btn-primary" type="button">
+                      <span class="btn-inner--text">Edit</span>
+                    </button>
+                  </a>
+                </div>
+              </td> -->
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
   </div>
 </body>

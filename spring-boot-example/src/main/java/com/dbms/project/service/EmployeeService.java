@@ -3,6 +3,7 @@ package com.dbms.project.service;
 import com.dbms.project.dao.EmployeeDao;
 import com.dbms.project.model.Employee;
 import com.dbms.project.model.LeavesAndSalaries;
+import com.dbms.project.model.WorkExperience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,6 +31,10 @@ public class EmployeeService implements UserDetailsService {
 
     public List<LeavesAndSalaries> getAllLeavesAndSalaries(int id) {
         return employeeDao.getAllLeavesAndSalaries(id);
+    }
+
+    public List<WorkExperience> getAllWorkExperience(int id) {
+        return employeeDao.getAllWorkExperience(id);
     }
 
     public Employee getEmployeeById(int id) {

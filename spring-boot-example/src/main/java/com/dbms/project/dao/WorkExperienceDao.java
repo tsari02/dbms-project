@@ -1,13 +1,23 @@
 package com.dbms.project.dao;
 
+import com.dbms.project.model.LeavesAndSalaries;
 import com.dbms.project.model.WorkExperience;
+import com.dbms.project.service.WorkExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -59,4 +69,6 @@ public class WorkExperienceDao {
         final String sql = "UPDATE workExperience SET employeeId = ?, designation = ?, joiningDate = ?, leavingDate = ? WHERE id = ?";
         return jdbcTemplate.update(sql, workExperience.getEmployeeId(), workExperience.getDesignation(), workExperience.getJoiningDate(), workExperience.getLeavingDate(), id);
     }
+
+
 }
