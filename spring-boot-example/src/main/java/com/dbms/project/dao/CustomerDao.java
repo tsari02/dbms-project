@@ -1,6 +1,9 @@
 package com.dbms.project.dao;
 
 import com.dbms.project.model.Customer;
+import com.dbms.project.model.CustomerOrder;
+
+import com.dbms.project.model.LeavesAndSalaries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -50,6 +53,10 @@ public class CustomerDao {
     public List<Customer> getAllCustomers() {
         final String sql = "SELECT * from customer";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Customer.class));
+    }
+    public List<CustomerOrder> getAllCustomerOrders(int id) {
+        final String sql = "SELECT * from customerOrder WHERE customerId = ?";
+        return jdbcTemplate.query(sql, new Object[] {id}, new BeanPropertyRowMapper<>(CustomerOrder.class));
     }
 
     public Customer getCustomerById(int id) {

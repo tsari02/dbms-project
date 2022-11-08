@@ -2,6 +2,8 @@ package com.dbms.project.service;
 
 import com.dbms.project.dao.CustomerDao;
 import com.dbms.project.model.Customer;
+import com.dbms.project.model.CustomerOrder;
+import com.dbms.project.model.LeavesAndSalaries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,11 @@ public class CustomerService {
     public int insertCustomer(Customer customer) {
         return customerDao.insertCustomer(customer);
     }
+
+    public List<CustomerOrder> getAllCustomerOrders(int id) {
+        return customerDao.getAllCustomerOrders(id);
+    }
+
 
     public List<Customer> getAllCustomers() {
         return customerDao.getAllCustomers();
