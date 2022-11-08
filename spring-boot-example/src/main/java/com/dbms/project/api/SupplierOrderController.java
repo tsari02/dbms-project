@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import java.sql.Date;
+import java.util.Objects;
 
 // @RequestMapping("api/order/supplier")
 @Controller
@@ -121,6 +122,7 @@ public class SupplierOrderController {
     public String showSupplierOrder(@PathVariable("id") int id, Model model){
         model.addAttribute("supplierOrder", supplierOrderService.getSupplierOrderById(id));
         model.addAttribute("productTypesOrdered", productTypeService.getAllProductTypesInSupplierOrder(id));
+        System.out.println(supplierOrderService.getSupplierOrderById(id));
         return "supplier-order";
     }
 
@@ -128,8 +130,13 @@ public class SupplierOrderController {
     public String recieveSupplierOrder(@PathVariable("id") int id, RedirectAttributes redirectAttributes){
         SupplierOrder supplierOrder = supplierOrderService.getSupplierOrderById(id);
         System.out.println(id);
-        // supplierOrder.setStatus("Completed");
-        // supplierOrderService.updateSupplierOrder(id, supplierOrder);
+        if (Objects.equals(supplierOrder.getStatus(), "Confirmed")) {
+            System.out.println(id);
+            supplierOrderService.completeSupplierOrder(id);
+            System.out.println("Order Completed");
+            supplierOrder.setStatus("Completed");
+            supplierOrderService.updateSupplierOrder(id, supplierOrder);
+        }
         return "redirect:/order/supplier/"+id;
     }
 }

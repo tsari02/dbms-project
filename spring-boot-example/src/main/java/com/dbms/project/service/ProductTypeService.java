@@ -47,7 +47,4 @@ public class ProductTypeService {
     public int addProductTypeToCustomerOrder(int productTypeId, int quantity, int customerOrderId) {
         return productTypeDao.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
     }
-    public int addProductTypeToSupplierOrder(int productTypeId, int quantity, int supplierOrderId) {
-        return productTypeDao.addProductTypeToSupplierOrder(productTypeId, quantity, supplierOrderId);
-    }
 }

@@ -58,5 +58,10 @@ public class OrderedProductTypeDao {
         final String sql = "UPDATE orderedProductType SET supplierOrderId = ?, quantity = ?, productTypeId = ?, contactNumber = ?, numberDelivered = ? WHERE id = ?";
         return jdbcTemplate.update(sql, orderedProductType.getSupplierOrderId(), orderedProductType.getQuantity(), orderedProductType.getProductTypeId(), orderedProductType.getNumberDelivered(), id);
     }
+
+//    public List<OrderedProductType> getOrderedProductTypesBySupplierOrderId(int id) {
+//        final String sql = "SELECT * from orderedProductType WHERE supplierOrderId = ?";
+//        return jdbcTemplate.query(sql, new Object[] {id} , new BeanPropertyRowMapper<>(OrderedProductType.class));
+//    }
 }
 

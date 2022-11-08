@@ -108,26 +108,4 @@ public class ProductTypeDao {
         jdbcTemplate.update(sql5);
         return result;
     }
-
-    @Transactional
-    public int addProductTypeToSupplierOrder(int productTypeId, int quantity, int supplierOrderId) {
-        final String sql1 = "SELECT id FROM product WHERE supplierOrderId IS NULL AND productTypeID = ? LIMIT ?";
-        // List<Integer> productIds = jdbcTemplate.queryForList(sql1, new Object[] {productTypeId, quantity},  int.class);
-
-        // final String sql2 = "CREATE temporary TABLE productIdsTemp (id INT NOT NULL);";
-        // jdbcTemplate.update(sql2);
-
-
-        // final String sql3 = "INSERT INTO productIdsTemp(id) VALUES (?)";
-        // jdbcTemplate.batchUpdate(sql3, new InsertIdsPreparedStatementSetter(productIds));
-
-        // final String sql4 = "UPDATE product SET supplierOrderId = ? WHERE id IN (SELECT id FROM productIdsTemp)";
-        // int result = jdbcTemplate.update(sql4,supplierOrderId);
-        // final String sql5 = "DROP TABLE productIdsTemp";
-        // jdbcTemplate.update(sql5);
-        return 0;
-    }
-
-
-
 }
