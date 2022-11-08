@@ -1,0 +1,5 @@
+ALTER TABLE productType
+DROP COLUMN price;
+
+ALTER TABLE productType
+ADD COLUMN productImage VARCHAR(255) NOT NULL;
