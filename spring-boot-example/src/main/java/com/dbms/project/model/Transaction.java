@@ -15,7 +15,6 @@ public class Transaction {
     @Size(min=1, max=25, message="Length of Bank Branch must be between 1 and 25 characters")
     @NotBlank(message="Bank Branch cannot be blank")
     private String bankBranch;
-    private int productType;
     private int accountNumber;
     @Min(value=0, message="Amount must be positive")
     private int amount;

@@ -22,14 +22,13 @@ public class BillDao {
     }
 
     public int insertBill(Bill bill) {
-        final String sql = "INSERT INTO bill(gstNumber, amount, discount, netAmount) VALUES(?, ?, ?, ?)";
+        final String sql = "INSERT INTO bill(gstNumber, amount, discount) VALUES(?, ?, ?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, bill.getGstNumber());
             ps.setInt(2, bill.getAmount());
             ps.setInt(3, bill.getDiscount());
-            ps.setInt(4, bill.getNetAmount());
 
             return ps;
         }, keyholder);
@@ -54,8 +53,17 @@ public class BillDao {
         return jdbcTemplate.update(sql, id);
     }
 
+    public int getNetAmount(int id) {
+        final String sql = "SELECT amount FROM bill WHERE id = ?";
+        final String sql2 = "SELECT discount FROM bill WHERE id = ?";
+        int amount = jdbcTemplate.update(sql, id);
+        int discount = jdbcTemplate.update(sql2, id);
+        int netAmount = amount*(100-discount);
+        return netAmount;
+    }
+
     public int updateBill(int id, Bill bill) {
-        final String sql = "UPDATE bill SET gstNumber = ?, amount = ?, discount = ?, netAmount = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, bill.getGstNumber(), bill.getAmount(), bill.getDiscount(), bill.getNetAmount(), id);
+        final String sql = "UPDATE bill SET gstNumber = ?, amount = ?, discount = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, bill.getGstNumber(), bill.getAmount(), bill.getDiscount(), id);
     }
 }

@@ -22,12 +22,11 @@ public class TransactionDao {
     }
 
     public int insertTransaction(Transaction transaction) {
-        final String sql = "INSERT INTO transaction(bankBranch, productType, accountNumber, amount, mode, verificationStatus, dateOfTransaction, bankName) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO transaction(bankBranch, accountNumber, amount, mode, verificationStatus, dateOfTransaction, bankName) VALUES(?, ?, ?, ?, ?, ?, ?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, transaction.getBankBranch());
-            ps.setInt(2, transaction.getProductType());
             ps.setInt(3, transaction.getAccountNumber());
             ps.setInt(4, transaction.getAmount());
             ps.setString(5, transaction.getMode());
@@ -59,7 +58,7 @@ public class TransactionDao {
     }
 
     public int updateTransaction(int id, Transaction transaction) {
-        final String sql = "UPDATE transaction SET bankBranch = ?, productType = ?, accountNumber = ?, amount = ?, mode = ?, VerificationStatus = ?, DateOfTransaction = ?, BankName = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, transaction.getBankBranch(), transaction.getProductType(), transaction.getAccountNumber(), transaction.getAmount(), transaction.getMode(), transaction.getVerificationStatus(), transaction.getDateOfTransaction(), transaction.getBankName(), id);
+        final String sql = "UPDATE transaction SET bankBranch = ?, accountNumber = ?, amount = ?, mode = ?, VerificationStatus = ?, DateOfTransaction = ?, BankName = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, transaction.getBankBranch(), transaction.getAccountNumber(), transaction.getAmount(), transaction.getMode(), transaction.getVerificationStatus(), transaction.getDateOfTransaction(), transaction.getBankName(), id);
     }
 }
