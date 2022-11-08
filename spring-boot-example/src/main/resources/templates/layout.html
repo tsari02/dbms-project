@@ -14,10 +14,10 @@
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <!-- CSS Files -->
-    <link rel="stylesheet" type="text/css" href="/assets/DataTables/datatables.min.css"/>
-    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
+<!--    <link rel="stylesheet" type="text/css" href="/assets/DataTables/datatables.min.css"/>-->
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.0.4" rel="stylesheet" />
 </head>
 <body class="g-sidenav-show  bg-gray-200">
     <th:block th:replace="fragments/sidebar :: sidebar" />
@@ -35,10 +35,17 @@
     <script src="/assets/js/core/bootstrap.min.js"></script>
     <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script type="text/javascript" src="/assets/DataTables/datatables.min.js"></script>
+<!--    <script type="text/javascript" src="/assets/DataTables/datatables.min.js"></script>-->
     <script src="/assets/js/plugins/datatables.js"></script>
 <!--    <th:block th:replace="${script}" />-->
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/assets/js/material-dashboard.min.js?v=3.0.4"></script>
+    <script>
+        new simpleDatatables.DataTable(".datatable", {
+            sortable: false,
+            searchable: true,
+            fixedHeight: true
+        })
+    </script>
 </body>
-</html>    <script src="/assets/js/core/bootstrap.min.js"></script>
+</html>

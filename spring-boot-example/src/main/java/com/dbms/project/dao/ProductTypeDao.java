@@ -41,8 +41,14 @@ public class ProductTypeDao {
     }
 
     public List<ProductType> getAllProductTypes() {
-        final String sql = "SELECT * from productType";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ProductType.class));
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.productImage as 'productImage', p.warrantyPeriod as 'warrantyPeriod', (SELECT COUNT(p2.id)  " +
+                "FROM product p2 " +
+                "WHERE p2.productTypeId = p.id AND " +
+                "p2.customerOrderId IS NULL) as 'quantity' " +
+                "FROM productType p ";
+        List<ProductType>  products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ProductType.class));
+        System.out.println(products);
+        return products;
     }
 
     public ProductType getProductTypeById(int id) {
@@ -58,5 +64,16 @@ public class ProductTypeDao {
     public int updateProductType(int id, ProductType productType) {
         final String sql = "UPDATE productType SET name = ?, productImage = ?, warrantyPeriod = ?, quantity = ? WHERE id = ?";
         return jdbcTemplate.update(sql, productType.getName(), productType.getProductImage(), productType.getWarrantyPeriod(), productType.getQuantity(), id);
+    }
+
+    public List<ProductType> getAllProductTypesInCustomerOrder(int customerOrderId) {
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.productImage as 'productImage', p.warrantyPeriod as 'warrantyPeriod', (SELECT COUNT(p2.id)  " +
+                "FROM product p2 " +
+                "WHERE p2.productTypeId = p.id AND " +
+                "p2.customerOrderId = ?) as 'quantity' " +
+                "FROM productType p ";
+        List<ProductType>  products = jdbcTemplate.query(sql, new Object[] {customerOrderId}, new BeanPropertyRowMapper<>(ProductType.class));
+        System.out.println(products);
+        return products;
     }
 }
