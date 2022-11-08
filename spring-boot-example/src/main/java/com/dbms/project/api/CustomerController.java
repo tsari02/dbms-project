@@ -2,6 +2,7 @@ package com.dbms.project.api;
 
 import com.dbms.project.model.Customer;
 import com.dbms.project.service.CustomerService;
+import com.dbms.project.service.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -48,12 +49,12 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
-    @GetMapping(path="/api/customer/{id}")
-    @ResponseBody
-    public Customer getCustomerById(@PathVariable("id") int id) {
-        return customerService.getCustomerById(id);
+    @GetMapping(path="/customer/{id}")
+    public String getCustomerById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("customer", customerService.getCustomerById(id));
+        model.addAttribute("orders", customerService.getAllCustomerOrders(id));
+        return "customer";
     }
-
     @PostMapping(path="/api/customer/{id}/edit")
     @ResponseBody
     public void updateCustomer(@PathVariable("id") int id, @Valid @NotNull @RequestBody Customer customer) {
