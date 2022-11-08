@@ -112,7 +112,7 @@ public class ProductTypeDao {
 
     @Transactional
     public int addProductTypeToSupplierOrder(int productTypeId, int quantity, int supplierOrderId) {
-        // final String sql1 = "SELECT id FROM product WHERE supplierOrderId IS NULL AND productTypeID = ? LIMIT ?";
+        final String sql1 = "SELECT id FROM product WHERE supplierOrderId IS NULL AND productTypeID = ? LIMIT ?";
         // List<Integer> productIds = jdbcTemplate.queryForList(sql1, new Object[] {productTypeId, quantity},  int.class);
 
         // final String sql2 = "CREATE temporary TABLE productIdsTemp (id INT NOT NULL);";
