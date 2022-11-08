@@ -75,12 +75,9 @@ public class ProductTypeDao {
                 "WHERE p2.productTypeId = p.id AND " +
                 "p2.customerOrderId = ?) as 'quantity' " +
                 "FROM productType p ";
-        List<ProductType> products = jdbcTemplate.query(sql, new Object[] { customerOrderId },
-                new BeanPropertyRowMapper<>(ProductType.class));
+        List<ProductType> products = jdbcTemplate.query(sql, new Object[] { customerOrderId }, new BeanPropertyRowMapper<>(ProductType.class));
         return products;
     }
-
-    <<<<<<<HEAD=======
 
     public List<ProductType> getAllProductTypesInSupplierOrder(int supplierOrderId) {
         final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  "
@@ -89,12 +86,10 @@ public class ProductTypeDao {
                 "WHERE p2.productTypeId = p.id AND " +
                 "p2.customerOrderId = ?) as 'quantity' " +
                 "FROM productType p ";
-        List<ProductType> products = jdbcTemplate.query(sql, new Object[] { supplierOrderId },
-                new BeanPropertyRowMapper<>(ProductType.class));
+        List<ProductType> products = jdbcTemplate.query(sql, new Object[] { supplierOrderId }, new BeanPropertyRowMapper<>(ProductType.class));
         return products;
     }
 
-    >>>>>>>4bd1821 (Push changes mayank)
 
     @Transactional
     public int addProductTypeToCustomerOrder(int productTypeId, int quantity, int customerOrderId) {
@@ -110,12 +105,30 @@ public class ProductTypeDao {
 
         final String sql4 = "UPDATE product SET customerOrderId = ? WHERE id IN (SELECT id FROM productIdsTemp)";
         int result = jdbcTemplate.update(sql4,customerOrderId);
-<<<<<<< HEAD
         final String sql5 = "DROP TABLE productIdsTemp";
-=======
-        final String sql5 = "TRUNCATE FROM productIdsTemp";
->>>>>>> 4bd1821 (Push changes mayank)
         jdbcTemplate.update(sql5);
         return result;
     }
+
+    @Transactional
+    public int addProductTypeToSupplierOrder(int productTypeId, int quantity, int supplierOrderId) {
+        // final String sql1 = "SELECT id FROM product WHERE supplierOrderId IS NULL AND productTypeID = ? LIMIT ?";
+        // List<Integer> productIds = jdbcTemplate.queryForList(sql1, new Object[] {productTypeId, quantity},  int.class);
+
+        // final String sql2 = "CREATE temporary TABLE productIdsTemp (id INT NOT NULL);";
+        // jdbcTemplate.update(sql2);
+
+
+        // final String sql3 = "INSERT INTO productIdsTemp(id) VALUES (?)";
+        // jdbcTemplate.batchUpdate(sql3, new InsertIdsPreparedStatementSetter(productIds));
+
+        // final String sql4 = "UPDATE product SET supplierOrderId = ? WHERE id IN (SELECT id FROM productIdsTemp)";
+        // int result = jdbcTemplate.update(sql4,supplierOrderId);
+        // final String sql5 = "DROP TABLE productIdsTemp";
+        // jdbcTemplate.update(sql5);
+        return 0;
+    }
+
+
+
 }
