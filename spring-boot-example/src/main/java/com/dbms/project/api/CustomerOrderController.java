@@ -75,10 +75,7 @@ public class CustomerOrderController {
     }
 
      @PostMapping(path="/order/customer/{id}/add")
-     @ResponseBody
-     public String addProductsToCustomerOrder(@RequestParam("orderId") int customerOrderId, @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId, Authentication authentication, RedirectAttributes redirectAttributes){
-         System.out.println(quantity);
-         System.out.println(productTypeId);
+     public String addProductsToCustomerOrder(@PathVariable("id") int customerOrderId, @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId, Authentication authentication, RedirectAttributes redirectAttributes){
          productTypeService.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
          return "redirect:/order/customer/" + customerOrderId + "/add";
      }
