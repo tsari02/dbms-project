@@ -1,12 +1,16 @@
 package com.dbms.project.dao;
 
+import com.dbms.project.model.OrderedProductType;
+import com.dbms.project.model.ProductType;
 import com.dbms.project.model.SupplierOrder;
+import com.dbms.project.preparedStatementSetters.ProductBatchPreparedStatementSetter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -57,5 +61,18 @@ public class SupplierOrderDao {
     public int updateSupplierOrder(int id, SupplierOrder supplierOrder) {
         final String sql = "UPDATE supplierOrder SET dateOfOrder = ?, status = ?, supplierId = ? WHERE id = ?";
         return jdbcTemplate.update(sql, supplierOrder.getDateOfOrder(), supplierOrder.getStatus(), supplierOrder.getSupplierId(), id);
+    }
+
+    @Transactional
+    public void completeSupplierOrder(int id) {
+        final String sql = "SELECT * from orderedProductType WHERE supplierOrderId = ?";
+        List<OrderedProductType> orderedProductTypes = jdbcTemplate.query(sql, new Object[] {id} , new BeanPropertyRowMapper<>(OrderedProductType.class));
+//        List<ProductType> products = jdbcTemplate.query(sql, new Object[] { supplierOrderId }, new BeanPropertyRowMapper<>(ProductType.class));
+
+        final String sql2 = "INSERT INTO product(supplierOrderId, productTypeId) VALUES (?, ?)";
+        for(OrderedProductType orderedProductType : orderedProductTypes)
+        {
+            jdbcTemplate.batchUpdate(sql2, new ProductBatchPreparedStatementSetter(id, orderedProductType.getProductTypeId(), orderedProductType.getQuantity()));
+        }
     }
 }

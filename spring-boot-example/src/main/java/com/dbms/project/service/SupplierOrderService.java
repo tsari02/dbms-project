@@ -35,4 +35,8 @@ public class SupplierOrderService {
     public int updateSupplierOrder(int id, SupplierOrder supplier) {
         return supplierDao.updateSupplierOrder(id, supplier);
     }
+
+    public void completeSupplierOrder(int id) {
+        supplierDao.completeSupplierOrder(id);
+    }
 }

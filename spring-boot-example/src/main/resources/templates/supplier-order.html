@@ -76,9 +76,9 @@
 </div>
 
 <div class="mt-3">
-  <form th:action="@{'/order/supplier/'+${supplierOrder.Id}+'/complete'}" method="post">
+  <form th:action="@{'/order/supplier/'+${supplierOrder.Id}+'/complete'}" method="post" th:if="${supplierOrder.status == 'Confirmed'}">
     <button class="btn btn-icon btn-primary" type="submit">
-      <span class="btn-inner--text">Products Received</span>
+      <span class="btn-inner--text">Mark Order As Completed</span>
     </button>
   </form>
 </div> 
