@@ -76,15 +76,15 @@ public class SupplierOrderController {
         SupplierOrder supplierOrder = new SupplierOrder();
         supplierOrder.setSupplierId(supplierId);
         supplierOrder.setDateOfOrder(new Date(System.currentTimeMillis()));
-        supplierOrder.setStatus(status: );
+        supplierOrder.setStatus("Initiated");
         supplierOrderService.insertSupplierOrder(supplierOrder);
         return "redirect:/order/supplier/" + supplierOrder.getId() + "/add";
     }
 
-    @PostMapping(path="/order/customer/{id}/add")
-    public String addProductsToCustomerOrder(@PathVariable("id") int customerOrderId, @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId, Authentication authentication, RedirectAttributes redirectAttributes){
-        productTypeService.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
-        return "redirect:/order/customer/" + customerOrderId + "/add";
+    @PostMapping(path="/order/supplier/{id}/add")
+    public String addProductsToSupplierOrder(@PathVariable("id") int supplierOrderId, @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId, Authentication authentication, RedirectAttributes redirectAttributes){
+        productTypeService.addProductTypeToSupplierOrder(productTypeId, quantity, supplierOrderId);
+        return "redirect:/order/customer/" + supplierOrderId + "/add";
     }
 
 
