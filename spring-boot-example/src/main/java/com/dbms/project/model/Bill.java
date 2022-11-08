@@ -17,6 +17,4 @@ public class Bill {
     private int amount;
     @Min(value=0,message="Discount must be positive")
     private int discount;
-    @Min(value=0,message="Net Amount must be positive")
-    private int netAmount;
 }
