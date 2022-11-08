@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class ProductTypeService {
     private final ProductTypeDao productTypeDao;
-    
+
     @Autowired
     public ProductTypeService(ProductTypeDao productTypeDao) {
         this.productTypeDao = productTypeDao;
@@ -36,7 +36,13 @@ public class ProductTypeService {
         return productTypeDao.updateProductType(id, productType);
     }
 
-    public List<ProductType> getAllProductTypesInCustomerOrder(int customerOrderId) { return productTypeDao.getAllProductTypesInCustomerOrder(customerOrderId); }
+    public List<ProductType> getAllProductTypesInCustomerOrder(int customerOrderId) {
+        return productTypeDao.getAllProductTypesInCustomerOrder(customerOrderId);
+    }
+
+    public List<ProductType> getAllProductTypesInSupplierOrder(int supplierOrderId) {
+        return productTypeDao.getAllProductTypesInSupplierOrder(supplierOrderId);
+    }
 
     public int addProductTypeToCustomerOrder(int productTypeId, int quantity, int customerOrderId) {
         return productTypeDao.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
