@@ -124,6 +124,7 @@ public class CustomerOrderController {
         }
         bill.setAmount(amt);
         model.addAttribute("bill", bill);
+        model.addAttribute("customerOrder", customerOrderService.getCustomerOrderById(customerOrderId));
         return "bill";
     }
 }
