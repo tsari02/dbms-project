@@ -60,6 +60,7 @@ public class EmployeeController {
     @GetMapping(path="/employee/{id}")
     public String getEmployeeById(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", employeeService.getEmployeeById(id));
+        model.addAttribute("months", employeeService.getAllLeavesAndSalaries(id));
         return "employee";
     }
 
