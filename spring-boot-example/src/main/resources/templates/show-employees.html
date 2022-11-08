@@ -159,6 +159,22 @@
                     </a>
                   </div>
                 </td>
+                <td>
+                  <div>
+                    <a th:href="@{'/employee/' + ${emp.id} + '/edit'}">
+                      <button class="btn btn-icon btn-primary" type="button">
+                        <span class="btn-inner--text">Edit</span>
+                      </button>
+                    </a>
+                  </div>
+                </td>
+                <td>
+                  <form th:action="@{'/api/employee/' + ${emp.id} + '/delete'}" method="post" class="nav-link d-flex align-items-center">
+                    <button type="submit" class="btn btn-danger">
+                      <span class="d-inline">Delete</span>
+                    </button>
+                  </form>
+                </td>
 
               </tr>
             </tbody>

@@ -7,7 +7,7 @@
   <!-- Add page content here within a div tag -->
 
   <div>
-    <a href="/profile/edit">
+    <a th:href="@{'/employee/' + ${employee.id} + '/edit'}">
       <button class="btn btn-icon btn- btn-primary" type="button">
         <span class="btn-inner--text">EDIT EMPLOYEE</span>
       </button>
