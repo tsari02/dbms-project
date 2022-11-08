@@ -1,6 +1,7 @@
 package com.dbms.project.api;
 
 import com.dbms.project.model.Employee;
+import com.dbms.project.model.LeavesAndSalaries;
 import com.dbms.project.model.Supplier;
 import com.dbms.project.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
