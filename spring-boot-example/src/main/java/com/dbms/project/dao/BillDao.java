@@ -53,15 +53,6 @@ public class BillDao {
         return jdbcTemplate.update(sql, id);
     }
 
-    public int getNetAmount(int id) {
-        final String sql = "SELECT amount FROM bill WHERE id = ?";
-        final String sql2 = "SELECT discount FROM bill WHERE id = ?";
-        int amount = jdbcTemplate.update(sql, id);
-        int discount = jdbcTemplate.update(sql2, id);
-        int netAmount = amount*(100-discount);
-        return netAmount;
-    }
-
     public int updateBill(int id, Bill bill) {
         final String sql = "UPDATE bill SET gstNumber = ?, amount = ?, discount = ? WHERE id = ?";
         return jdbcTemplate.update(sql, bill.getGstNumber(), bill.getAmount(), bill.getDiscount(), id);

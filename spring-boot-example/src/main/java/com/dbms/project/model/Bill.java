@@ -17,4 +17,7 @@ public class Bill {
     private int amount;
     @Min(value=0,message="Discount must be positive")
     private int discount;
+    public int getNetAmount() {
+        return ((int) amount*(100-discount)/100);
+    }
 }
