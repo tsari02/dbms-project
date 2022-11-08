@@ -150,7 +150,7 @@
 
                 <td class="align-middle">
                     <form th:action="@{'/order/customer/'+${customerOrder.Id}+'/add'}" method="post">
-                        <input type="number" name="quantity">
+                        <input type="number" name="quantity" required min ="0" th:max="${ptype.quantity}">
                         <input type="text" name="productTypeId" th:value="${ptype.id}" hidden />
                         <button class="btn btn-icon btn-primary ms-5" type="submit">
                             <span class="btn-inner--text">SUBMIT</span>
