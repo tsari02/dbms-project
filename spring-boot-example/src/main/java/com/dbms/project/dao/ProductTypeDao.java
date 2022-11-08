@@ -22,14 +22,14 @@ public class ProductTypeDao {
     }
 
     public int insertProductType(ProductType productType) {
-        final String sql = "INSERT INTO productType(name, productImage, warrantyPeriod, quantity) VALUES(?, ?, ?, ?)";
+        final String sql = "INSERT INTO productType(name, warrantyPeriod, quantity, price) VALUES(?, ?, ?, ?)";
         KeyHolder keyholder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, productType.getName());
-            ps.setString(2, productType.getProductImage());
-            ps.setInt(3, productType.getWarrantyPeriod());
-            ps.setInt(4, productType.getQuantity());
+            ps.setInt(2, productType.getWarrantyPeriod());
+            ps.setInt(3, productType.getQuantity());
+            ps.setString(4, productType.getPrice());
 
 
             return ps;
@@ -41,7 +41,7 @@ public class ProductTypeDao {
     }
 
     public List<ProductType> getAllProductTypes() {
-        final String sql = "SELECT p.id as 'id', p.name as 'name', p.productImage as 'productImage', p.warrantyPeriod as 'warrantyPeriod', (SELECT COUNT(p2.id)  " +
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  " +
                 "FROM product p2 " +
                 "WHERE p2.productTypeId = p.id AND " +
                 "p2.customerOrderId IS NULL) as 'quantity' " +
@@ -61,12 +61,12 @@ public class ProductTypeDao {
     }
 
     public int updateProductType(int id, ProductType productType) {
-        final String sql = "UPDATE productType SET name = ?, productImage = ?, warrantyPeriod = ?, quantity = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, productType.getName(), productType.getProductImage(), productType.getWarrantyPeriod(), productType.getQuantity(), id);
+        final String sql = "UPDATE productType SET name = ?, warrantyPeriod = ?, quantity = ?, price = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, productType.getName(), productType.getWarrantyPeriod(), productType.getQuantity(), productType.getPrice(), id);
     }
 
     public List<ProductType> getAllProductTypesInCustomerOrder(int customerOrderId) {
-        final String sql = "SELECT p.id as 'id', p.name as 'name', p.productImage as 'productImage', p.warrantyPeriod as 'warrantyPeriod', (SELECT COUNT(p2.id)  " +
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price' (SELECT COUNT(p2.id)  " +
                 "FROM product p2 " +
                 "WHERE p2.productTypeId = p.id AND " +
                 "p2.customerOrderId = ?) as 'quantity' " +
