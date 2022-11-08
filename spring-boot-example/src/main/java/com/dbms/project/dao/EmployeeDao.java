@@ -78,6 +78,11 @@ public class EmployeeDao {
         return jdbcTemplate.update(sql, employee.getFirstName(), employee.getMiddleName(), employee.getLastName(), employee.getDesignation(), employee.getSalary(), employee.getContactNumber(), employee.getDateOfBirth(), employee.getEmailId(), employee.getCity(), employee.getState(), employee.getPostalCode(), employee.getCountry(), employee.getStreet(), id);
     }
 
+    public int updatePassword(int id, Employee employee) {
+        final String sql = "UPDATE employee SET password = ? WHERE id = ?";
+        return jdbcTemplate.update(sql, employee.getPassword(), id);
+    }
+
     public Optional<Employee> findEmployeeByUsername(String username) {
         final String sql = "SELECT * from employee WHERE username = ?";
         return Optional.ofNullable(jdbcTemplate.queryForObject(sql, new Object[] {username}, new BeanPropertyRowMapper<>(Employee.class)));

@@ -32,6 +32,7 @@ public class CustomerOrderDao {
             ps.setDate(4, customerOrder.getOrderedDate());
             ps.setInt(5, customerOrder.getCustomerId());
             ps.setInt(6, customerOrder.getEmployeeId());
+            // ps.setBoolean(7, customerOrder.getOrderCompleted());
 
             return ps;
         }, keyholder);
@@ -42,8 +43,12 @@ public class CustomerOrderDao {
 
     }
 
+
     public List<CustomerOrder> getAllCustomerOrders() {
-        final String sql = "SELECT * from customerOrder";
+        final String sql = "SELECT c.id as 'id', c.deliveryAgentAssigned as 'deliveryAgentAssigned', c.verificationStatus as 'verificationStatus', c.deliveryDate as 'deliveryDate', c.orderedDate as 'orderedDate', c.customerId as 'customerId', c.employeeId as 'employeeId', (SELECT IF(COUNT(*) > 0, 'true', 'false') "+
+        "FROM payment p WHERE p.customerOrderId = c.id" + 
+        " ) AS 'orderCompleted'" +
+        " from customerOrder c";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CustomerOrder.class));
     }
 

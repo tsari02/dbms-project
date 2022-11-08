@@ -22,4 +22,5 @@ public class CustomerOrder {
     private java.sql.Date orderedDate;
     private int customerId;
     private int employeeId;
+    private Boolean orderCompleted;
 }

@@ -44,6 +44,10 @@ public class EmployeeService implements UserDetailsService {
         return employeeDao.updateEmployee(id, employee);
     }
 
+    public int updatePassword(int id, Employee employee) {
+        return employeeDao.updatePassword(id, employee);
+    }
+
     @Override
     public Employee loadUserByUsername(String username) throws UsernameNotFoundException {
         return employeeDao.findEmployeeByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
@@ -52,4 +56,6 @@ public class EmployeeService implements UserDetailsService {
     public Employee getEmployeeByUsername(String username) {
         return employeeDao.findEmployeeByUsername(username).get();
     }
+
+    
 }
