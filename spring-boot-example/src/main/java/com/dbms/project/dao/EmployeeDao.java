@@ -3,6 +3,7 @@ package com.dbms.project.dao;
 
 import com.dbms.project.model.Employee;
 import com.dbms.project.model.LeavesAndSalaries;
+import com.dbms.project.model.WorkExperience;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -61,6 +62,11 @@ public class EmployeeDao {
     public List<LeavesAndSalaries> getAllLeavesAndSalaries(int id) {
         final String sql = "SELECT * from leavesAndSalaries WHERE employeeId = ?";
         return jdbcTemplate.query(sql, new Object[] {id}, new BeanPropertyRowMapper<>(LeavesAndSalaries.class));
+    }
+
+    public List<WorkExperience> getAllWorkExperience(int id) {
+        final String sql = "SELECT * from workExperience WHERE employeeId = ?";
+        return jdbcTemplate.query(sql, new Object[] {id}, new BeanPropertyRowMapper<>(WorkExperience.class));
     }
 
     public Employee getEmployeeById(int id) {

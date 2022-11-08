@@ -1,5 +1,6 @@
 package com.dbms.project.api;
 
+import com.dbms.project.model.LeavesAndSalaries;
 import com.dbms.project.model.WorkExperience;
 import com.dbms.project.service.WorkExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,10 +64,9 @@ public class WorkExperienceController {
         return "add-workExperience";
     }
 
-    @PostMapping(path="/employee/workexperience/add")
+    @PostMapping(path="/employee/workExperience/add")
     public String addWorkExperienceSubmit(@Valid @NotNull WorkExperience workExperience, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        // System.out.println(leavesAndSalaries.getEmployeeId());
-        // System.out.println(leave);
+        System.out.println(workExperience);
         workExperienceService.insertWorkExperience(workExperience);
         return "redirect:/employee/"+workExperience.getEmployeeId();
     }

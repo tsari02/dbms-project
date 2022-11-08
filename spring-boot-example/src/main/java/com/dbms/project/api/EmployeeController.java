@@ -63,6 +63,7 @@ public class EmployeeController {
     public String getEmployeeById(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", employeeService.getEmployeeById(id));
         model.addAttribute("months", employeeService.getAllLeavesAndSalaries(id));
+        model.addAttribute("workExperiences", employeeService.getAllWorkExperience(id));
         return "employee";
     }
 

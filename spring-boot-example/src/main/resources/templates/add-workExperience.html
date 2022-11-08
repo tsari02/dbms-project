@@ -50,7 +50,7 @@
         <label class="form-label">
             leavingDate
         </label>
-        <input type="text" class="form-control" th:field="*{leavingDate}" required maxlength="50">
+        <input type="date" class="form-control" th:field="*{leavingDate}" required maxlength="50">
         </div>
       <div th:each="err : ${#fields.errors('leavingDate')}" class="fs-6">
         <span th:text="${err}"></span>
