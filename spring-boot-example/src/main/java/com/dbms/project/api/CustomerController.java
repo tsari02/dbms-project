@@ -27,6 +27,8 @@ public class CustomerController {
     @PostMapping(path="/customer")
     public String addCustomer(@Valid Customer customer, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
         if (result.hasErrors()) {
+            System.out.println(customer);
+            System.out.println(result.getAllErrors());
             model.addAttribute("customer", customer);
             return "customer-new";
         }

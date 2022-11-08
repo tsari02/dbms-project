@@ -18,11 +18,6 @@ public class Customer {
     private String middleName;
     @Size(min=0, max=25, message="Length of Last Name must be between 0 and 25 characters")
     private String lastName;
-    @NotBlank(message="Designation cannot be blank")
-    private String designation;
-    @NotNull(message="Salary cannot be empty")
-    @Min(value = 0, message = "Salary must be positive")
-    private int salary;
     @Size(min=1, max=20, message="Length of Contact Number must be between 1 and 20 characters")
     @NotBlank(message="Contact number cannot be blank")
     private String contactNumber;

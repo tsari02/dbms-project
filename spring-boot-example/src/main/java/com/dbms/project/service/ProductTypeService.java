@@ -37,4 +37,8 @@ public class ProductTypeService {
     }
 
     public List<ProductType> getAllProductTypesInCustomerOrder(int customerOrderId) { return productTypeDao.getAllProductTypesInCustomerOrder(customerOrderId); }
+
+    public int addProductTypeToCustomerOrder(int productTypeId, int quantity, int customerOrderId) {
+        return productTypeDao.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
+    }
 }
