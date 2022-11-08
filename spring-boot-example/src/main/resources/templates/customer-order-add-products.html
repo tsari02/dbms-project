@@ -11,7 +11,7 @@
 <div>
   <div class="card">
       <div class="table-responsive">
-        <table class="table align-items-center mb-0 datatable">
+        <table class="table align-items-center mb-0">
           <thead>
             <tr>
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
@@ -78,7 +78,7 @@
 
 <div>
   <a th:href="@{'/order/customer/'+${customerOrder.Id}+'/bill/new'}">
-    <button class="btn btn-icon btn-primary" type="button">
+    <button class="btn btn-icon btn-primary mb-5" type="button">
         <span class="btn-inner--text">GENERATE BILL</span>
     </button>
   </a>
@@ -152,7 +152,7 @@
                     <form th:action="@{'/order/customer/'+${customerOrder.Id}+'/add'}" method="post">
                         <input type="number" name="quantity">
                         <input type="text" name="productTypeId" th:value="${ptype.id}" hidden />
-                        <button class="btn btn-icon btn-primary" type="submit">
+                        <button class="btn btn-icon btn-primary ms-5" type="submit">
                             <span class="btn-inner--text">SUBMIT</span>
                         </button>
                     </form>
