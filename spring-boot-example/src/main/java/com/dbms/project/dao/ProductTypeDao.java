@@ -66,7 +66,7 @@ public class ProductTypeDao {
     }
 
     public List<ProductType> getAllProductTypesInCustomerOrder(int customerOrderId) {
-        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price' (SELECT COUNT(p2.id)  " +
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  " +
                 "FROM product p2 " +
                 "WHERE p2.productTypeId = p.id AND " +
                 "p2.customerOrderId = ?) as 'quantity' " +
