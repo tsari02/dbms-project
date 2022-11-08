@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 
-public class ProductTypeIdPreparedStatementSetter implements BatchPreparedStatementSetter{
+public class InsertIdsPreparedStatementSetter implements BatchPreparedStatementSetter{
     private List<Integer> Ids;
     
-    public ProductTypeIdPreparedStatementSetter(List<Integer> Ids) {
+    public InsertIdsPreparedStatementSetter(List<Integer> Ids) {
       super();
       this.Ids = Ids;
     }
