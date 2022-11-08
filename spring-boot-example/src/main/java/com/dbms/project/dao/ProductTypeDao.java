@@ -47,7 +47,6 @@ public class ProductTypeDao {
                 "p2.customerOrderId IS NULL) as 'quantity' " +
                 "FROM productType p ";
         List<ProductType>  products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ProductType.class));
-        System.out.println(products);
         return products;
     }
 
@@ -73,7 +72,11 @@ public class ProductTypeDao {
                 "p2.customerOrderId = ?) as 'quantity' " +
                 "FROM productType p ";
         List<ProductType>  products = jdbcTemplate.query(sql, new Object[] {customerOrderId}, new BeanPropertyRowMapper<>(ProductType.class));
-        System.out.println(products);
         return products;
+    }
+
+    public int addProductTypeToCustomerOrder(int productTypeId, int quantity, int customerOrderId) {
+//        TODO:
+        return 0;
     }
 }

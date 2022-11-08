@@ -69,17 +69,19 @@ public class CustomerOrderController {
     public String addProductsToCustomerOrder(@PathVariable("id") int id, Model model) {
         // model.addAttribute("products", productService.getAllProducts());
         model.addAttribute("customerOrder", customerOrderService.getCustomerOrderById(id));
+        model.addAttribute("productTypesOrdered", productTypeService.getAllProductTypesInCustomerOrder(id));
         model.addAttribute("productTypes", productTypeService.getAllProductTypes());
         return "customer-order-add-products";
     }
 
-    // @PostMapping(path="/order/customer/{id}/add")
-    // @ResponseBody
-    // public String (@RequestParam("orderId") int orderId, @RequestParam("quantity") int quantity, @RequestParam("productType") String productType, Authentication authentication, RedirectAttributes redirectAttributes){
-    //     CustomerOrder customerOrder = customerOrderService.getCustomerOrderById(orderId);
-    //     System.out.println(quantity);
-    //     return "redirect:/order/customer/" + orderId + "/add";
-    // }
+     @PostMapping(path="/order/customer/{id}/add")
+     @ResponseBody
+     public String addProductsToCustomerOrder(@RequestParam("orderId") int customerOrderId, @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId, Authentication authentication, RedirectAttributes redirectAttributes){
+         System.out.println(quantity);
+         System.out.println(productTypeId);
+         productTypeService.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
+         return "redirect:/order/customer/" + customerOrderId + "/add";
+     }
 
     @PostMapping(path="/api/order/customer")
     @ResponseBody
