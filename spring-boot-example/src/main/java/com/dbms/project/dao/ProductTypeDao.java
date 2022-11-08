@@ -1,12 +1,14 @@
 package com.dbms.project.dao;
 
 import com.dbms.project.model.ProductType;
+import com.dbms.project.preparedStatementSetters.ProductTypeIdPreparedStatementSetter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -75,8 +77,20 @@ public class ProductTypeDao {
         return products;
     }
 
+    @Transactional
     public int addProductTypeToCustomerOrder(int productTypeId, int quantity, int customerOrderId) {
-//        TODO:
-        return 0;
+        final String sql1 = "SELECT id FROM product WHERE customerOrderId IS NULL AND productTypeID = ? LIMIT ?";
+        List<Integer> productIds = jdbcTemplate.queryForList(sql1, new Object[] {productTypeId, quantity},  int.class);
+
+        final String sql2 = "CREATE temporary TABLE productIdsTemp (id INT NOT NULL);";
+        jdbcTemplate.update(sql2);
+        final String sql3 = "INSERT INTO productIdsTemp(id) VALUES (?)";
+        jdbcTemplate.batchUpdate(sql3, new ProductTypeIdPreparedStatementSetter(productIds));
+
+        final String sql4 = "UPDATE product SET customerOrderId = ? WHERE id IN (SELECT id FROM productIdsTemp)";
+        int result = jdbcTemplate.update(sql4,customerOrderId);
+        final String sql5 = "TRUNCATE FROM productIdsTemp";
+        jdbcTemplate.update(sql5);
+        return result;
     }
 }
