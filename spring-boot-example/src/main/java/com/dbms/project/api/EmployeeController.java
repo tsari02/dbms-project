@@ -1,8 +1,10 @@
 package com.dbms.project.api;
 
 import com.dbms.project.model.Employee;
+import com.dbms.project.model.Supplier;
 import com.dbms.project.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,11 +54,10 @@ public class EmployeeController {
     }
 
     @PostMapping(path="/api/employee/{id}/delete")
-    @ResponseBody
-    public void deleteEmployee(@PathVariable("id") int id) {
+    public String deleteEmployee(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
         employeeService.deleteEmployee(id);
+        return "redirect:/employee";
     }
-
     @GetMapping(path="/employee/{id}")
     public String getEmployeeById(@PathVariable("id") int id, Model model) {
         model.addAttribute("employee", employeeService.getEmployeeById(id));
@@ -64,9 +65,19 @@ public class EmployeeController {
         return "employee";
     }
 
-    @PostMapping(path="/api/employee/{id}/edit")
-    @ResponseBody
-    public void updateEmployee(@PathVariable("id") int id, @Valid @NotNull @RequestBody Employee employee) {
+    @PostMapping(path="/employee/{id}/edit")
+    public String employeeEditSubmit(@PathVariable("id") int id, @Valid @ModelAttribute("employee") Employee employee, BindingResult result, RedirectAttributes redirectAttributes, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("employee", employee);
+            return "employee-edit";
+        }
         employeeService.updateEmployee(id, employee);
+        return "redirect:/employee";
+    }
+
+    @GetMapping(path="/employee/{id}/edit")
+    public String employeeEditForm(@PathVariable("id") int id, Authentication authentication, Model model) {
+        model.addAttribute("employee", employeeService.getEmployeeById(id));
+        return "employee-edit";
     }
 }
