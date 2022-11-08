@@ -1,5 +1,6 @@
 package com.dbms.project.dao;
 
+import com.dbms.project.model.Customer;
 import com.dbms.project.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -59,5 +60,10 @@ public class ProductDao {
     public int updateProduct(int id, Product product) {
         final String sql = "UPDATE product SET customerOrderId = ?, supplierOrderId = ?, productTypeId = ? WHERE id = ?";
         return jdbcTemplate.update(sql, product.getCustomerOrderId(), product.getSupplierOrderId(), product.getProductTypeId(), id);
+    }
+
+    public List<Product> getProductsByCustomerOrderId(int customerOrderId) {
+        final String sql = "SELECT * from product WHERE customerOrderId = ?";
+        return jdbcTemplate.query(sql, new Object[] {customerOrderId}, new BeanPropertyRowMapper<>(Product.class));
     }
 }

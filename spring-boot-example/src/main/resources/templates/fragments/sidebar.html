@@ -18,15 +18,23 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white" th:href="@{/product}" th:classappend="${pageName=='Products'}?'active':''">
+                <a class="nav-link text-white" th:href="@{/product}" th:classappend="${#strings.startsWith(#request.getRequestURI(), '/product')}?'active':''">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">table_view</i>
                     </div>
                     <span class="nav-link-text ms-1">Products</span>
                 </a>
             </li>
+            <li class="nav-item" th:if="${#authentication.principal.hasRole('EMPLOYEE')}">
+                <a class="nav-link text-white " th:href="@{/customer}" th:classappend="${#strings.startsWith(#request.getRequestURI(), '/customer')}?'active':''">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">person</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Customers</span>
+                </a>
+            </li>
             <li class="nav-item">
-                <a class="nav-link text-white " th:href="@{/order/customer}" th:classappend="${pageName=='Customer Orders'}?'active':''">
+                <a class="nav-link text-white " th:href="@{/order/customer}" th:classappend="${#strings.startsWith(#request.getRequestURI(), '/order/customer')}?'active':''">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">receipt_long</i>
                     </div>
@@ -34,34 +42,34 @@
                 </a>
             </li>
             <li class="nav-item" th:if="${#authentication.principal.hasRole('MANAGER')}">
-                <a class="nav-link text-white " th:href="@{/employee}" th:classappend="${pageName=='Employees'}?'active':''">
+                <a class="nav-link text-white " th:href="@{/employee}" th:classappend="${#strings.startsWith(#request.getRequestURI(), '/employee')}?'active':''">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">person</i>
                     </div>
                     <span class="nav-link-text ms-1">Employees</span>
                 </a>
             </li>
-            <li class="nav-item" th:if="${#authentication.principal.hasRole('EMPLOYEE')}">
-                <a class="nav-link text-white " th:href="@{/customer}" th:classappend="${pageName=='Customers'}?'active':''">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">person</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Customers</span>
-                </a>
-            </li>
-            <li class="nav-item" th:if="${#authentication.principal.hasRole('EMPLOYEE')}">
-                <a class="nav-link text-white " th:href="@{/supplier}" th:classappend="${pageName=='Suppliers'}?'active':''">
+            <li class="nav-item" th:if="${#authentication.principal.hasRole('MANAGER')}">
+                <a class="nav-link text-white " th:href="@{/supplier}" th:classappend="${#strings.startsWith(#request.getRequestURI(), '/supplier')}?'active':''">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">person</i>
                     </div>
                     <span class="nav-link-text ms-1">Suppliers</span>
                 </a>
             </li>
+            <li class="nav-item" th:if="${#authentication.principal.hasRole('MANAGER')}">
+                <a class="nav-link text-white " th:href="@{/order/supplier}" th:classappend="${#strings.startsWith(#request.getRequestURI(), '/order/supplier')}?'active':''">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">person</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Supplier Orders</span>
+                </a>
+            </li>
             <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white " th:href="@{/profile}" th:classappend="${pageName=='Profile'}?'active':''">
+                <a class="nav-link text-white " th:href="@{/profile}" th:classappend="${#strings.startsWith(#request.getRequestURI(), '/profile')}?'active':''">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">person</i>
                     </div>
@@ -69,12 +77,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white " th:href="@{/logout}">
-                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">login</i>
-                    </div>
-                    <span class="nav-link-text ms-1">Logout</span>
-                </a>
+                <form th:action="@{/logout}" method="post" class="nav-link text-white ">
+                    <button class="border-0 text-white bg-transparent d-block d-flex ms-0 px-0" type="submit">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">login</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Logout</span>
+                    </button>
+<!--                    <button class="border-0 text-white bg-transparent nav-link-text ms-1" type="submit">Logout</button>-->
+                </form>
             </li>
         </ul>
     </div>

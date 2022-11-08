@@ -35,4 +35,6 @@ public class ProductTypeService {
     public int updateProductType(int id, ProductType productType) {
         return productTypeDao.updateProductType(id, productType);
     }
+
+    public List<ProductType> getAllProductTypesInCustomerOrder(int customerOrderId) { return productTypeDao.getAllProductTypesInCustomerOrder(customerOrderId); }
 }

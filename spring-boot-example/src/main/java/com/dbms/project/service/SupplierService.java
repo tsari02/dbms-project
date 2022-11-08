@@ -35,4 +35,8 @@ public class SupplierService {
     public int updateSupplier(int id, Supplier supplier) {
         return supplierDao.updateSupplier(id, supplier);
     }
+
+    public List<Supplier> findSuppliersByContactNo(String contactNo, Supplier supplier) {
+        return supplierDao.findSuppliersByContactNo(contactNo);
+    }
 }

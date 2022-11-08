@@ -70,7 +70,6 @@ public class CustomerDao {
     public List<Customer> findCustomersByContactNo(String contactNo) {
         final String sql = "SELECT * FROM customer WHERE contactNumber LIKE ?";
         List<Customer> customers = jdbcTemplate.query(sql, new Object[] { String.format("%%%s%%", contactNo)}, new BeanPropertyRowMapper<>(Customer.class));
-        System.out.println(customers);
         return customers;
     }
 }

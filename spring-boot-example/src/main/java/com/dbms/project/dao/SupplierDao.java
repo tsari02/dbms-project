@@ -1,5 +1,6 @@
 package com.dbms.project.dao;
 
+import com.dbms.project.model.Customer;
 import com.dbms.project.model.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -62,5 +63,11 @@ public class SupplierDao {
     public int updateSupplier(int id, Supplier supplier) {
         final String sql = "UPDATE supplier SET firstName = ?, middleName = ?, lastName = ?, contactNumber = ?, city = ?, state = ?, postalCode = ?, country = ?, street = ? WHERE id = ?";
         return jdbcTemplate.update(sql, supplier.getFirstName(), supplier.getMiddleName(), supplier.getLastName(), supplier.getContactNumber(), supplier.getCity(), supplier.getState(), supplier.getPostalCode(), supplier.getCountry(), supplier.getStreet(), id);
+    }
+
+    public List<Supplier> findSuppliersByContactNo(String contactNo) {
+        final String sql = "SELECT * FROM supplier WHERE contactNumber LIKE ?";
+        List<Supplier> suppliers = jdbcTemplate.query(sql, new Object[] { String.format("%%%s%%", contactNo)}, new BeanPropertyRowMapper<>(Supplier.class));
+        return suppliers;
     }
 }
