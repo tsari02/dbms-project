@@ -137,6 +137,6 @@ public class SupplierOrderController {
             supplierOrder.setStatus("Completed");
             supplierOrderService.updateSupplierOrder(id, supplierOrder);
         }
-        return "redirect:/order/supplier/"+id;
+        return "redirect:/order/supplier/";
     }
 }

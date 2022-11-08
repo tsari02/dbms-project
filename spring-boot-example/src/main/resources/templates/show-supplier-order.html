@@ -89,11 +89,21 @@
                   </div>
                 </td>
 
-                <td  th:if="${order.status != 'Initiated'}">
+                <td  th:if="${order.status == 'Confirmed'}">
                   <div>
-                    <a th:href="@{'/order/supplier/' + ${order.id} + '/edit'}">
+                    <a th:href="@{'/order/supplier/' + ${order.id}}">
                       <button class="btn btn-icon btn-primary" type="button">
-                        <span class="btn-inner--text">Edit</span>
+                        <span class="btn-inner--text">Continue</span>
+                      </button>
+                    </a>
+                  </div>
+                </td>
+
+                <td  th:if="${order.status == 'Completed'}">
+                  <div>
+                    <a th:href="@{'/order/supplier/' + ${order.id}}">
+                      <button class="btn btn-icon btn-primary" type="button">
+                        <span class="btn-inner--text">View</span>
                       </button>
                     </a>
                   </div>
