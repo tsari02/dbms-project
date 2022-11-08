@@ -31,7 +31,7 @@ public class ProductTypeDao {
             ps.setString(1, productType.getName());
             ps.setInt(2, productType.getWarrantyPeriod());
             ps.setInt(3, productType.getQuantity());
-            ps.setString(4, productType.getPrice());
+            ps.setInt(4, productType.getPrice());
 
 
             return ps;
@@ -91,7 +91,7 @@ public class ProductTypeDao {
 
         final String sql4 = "UPDATE product SET customerOrderId = ? WHERE id IN (SELECT id FROM productIdsTemp)";
         int result = jdbcTemplate.update(sql4,customerOrderId);
-        final String sql5 = "TRUNCATE FROM productIdsTemp";
+        final String sql5 = "DROP TABLE productIdsTemp";
         jdbcTemplate.update(sql5);
         return result;
     }

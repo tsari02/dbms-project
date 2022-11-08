@@ -2,6 +2,8 @@ package com.dbms.project.api;
 
 import com.dbms.project.model.CustomerOrder;
 import com.dbms.project.model.Employee;
+import com.dbms.project.model.Bill;
+import com.dbms.project.model.ProductType;
 import com.dbms.project.service.CustomerOrderService;
 import com.dbms.project.service.CustomerService;
 import com.dbms.project.service.ProductService;
@@ -108,5 +110,18 @@ public class CustomerOrderController {
     @ResponseBody
     public void updateCustomerOrder(@PathVariable("id") int id, @Valid @NotNull @RequestBody CustomerOrder customerOrder) {
         customerOrderService.updateCustomerOrder(id, customerOrder);
+    }
+
+    @GetMapping(path="/order/customer/{id}/bill")
+    public String getCustomerOrderBill(@PathVariable("id") int customerOrderId, Model model) {
+        List<ProductType> productTypes = productTypeService.getAllProductTypesInCustomerOrder(customerOrderId);
+        Bill bill = new Bill();
+        int amt = 0;
+        for(ProductType productType : productTypes){
+            amt += productType.getPrice()*productType.getQuantity();
+        }
+        bill.setAmount(amt);
+        model.addAttribute("bill", bill);
+        return "bill";
     }
 }

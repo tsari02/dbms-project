@@ -18,5 +18,5 @@ public class ProductType {
     @Min(0)
     private int quantity;
     @NotNull
-    private String price;
+    private int price;
 }
