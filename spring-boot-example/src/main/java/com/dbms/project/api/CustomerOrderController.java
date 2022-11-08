@@ -3,10 +3,14 @@ package com.dbms.project.api;
 import com.dbms.project.model.CustomerOrder;
 import com.dbms.project.model.Employee;
 import com.dbms.project.model.Bill;
+import com.dbms.project.model.Payment;
+import com.dbms.project.model.Transaction;
 import com.dbms.project.model.ProductType;
 import com.dbms.project.service.CustomerOrderService;
 import com.dbms.project.service.CustomerService;
 import com.dbms.project.service.ProductService;
+import com.dbms.project.service.PaymentService;
+import com.dbms.project.service.BillService;
 import com.dbms.project.service.ProductTypeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +33,18 @@ public class CustomerOrderController {
     private final CustomerOrderService customerOrderService;
     private final CustomerService customerService;
     private final ProductService productService;
+    private final BillService billService;
+    private final PaymentService paymentService;
     private final ProductTypeService productTypeService;
 
     @Autowired
-    public CustomerOrderController(CustomerOrderService customerOrderService, CustomerService customerService,
-            ProductService productService, ProductTypeService productTypeService) {
+    public CustomerOrderController(CustomerOrderService customerOrderService, CustomerService customerService, BillService billService,
+            ProductService productService, ProductTypeService productTypeService, PaymentService paymentService) {
         this.customerOrderService = customerOrderService;
         this.customerService = customerService;
         this.productService = productService;
+        this.billService = billService;
+        this.paymentService = paymentService;
         this.productTypeService = productTypeService;
     }
 
@@ -114,8 +122,8 @@ public class CustomerOrderController {
         customerOrderService.updateCustomerOrder(id, customerOrder);
     }
 
-    @GetMapping(path = "/order/customer/{id}/bill")
-    public String getCustomerOrderBill(@PathVariable("id") int customerOrderId, Model model) {
+    @GetMapping(path = "/order/customer/{id}/bill/new")
+    public String createCustomerOrderBill(@PathVariable("id") int customerOrderId, Model model) {
         List<ProductType> productTypes = productTypeService.getAllProductTypesInCustomerOrder(customerOrderId);
         Bill bill = new Bill();
         int amt = 0;
@@ -126,5 +134,25 @@ public class CustomerOrderController {
         model.addAttribute("bill", bill);
         model.addAttribute("customerOrder", customerOrderService.getCustomerOrderById(customerOrderId));
         return "bill";
+    }
+
+    @GetMapping(path = "/order/customer/{id}/bill")
+    public String getCustomerOrderBill(@PathVariable("id") int paymentId, Model model) {
+        model.addAttribute("paymentId", paymentId);
+        Payment payment = paymentService.getPaymentById(paymentId);
+        Transaction transaction = new Transaction();
+        transaction.setAmount(billService.getNetAmount(payment.getBillId()));
+        model.addAttribute("transaction", transaction);
+        return "transaction";
+    }
+
+    @PostMapping(path = "/order/customer/{id}/bill")
+    public String getCustomerOrderBill(@Valid @ModelAttribute Bill bill ,@PathVariable("id") int customerOrderId, RedirectAttributes redirectAttributes) {
+        int billId = billService.insertBill(bill);
+        Payment payment = new Payment();
+        payment.setBillId(billId);
+        payment.setCustomerOrderId(customerOrderId);
+        int paymentId = paymentService.insertPayment(payment);
+        return "redirect:/order/customer/" + paymentId + "/bill";
     }
 }
