@@ -126,12 +126,22 @@
           </div>
         </div>
       </div>
+
+      <div>
+        <a th:href="@{'/employee/' + ${employee.id} + '/leaves/add'}">
+          <button class="btn btn-icon btn- btn-primary" type="button">
+            <span class="btn-inner--text">ADD LEAVE OR SALARY</span>
+          </button>
+        </a>
+      </div> 
+
+
       <div class="text-center text-secondary font-weight-bolder mt-4">
         <h4>Leaves and Salaries</h4>
       </div>
       <div class="card mx-8 my-2">
         <div class="table-responsive">
-          <table class="table align-items-center mb-0 datatable">
+          <table class="table align-items-center mb-0">
             <thead>
               <tr>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>

@@ -4,7 +4,10 @@ import com.dbms.project.model.LeavesAndSalaries;
 import com.dbms.project.service.LeavesAndSalariesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -51,5 +54,21 @@ public class LeavesAndSalariesController {
     @ResponseBody
     public void updateLeavesAndSalaries(@PathVariable("id") int id, @Valid @NotNull @RequestBody LeavesAndSalaries leavesAndSalaries) {
         leavesAndSalariesService.updateLeavesAndSalaries(id, leavesAndSalaries);
+    }
+
+    @GetMapping(path="/employee/{id}/leaves/add")
+    public String addLeavesAndSalaries(@PathVariable("id") int id, Model model) {
+        LeavesAndSalaries leave = new LeavesAndSalaries();
+        leave.setEmployeeId(id);
+        model.addAttribute("leave", leave);
+        return "add-leaves";
+    }
+
+    @PostMapping(path="/employee/leaves/add")
+    public String addLeavesAndSalariesSubmit(@Valid @NotNull LeavesAndSalaries leave, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        // System.out.println(leavesAndSalaries.getEmployeeId());
+        System.out.println(leave);
+        leavesAndSalariesService.insertLeavesAndSalaries(leave);
+        return "redirect:/employee/"+leave.getEmployeeId();
     }
 }
