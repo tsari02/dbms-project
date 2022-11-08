@@ -77,10 +77,6 @@ public class ProductTypeDao {
 
     public int addProductTypeToCustomerOrder(int productTypeId, int quantity, int customerOrderId) {
 //        TODO:
-        final String sql1 = "SELECT id FROM product WHERE customerOrderId IS NULL AND productTypeID = ? LIMIT ?";
-        List<Integer> productIds = jdbcTemplate.queryForList(sql1, new Object[] {productTypeId, quantity},  int.class);
-         
-        final String sql2 = " UPDATE product SET customerOrderId = ? WHERE id IN ()";
-        return jdbcTemplate.update(sql,customerOrderId,productTypeId,quantity);
+        return 0;
     }
 }
