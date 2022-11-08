@@ -1,6 +1,8 @@
 package com.dbms.project.service;
 
 import com.dbms.project.dao.SupplierDao;
+import com.dbms.project.model.LeavesAndSalaries;
+import com.dbms.project.model.SupplierOrder;
 import com.dbms.project.model.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +36,10 @@ public class SupplierService {
 
     public int updateSupplier(int id, Supplier supplier) {
         return supplierDao.updateSupplier(id, supplier);
+    }
+
+    public List<SupplierOrder> getAllSupplierOrders(int id) {
+        return supplierDao.getAllSupplierOrders(id);
     }
 
     public List<Supplier> findSuppliersByContactNo(String contactNo, Supplier supplier) {

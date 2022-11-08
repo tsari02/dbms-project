@@ -1,6 +1,8 @@
 package com.dbms.project.dao;
 
 import com.dbms.project.model.Customer;
+import com.dbms.project.model.LeavesAndSalaries;
+import com.dbms.project.model.SupplierOrder;
 import com.dbms.project.model.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -20,6 +22,11 @@ public class SupplierDao {
     @Autowired
     public SupplierDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public List<SupplierOrder> getAllSupplierOrders(int id) {
+        final String sql = "SELECT * from supplierOrder WHERE supplierId = ?";
+        return jdbcTemplate.query(sql, new Object[] {id}, new BeanPropertyRowMapper<>(SupplierOrder.class));
     }
 
     public int insertSupplier(Supplier supplier) {
