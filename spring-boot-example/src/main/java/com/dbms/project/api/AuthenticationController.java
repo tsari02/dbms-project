@@ -63,7 +63,7 @@ public class AuthenticationController {
     public String profilePasswordSubmit(@RequestParam("password") String password, RedirectAttributes redirectAttributes, Authentication authentication) {
         Employee profile = ((Employee) authentication.getPrincipal());
         System.out.println(profile);
-        profile.setPassword(passwordEncoder.encode(profile.getPassword()));
+        profile.setPassword(passwordEncoder.encode(password));
         System.out.println(profile);
         employeeService.updatePassword(profile.getId(), profile);
         
