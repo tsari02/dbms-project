@@ -108,4 +108,28 @@ public class SupplierOrderController {
     public void updateSupplierOrder(@PathVariable("id") int id, @Valid @NotNull @RequestBody SupplierOrder supplierOrder) {
         supplierOrderService.updateSupplierOrder(id, supplierOrder);
     }
+
+    @PostMapping(path="/order/supplier/{id}/confirm")
+    public String confirmSupplierOrder(@PathVariable("id") int id, RedirectAttributes redirectAttributes){
+        SupplierOrder supplierOrder = supplierOrderService.getSupplierOrderById(id);
+        supplierOrder.setStatus("Confirmed");
+        supplierOrderService.updateSupplierOrder(id, supplierOrder);
+        return "redirect:/order/supplier/"+id;
+    }
+
+    @GetMapping(path="order/supplier/{id}")
+    public String showSupplierOrder(@PathVariable("id") int id, Model model){
+        model.addAttribute("supplierOrder", supplierOrderService.getSupplierOrderById(id));
+        model.addAttribute("productTypesOrdered", productTypeService.getAllProductTypesInSupplierOrder(id));
+        return "supplier-order";
+    }
+
+    @PostMapping(path="/order/supplier/{id}/complete")
+    public String recieveSupplierOrder(@PathVariable("id") int id, RedirectAttributes redirectAttributes){
+        SupplierOrder supplierOrder = supplierOrderService.getSupplierOrderById(id);
+        System.out.println(id);
+        // supplierOrder.setStatus("Completed");
+        // supplierOrderService.updateSupplierOrder(id, supplierOrder);
+        return "redirect:/order/supplier/"+id;
+    }
 }

@@ -22,7 +22,6 @@
               <tr>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Supplier ID</th>
-                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Employee ID</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Date of Order</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
                 <th></th>
@@ -81,7 +80,17 @@
 
      
 
-                <td>
+                <td th:if="${order.status == 'Initiated'}">
+                  <div>
+                    <a th:href="@{'/order/supplier/' + ${order.id} + '/add'}">
+                      <button class="btn btn-icon btn-primary" type="button">
+                        <span class="btn-inner--text">Continue</span>
+                      </button>
+                    </a>
+                  </div>
+                </td>
+
+                <td  th:if="${order.status != 'Initiated'}">
                   <div>
                     <a th:href="@{'/order/supplier/' + ${order.id} + '/edit'}">
                       <button class="btn btn-icon btn-primary" type="button">
