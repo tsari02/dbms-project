@@ -28,10 +28,6 @@ public class BillService {
         return billDao.getBillById(id);
     }
 
-    public int getNetAmount(int id) {
-        return billDao.getNetAmount(id);
-    }
-
     public int deleteBill(int id) {
         return billDao.deleteBill(id);
     }

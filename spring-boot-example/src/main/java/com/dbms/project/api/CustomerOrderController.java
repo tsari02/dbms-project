@@ -141,7 +141,7 @@ public class CustomerOrderController {
         model.addAttribute("paymentId", paymentId);
         Payment payment = paymentService.getPaymentById(paymentId);
         Transaction transaction = new Transaction();
-        transaction.setAmount(billService.getNetAmount(payment.getBillId()));
+        transaction.setAmount(billService.getBillById(payment.getBillId()).getNetAmount());
         model.addAttribute("transaction", transaction);
         return "transaction";
     }
