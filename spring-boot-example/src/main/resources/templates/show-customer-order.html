@@ -29,6 +29,7 @@
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Verification Status</th>
                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Order Completed</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -116,6 +117,16 @@
                     <a th:href="@{'/order/customer/' + ${order.id} + '/edit'}">
                       <button class="btn btn-icon btn-primary" type="button">
                         <span class="btn-inner--text">Edit</span>
+                      </button>
+                    </a>
+                  </div>
+                </td>
+
+                <td th:if="${order.orderCompleted == true}">
+                  <div>
+                    <a th:href="@{'/order/customer/' + ${order.id}}">
+                      <button class="btn btn-icon btn-primary" type="button">
+                        <span class="btn-inner--text">View</span>
                       </button>
                     </a>
                   </div>
