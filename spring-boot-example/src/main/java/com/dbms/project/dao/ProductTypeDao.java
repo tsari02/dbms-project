@@ -33,7 +33,6 @@ public class ProductTypeDao {
             ps.setInt(3, productType.getQuantity());
             ps.setInt(4, productType.getPrice());
 
-
             return ps;
         }, keyholder);
         int id = keyholder.getKey().intValue();
@@ -43,18 +42,19 @@ public class ProductTypeDao {
     }
 
     public List<ProductType> getAllProductTypes() {
-        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  " +
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  "
+                +
                 "FROM product p2 " +
                 "WHERE p2.productTypeId = p.id AND " +
                 "p2.customerOrderId IS NULL) as 'quantity' " +
                 "FROM productType p ";
-        List<ProductType>  products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ProductType.class));
+        List<ProductType> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ProductType.class));
         return products;
     }
 
     public ProductType getProductTypeById(int id) {
         final String sql = "SELECT * from productType WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(ProductType.class));
+        return jdbcTemplate.queryForObject(sql, new Object[] { id }, new BeanPropertyRowMapper<>(ProductType.class));
     }
 
     public int deleteProductType(int id) {
@@ -64,18 +64,37 @@ public class ProductTypeDao {
 
     public int updateProductType(int id, ProductType productType) {
         final String sql = "UPDATE productType SET name = ?, warrantyPeriod = ?, quantity = ?, price = ? WHERE id = ?";
-        return jdbcTemplate.update(sql, productType.getName(), productType.getWarrantyPeriod(), productType.getQuantity(), productType.getPrice(), id);
+        return jdbcTemplate.update(sql, productType.getName(), productType.getWarrantyPeriod(),
+                productType.getQuantity(), productType.getPrice(), id);
     }
 
     public List<ProductType> getAllProductTypesInCustomerOrder(int customerOrderId) {
-        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  " +
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  "
+                +
                 "FROM product p2 " +
                 "WHERE p2.productTypeId = p.id AND " +
                 "p2.customerOrderId = ?) as 'quantity' " +
                 "FROM productType p ";
-        List<ProductType>  products = jdbcTemplate.query(sql, new Object[] {customerOrderId}, new BeanPropertyRowMapper<>(ProductType.class));
+        List<ProductType> products = jdbcTemplate.query(sql, new Object[] { customerOrderId },
+                new BeanPropertyRowMapper<>(ProductType.class));
         return products;
     }
+
+    <<<<<<<HEAD=======
+
+    public List<ProductType> getAllProductTypesInSupplierOrder(int supplierOrderId) {
+        final String sql = "SELECT p.id as 'id', p.name as 'name', p.warrantyPeriod as 'warrantyPeriod', p.price as 'price', (SELECT COUNT(p2.id)  "
+                +
+                "FROM product p2 " +
+                "WHERE p2.productTypeId = p.id AND " +
+                "p2.customerOrderId = ?) as 'quantity' " +
+                "FROM productType p ";
+        List<ProductType> products = jdbcTemplate.query(sql, new Object[] { supplierOrderId },
+                new BeanPropertyRowMapper<>(ProductType.class));
+        return products;
+    }
+
+    >>>>>>>4bd1821 (Push changes mayank)
 
     @Transactional
     public int addProductTypeToCustomerOrder(int productTypeId, int quantity, int customerOrderId) {
@@ -91,7 +110,11 @@ public class ProductTypeDao {
 
         final String sql4 = "UPDATE product SET customerOrderId = ? WHERE id IN (SELECT id FROM productIdsTemp)";
         int result = jdbcTemplate.update(sql4,customerOrderId);
+<<<<<<< HEAD
         final String sql5 = "DROP TABLE productIdsTemp";
+=======
+        final String sql5 = "TRUNCATE FROM productIdsTemp";
+>>>>>>> 4bd1821 (Push changes mayank)
         jdbcTemplate.update(sql5);
         return result;
     }

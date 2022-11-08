@@ -24,8 +24,6 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-
-// @RequestMapping("api/order/customer")
 @Controller
 public class CustomerOrderController {
     private final CustomerOrderService customerOrderService;
@@ -34,32 +32,33 @@ public class CustomerOrderController {
     private final ProductTypeService productTypeService;
 
     @Autowired
-    public CustomerOrderController(CustomerOrderService customerOrderService, CustomerService customerService, ProductService productService, ProductTypeService productTypeService) {
+    public CustomerOrderController(CustomerOrderService customerOrderService, CustomerService customerService,
+            ProductService productService, ProductTypeService productTypeService) {
         this.customerOrderService = customerOrderService;
         this.customerService = customerService;
         this.productService = productService;
         this.productTypeService = productTypeService;
     }
 
-
-    @GetMapping(path="/order/customer")
+    @GetMapping(path = "/order/customer")
     public String getAllCustomerOrders(Model model) {
         model.addAttribute("orders", customerOrderService.getAllCustomerOrders());
         return "show-customer-order";
     }
 
-    @GetMapping(path="/order/customer/new")
+    @GetMapping(path = "/order/customer/new")
     public String addCustomerOrderForm(Model model) {
         model.addAttribute("orders", new CustomerOrder());
         model.addAttribute("customers", customerService.getAllCustomers());
         return "customer-order-new";
     }
 
-    @PostMapping(path="/order/customer/")
-    public String initializeCustomerOrder(@RequestParam("customerId") int customerId, Authentication authentication, RedirectAttributes redirectAttributes) {
+    @PostMapping(path = "/order/customer/")
+    public String initializeCustomerOrder(@RequestParam("customerId") int customerId, Authentication authentication,
+            RedirectAttributes redirectAttributes) {
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setCustomerId(customerId);
-        customerOrder.setEmployeeId(((Employee)authentication.getPrincipal()).getId());
+        customerOrder.setEmployeeId(((Employee) authentication.getPrincipal()).getId());
         customerOrder.setOrderedDate(new Date(System.currentTimeMillis()));
         customerOrder.setDeliveryAgentAssigned(false);
         customerOrder.setVerificationStatus(false);
@@ -67,7 +66,7 @@ public class CustomerOrderController {
         return "redirect:/order/customer/" + customerOrder.getId() + "/add";
     }
 
-    @GetMapping(path="/order/customer/{id}/add")
+    @GetMapping(path = "/order/customer/{id}/add")
     public String addProductsToCustomerOrder(@PathVariable("id") int id, Model model) {
         // model.addAttribute("products", productService.getAllProducts());
         model.addAttribute("customerOrder", customerOrderService.getCustomerOrderById(id));
@@ -76,49 +75,52 @@ public class CustomerOrderController {
         return "customer-order-add-products";
     }
 
-     @PostMapping(path="/order/customer/{id}/add")
-     public String addProductsToCustomerOrder(@PathVariable("id") int customerOrderId, @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId, Authentication authentication, RedirectAttributes redirectAttributes){
-         productTypeService.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
-         return "redirect:/order/customer/" + customerOrderId + "/add";
-     }
+    @PostMapping(path = "/order/customer/{id}/add")
+    public String addProductsToCustomerOrder(@PathVariable("id") int customerOrderId,
+            @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId,
+            Authentication authentication, RedirectAttributes redirectAttributes) {
+        productTypeService.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
+        return "redirect:/order/customer/" + customerOrderId + "/add";
+    }
 
-    @PostMapping(path="/api/order/customer")
+    @PostMapping(path = "/api/order/customer")
     @ResponseBody
     public void addCustomerOrder(@Valid @NotNull @RequestBody CustomerOrder customerOrder) {
         customerOrderService.insertCustomerOrder(customerOrder);
     }
 
-    @GetMapping(path="/api/order/customer")
+    @GetMapping(path = "/api/order/customer")
     @ResponseBody
     public List<CustomerOrder> getAllCustomerOrders() {
         return customerOrderService.getAllCustomerOrders();
     }
 
-    @PostMapping(path="/api/order/customer/{id}/delete")
+    @PostMapping(path = "/api/order/customer/{id}/delete")
     @ResponseBody
     public void deleteCustomerOrder(@PathVariable("id") int id) {
         customerOrderService.deleteCustomerOrder(id);
     }
 
-    @GetMapping(path="/api/order/customer/{id}")
+    @GetMapping(path = "/api/order/customer/{id}")
     @ResponseBody
     public CustomerOrder getCustomerOrderById(@PathVariable("id") int id) {
         return customerOrderService.getCustomerOrderById(id);
     }
 
-    @PostMapping(path="/api/order/customer/{id}/edit")
+    @PostMapping(path = "/api/order/customer/{id}/edit")
     @ResponseBody
-    public void updateCustomerOrder(@PathVariable("id") int id, @Valid @NotNull @RequestBody CustomerOrder customerOrder) {
+    public void updateCustomerOrder(@PathVariable("id") int id,
+            @Valid @NotNull @RequestBody CustomerOrder customerOrder) {
         customerOrderService.updateCustomerOrder(id, customerOrder);
     }
 
-    @GetMapping(path="/order/customer/{id}/bill")
+    @GetMapping(path = "/order/customer/{id}/bill")
     public String getCustomerOrderBill(@PathVariable("id") int customerOrderId, Model model) {
         List<ProductType> productTypes = productTypeService.getAllProductTypesInCustomerOrder(customerOrderId);
         Bill bill = new Bill();
         int amt = 0;
-        for(ProductType productType : productTypes){
-            amt += productType.getPrice()*productType.getQuantity();
+        for (ProductType productType : productTypes) {
+            amt += productType.getPrice() * productType.getQuantity();
         }
         bill.setAmount(amt);
         model.addAttribute("bill", bill);
