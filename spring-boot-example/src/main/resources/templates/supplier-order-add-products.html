@@ -10,7 +10,7 @@
 <div>
   <div class="card">
       <div class="table-responsive">
-        <table class="table align-items-center mb-0 datatable">
+        <table class="table align-items-center mb-0">
           <thead>
             <tr>
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr. No.</th>
@@ -74,6 +74,14 @@
       </div>
       </div>
 </div>
+
+<div class="mt-3">
+  <form th:action="@{'/order/supplier/'+${supplierOrder.Id}+'/confirm'}" method="post">
+    <button class="btn btn-icon btn-primary" type="submit">
+      <span class="btn-inner--text">CONFIRM ORDER</span>
+    </button>
+  </form>
+</div> 
 
 
 <div>
@@ -154,13 +162,7 @@
         </div>
 </div>
 
-<!-- <div>
-    <form >
-        <input type="text" name="orderId" th:value="${customerOrder.id}" hidden />
-        <input type="number" name="customerId" th:value="${cust.id}" hidden /> -->
 
-<!-- </form>
-</div> --> -->
 
 
 </body>
