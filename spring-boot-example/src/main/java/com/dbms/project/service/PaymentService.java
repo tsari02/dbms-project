@@ -28,6 +28,10 @@ public class PaymentService {
         return paymentDao.getPaymentById(id);
     }
 
+    public Payment getPaymentByCustomerOrderId(int id) {
+        return paymentDao.getPaymentByCustomerOrderId(id);
+    }
+
     public int deletePayment(int id) {
         return paymentDao.deletePayment(id);
     }
