@@ -8,6 +8,6 @@ import lombok.Data;
 public class Payment {
     private int id;
     private int customerOrderId;
-    private int transactionId;
+    private Integer transactionId;
     private int billId;
 }

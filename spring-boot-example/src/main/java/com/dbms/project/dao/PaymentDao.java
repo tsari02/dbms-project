@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.List;
 
 @Repository
@@ -27,7 +28,11 @@ public class PaymentDao {
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, payment.getCustomerOrderId());
-            ps.setInt(2, payment.getTransactionId());
+            if (payment.getTransactionId() == null) {
+                ps.setNull(2, Types.INTEGER);
+            } else {
+                ps.setInt(2, payment.getTransactionId());
+            }
             ps.setInt(3, payment.getBillId());
           
 

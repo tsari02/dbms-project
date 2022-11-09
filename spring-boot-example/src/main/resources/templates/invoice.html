@@ -19,10 +19,10 @@
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Price</th>
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Warranty Period</th>
               <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Ordered Quantity</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Amount</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">GST Number</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Discount</th>
-              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Net Amount</th>
+<!--              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Amount</th>-->
+<!--              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">GST Number</th>-->
+<!--              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Discount</th>-->
+<!--              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Net Amount</th>-->
             </tr>
           </thead>
           <tbody th:each = "ptype, status : ${productTypesOrdered}">
@@ -72,12 +72,19 @@
               </td>
               
             </tr>
-
-            
           </tbody>
         </table>
       </div>
       </div>
+  <div class="mt-5">
+    <h2>Bill Details</h2>
+    <p th:text="${bill}"></p>
+    <h2>Payment Details</h2>
+    <a th:if="${isTransactionPending}" th:href="@{'/order/customer' + ${customerOrderId} + '/transaction'}">
+      Complete Transaction
+    </a>
+    <p th:unless="${isTransactionPending}" th:text="${transaction}"></p>
+  </div>
 </div>
 
 

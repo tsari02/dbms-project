@@ -54,19 +54,4 @@ public class TransactionController {
     public void updateTransaction(@PathVariable("id") int id, @Valid @NotNull @RequestBody Transaction transaction) {
         transactionService.updateTransaction(id, transaction);
     }
-
-    @GetMapping(path = "/order/customer/transaction/{id}")
-    public String completeTransaction(@PathVariable("id") int paymentId, RedirectAttributes redirectAttributes) {
-        
-        return "invoice";
-    }
-
-    @PostMapping(path = "/order/customer/transaction/{id}")
-    public String completeTransaction(@Valid @NotNull @RequestBody Transaction transaction, @PathVariable("id") int paymentId, RedirectAttributes redirectAttributes) {
-        int transactionId = transactionService.insertTransaction(transaction);
-        Payment payment = paymentService.getPaymentById(paymentId);
-        payment.setTransactionId(transactionId);
-        paymentService.updatePayment(paymentId,payment);
-        return "redirect:/order/customer/transaction/" + paymentId;
-    }
 }
