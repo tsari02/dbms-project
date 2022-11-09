@@ -75,4 +75,11 @@ public class ProductTypeController {
     public void updateProductType(@PathVariable("id") int id, @Valid @NotNull @RequestBody ProductType productType) {
         productTypeService.updateProductType(id, productType);
     }
+
+    @GetMapping(path="/product/{id}")
+    public String getProductTypeById(@PathVariable("id") int id, Model model) {
+        model.addAttribute("productType", productTypeService.getProductTypeById(id));
+        model.addAttribute("productSpecifications", productTypeService.getProductTypeSpecificationsbyid(id));
+        return "product";
+    }
 }
