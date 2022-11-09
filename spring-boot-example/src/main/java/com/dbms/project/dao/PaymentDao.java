@@ -49,6 +49,11 @@ public class PaymentDao {
         return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(Payment.class));
     }
 
+    public Payment getPaymentByCustomerOrderId(int id) {
+        final String sql = "SELECT * from payment WHERE customerOrderId = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(Payment.class));
+    }
+
     public int deletePayment(int id) {
         final String sql = "DELETE FROM payment WHERE id = ?";
         return jdbcTemplate.update(sql, id);
