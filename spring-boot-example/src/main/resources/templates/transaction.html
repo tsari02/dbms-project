@@ -9,37 +9,11 @@
 <div>
 
     <div class="p-4 bg-light">
-<form th:action="@{'/order/customer/transaction/'+${paymentId} }" method="post" th:object="${transaction}">
+<form th:action="@{'/order/customer/'+${customerOrderId} + '/transaction'}" method="post" th:object="${transaction}">
 
     <input type="number" th:field="*{id}" hidden>
     <input type="number" th:field="*{amount}" hidden>
-    <!-- <span th:text="*{employeeId}"></span> -->
-
-  <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="input-group input-group-outline my-3 needs-validation" th:classappend="${transaction.bankBranch!=null}?is-filled">
-          <label class="form-label">Bank Branch</label>
-          <input type="text" class="form-control" th:field="*{bankBranch}" required maxlength="25">
-        </div>
-        <div th:each="err : ${#fields.errors('bankBranch')}" class="fs-6">
-          <span th:text="${err}"></span>
-        </div>
-      </div>
-    </div>
-
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="input-group input-group-outline my-3" th:classappend="${transaction.accountNumber!=null}?is-filled">
-        <label class="form-label">
-            Account Number
-        </label>
-        <input type="number" class="form-control" th:field="*{accountNumber}" maxlength="50">
-        </div>
-        <div th:each="err : ${#fields.errors('accountNumber')}" class="fs-6">
-        <span th:text="${err}"></span>
-      </div>
-    </div>
-  </div>
+  <!-- <span th:text="*{employeeId}"></span> -->
 
 
   <div class="row justify-content-center">
@@ -48,7 +22,7 @@
         <label class="form-label">
             Amount
         </label>
-        <input type="number" class="form-control" th:text="*{amount}" maxlength="25" disabled>
+        <input type="number" class="form-control" th:field  ="*{amount}" maxlength="25" disabled>
         </div>
         <div th:each="err : ${#fields.errors('amount')}" class="fs-6">
         <span th:text="${err}"></span>
@@ -56,14 +30,31 @@
     </div>
   </div>
 
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="input-group input-group-outline my-3" th:classappend="${transaction.accountNumber!=null}?is-filled">
+        <label class="form-label">
+          Account Number
+        </label>
+        <input type="text" class="form-control" th:field="*{accountNumber}" maxlength="25" required>
+      </div>
+      <div th:each="err : ${#fields.errors('accountNumber')}" class="fs-6">
+        <span th:text="${err}"></span>
+      </div>
+    </div>
+  </div>
 
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3" th:classappend="${transaction.mode!=null}?is-filled">
-        <label class="form-label">
+      <div class="input-group input-group-static my-3" th:classappend="${transaction.mode!=null}?is-filled">
+        <label>
             Mode
         </label>
-        <input type="text" class="form-control" th:field="*{mode}" required maxlength="20">
+        <select class="form-control" th:field="*{mode}" required maxlength="20">
+          <option value="Credit Card">Credit Card</option>
+          <option value="Debit Card">Debit Card</option>
+          <option value="Cheque">Cheque</option>
+        </select>
         </div>
         <div th:each="err : ${#fields.errors('mode')}" class="fs-6">
         <span th:text="${err}"></span>
@@ -72,30 +63,30 @@
   </div>
 
 
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="input-group input-group-outline my-3" th:classappend="${transaction.verificationStatus!=null}?is-filled">
-        <label class="form-label">
-            Verification Status
-        </label>
-        <input type="text" class="form-control" th:field="*{verificationStatus}" required maxlength="20">
-        </div>
-        <div th:each="err : ${#fields.errors('verificationStatus')}" class="fs-6">
-        <span th:text="${err}"></span>
-      </div>
-    </div>
-  </div>
+<!--  <div class="row justify-content-center">-->
+<!--    <div class="col-md-6">-->
+<!--      <div class="input-group input-group-outline my-3" th:classappend="${transaction.verificationStatus!=null}?is-filled">-->
+<!--        <label class="form-label">-->
+<!--            Verification Status-->
+<!--        </label>-->
+<!--        <input type="checkbox" class="form-control" th:field="*{verificationStatus}" value="true" required checked hidden>-->
+<!--        </div>-->
+<!--        <div th:each="err : ${#fields.errors('verificationStatus')}" class="fs-6">-->
+<!--        <span th:text="${err}"></span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
 
 
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <div class="input-group input-group-outline my-3" th:classappend="${transaction.dateofTransaction!=null}?is-filled">
+      <div class="input-group input-group-outline my-3" th:classappend="${transaction.dateOfTransaction!=null}?is-filled">
         <label class="form-label">
             Date of Transaction
         </label>
-        <input type="date" class="form-control" th:field="*{dateofTransaction}" required maxlength="255">
+        <input type="date" class="form-control" th:field="*{dateOfTransaction}" required>
         </div>
-      <div th:each="err : ${#fields.errors('dateofTransaction')}" class="fs-6">
+      <div th:each="err : ${#fields.errors('dateOfTransaction')}" class="fs-6">
         <span th:text="${err}"></span>
       </div>
     </div>
@@ -108,9 +99,21 @@
         <label class="form-label">
             Bank Name
         </label>
-        <input type="text" class="form-control" th:field="*{bankName}" required maxlength="50">
+        <input type="text" class="form-control" th:field="*{bankName}" required maxlength="25">
         </div>
       <div th:each="err : ${#fields.errors('bankName')}" class="fs-6">
+        <span th:text="${err}"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="input-group input-group-outline my-3 needs-validation" th:classappend="${transaction.bankBranch!=null}?is-filled">
+        <label class="form-label">Bank Branch</label>
+        <input type="text" class="form-control" th:field="*{bankBranch}" required maxlength="25">
+      </div>
+      <div th:each="err : ${#fields.errors('bankBranch')}" class="fs-6">
         <span th:text="${err}"></span>
       </div>
     </div>

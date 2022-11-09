@@ -66,7 +66,6 @@ public class WorkExperienceController {
 
     @PostMapping(path="/employee/workExperience/add")
     public String addWorkExperienceSubmit(@Valid @NotNull WorkExperience workExperience, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        System.out.println(workExperience);
         workExperienceService.insertWorkExperience(workExperience);
         return "redirect:/employee/"+workExperience.getEmployeeId();
     }

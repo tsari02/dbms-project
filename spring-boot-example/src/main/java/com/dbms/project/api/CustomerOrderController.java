@@ -6,17 +6,14 @@ import com.dbms.project.model.Bill;
 import com.dbms.project.model.Payment;
 import com.dbms.project.model.Transaction;
 import com.dbms.project.model.ProductType;
-import com.dbms.project.service.CustomerOrderService;
-import com.dbms.project.service.CustomerService;
-import com.dbms.project.service.ProductService;
-import com.dbms.project.service.PaymentService;
-import com.dbms.project.service.BillService;
-import com.dbms.project.service.ProductTypeService;
+import com.dbms.project.service.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,16 +33,18 @@ public class CustomerOrderController {
     private final BillService billService;
     private final PaymentService paymentService;
     private final ProductTypeService productTypeService;
+    private final TransactionService transactionService;
 
     @Autowired
     public CustomerOrderController(CustomerOrderService customerOrderService, CustomerService customerService, BillService billService,
-            ProductService productService, ProductTypeService productTypeService, PaymentService paymentService) {
+            ProductService productService, ProductTypeService productTypeService, PaymentService paymentService, TransactionService transactionService) {
         this.customerOrderService = customerOrderService;
         this.customerService = customerService;
         this.productService = productService;
         this.billService = billService;
         this.paymentService = paymentService;
         this.productTypeService = productTypeService;
+        this.transactionService = transactionService;
     }
 
     @GetMapping(path = "/order/customer")
@@ -91,37 +90,6 @@ public class CustomerOrderController {
         return "redirect:/order/customer/" + customerOrderId + "/add";
     }
 
-    @PostMapping(path = "/api/order/customer")
-    @ResponseBody
-    public void addCustomerOrder(@Valid @NotNull @RequestBody CustomerOrder customerOrder) {
-        customerOrderService.insertCustomerOrder(customerOrder);
-    }
-
-    @GetMapping(path = "/api/order/customer")
-    @ResponseBody
-    public List<CustomerOrder> getAllCustomerOrders() {
-        return customerOrderService.getAllCustomerOrders();
-    }
-
-    @PostMapping(path = "/api/order/customer/{id}/delete")
-    @ResponseBody
-    public void deleteCustomerOrder(@PathVariable("id") int id) {
-        customerOrderService.deleteCustomerOrder(id);
-    }
-
-    @GetMapping(path = "/api/order/customer/{id}")
-    @ResponseBody
-    public CustomerOrder getCustomerOrderById(@PathVariable("id") int id) {
-        return customerOrderService.getCustomerOrderById(id);
-    }
-
-    @PostMapping(path = "/api/order/customer/{id}/edit")
-    @ResponseBody
-    public void updateCustomerOrder(@PathVariable("id") int id,
-            @Valid @NotNull @RequestBody CustomerOrder customerOrder) {
-        customerOrderService.updateCustomerOrder(id, customerOrder);
-    }
-
     @GetMapping(path = "/order/customer/{id}/bill/new")
     public String createCustomerOrderBill(@PathVariable("id") int customerOrderId, Model model) {
         List<ProductType> productTypes = productTypeService.getAllProductTypesInCustomerOrder(customerOrderId);
@@ -133,26 +101,55 @@ public class CustomerOrderController {
         bill.setAmount(amt);
         model.addAttribute("bill", bill);
         model.addAttribute("customerOrder", customerOrderService.getCustomerOrderById(customerOrderId));
-        return "bill";
+        return "new-bill";
     }
 
     @GetMapping(path = "/order/customer/{id}/bill")
-    public String getCustomerOrderBill(@PathVariable("id") int paymentId, Model model) {
-        model.addAttribute("paymentId", paymentId);
-        Payment payment = paymentService.getPaymentById(paymentId);
+    public String showCustomerOrderBill(@PathVariable("id") int customerOrderId, Model model) {
+        model.addAttribute("customerOrderId", customerOrderId);
+        Payment payment = paymentService.getPaymentByCustomerOrderId(customerOrderId);
+        Bill bill = billService.getBillById(payment.getBillId());
+        model.addAttribute("bill", bill);
+        model.addAttribute("payment", payment);
+        if (payment.getTransactionId() == null) {
+            model.addAttribute("isTransactionPending", true);
+        }
+        transactionService.getTransactionById(payment.getTransactionId());
+        System.out.println("rendering invoice");
+        model.addAttribute("productTypesOrdered", productTypeService.getAllProductTypesInCustomerOrder(customerOrderId));
+//        Payment payment = paymentService.getPaymentByCustomerOrderId(customerOrderId);
+        model.addAttribute("bill", billService.getBillById(payment.getBillId()));
+        model.addAttribute("transaction", transactionService.getTransactionById(payment.getTransactionId()));
+        return "invoice";
+    }
+
+    @Transactional
+    @PostMapping(path = "/order/customer/{id}/bill")
+    public String getCustomerOrderBill(@Valid @ModelAttribute Bill bill, @PathVariable("id") int customerOrderId, RedirectAttributes redirectAttributes) {
+        int billId = billService.insertBill(bill);
+        Payment payment = new Payment();
+        payment.setBillId(billId);
+        payment.setCustomerOrderId(customerOrderId);
+        int paymentId = paymentService.insertPayment(payment);
+        return "redirect:/order/customer/" + customerOrderId + "/transaction";
+    }
+
+    @GetMapping(path = "/order/customer/{id}/transaction")
+    public String getCustomerOrderBill(@PathVariable("id") int customerOrderId, Model model) {
+        model.addAttribute("customerOrderId", customerOrderId);
+        Payment payment = paymentService.getPaymentByCustomerOrderId(customerOrderId);
         Transaction transaction = new Transaction();
         transaction.setAmount(billService.getBillById(payment.getBillId()).getNetAmount());
         model.addAttribute("transaction", transaction);
         return "transaction";
     }
 
-    @PostMapping(path = "/order/customer/{id}/bill")
-    public String getCustomerOrderBill(@Valid @ModelAttribute Bill bill ,@PathVariable("id") int customerOrderId, RedirectAttributes redirectAttributes) {
-        int billId = billService.insertBill(bill);
-        Payment payment = new Payment();
-        payment.setBillId(billId);
-        payment.setCustomerOrderId(customerOrderId);
-        int paymentId = paymentService.insertPayment(payment);
-        return "redirect:/order/customer/" + paymentId + "/bill";
+    @PostMapping(path = "/order/customer/{id}/transaction")
+    public String completeTransaction(@Valid @NotNull Transaction transaction, BindingResult result, @PathVariable("id") int customerOrderId, RedirectAttributes redirectAttributes) {
+        Payment payment = paymentService.getPaymentByCustomerOrderId(customerOrderId);
+        int transactionId = transactionService.insertTransaction(transaction);
+        payment.setTransactionId(transactionId);
+        paymentService.updatePayment(payment.getId(),payment);
+        return "redirect:/order/customer/" + customerOrderId + "/bill";
     }
 }

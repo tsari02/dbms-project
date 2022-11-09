@@ -8,6 +8,7 @@
     <div>
         <div class="p-4 bg-light">
             <form th:action="@{'/order/customer/' + ${customerOrder.id} + '/bill'}" method="post" th:object="${bill}">
+                <input type="number" th:field="*{amount}" hidden>
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                         <div class="input-group input-group-outline my-3"
@@ -24,7 +25,7 @@
                             <label class="form-label">
                                 GST Number
                             </label>
-                            <input type="string" class="form-control" th:field="*{gstNumber}">
+                            <input type="text" class="form-control" th:field="*{gstNumber}" minlength="12" maxlength="12" required>
                         </div>
                         <div th:each="err : ${#fields.errors('gstNumber')}" class="fs-6">
                             <span th:text="${err}"></span>
@@ -38,7 +39,7 @@
                             <label class="form-label">
                                 Discount Percentage
                             </label>
-                            <input type="number" class="form-control" th:field="*{discount}">
+                            <input type="number" class="form-control" th:field="*{discount}" required  min="0" max="100">
                         </div>
                     </div>
                 </div>
@@ -46,11 +47,9 @@
 
 
                 <div class="text-center">
-                    <!-- <a href="/profile/edit">   -->
                     <button class="btn btn-icon btn btn-primary " type="submit">
                         <span class="btn-inner--text">SUBMIT</span>
                     </button>
-                    <!-- </a> -->
                 </div>
 
 
