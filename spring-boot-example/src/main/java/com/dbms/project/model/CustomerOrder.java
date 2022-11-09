@@ -23,4 +23,5 @@ public class CustomerOrder {
     private int customerId;
     private int employeeId;
     private Boolean orderCompleted;
+    private Boolean paymentCompleted;
 }

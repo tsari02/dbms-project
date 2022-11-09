@@ -1,6 +1,8 @@
 package com.dbms.project.api;
 
+import com.dbms.project.model.CustomerOrder;
 import com.dbms.project.model.OrderedProductType;
+import com.dbms.project.model.Supplier;
 import com.dbms.project.model.SupplierOrder;
 import com.dbms.project.service.OrderedProductTypeService;
 import com.dbms.project.service.SupplierOrderService;
@@ -50,10 +52,14 @@ public class SupplierOrderController {
         return supplierOrderService.getAllSupplierOrders();
     }
 
-    @PostMapping(path="/api/order/supplier/{id}/delete")
-    @ResponseBody
-    public void deleteSupplierOrder(@PathVariable("id") int id) {
+    @PostMapping(path="/order/supplier/{id}/delete")
+    public String deleteSupplierOrder(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
+        SupplierOrder supplierOrder = supplierOrderService.getSupplierOrderById(id);
+        if (!Objects.equals(supplierOrder.getStatus(), "Initiated")) {
+            throw new RuntimeException("Cannot add products to a confirmed or completed order");
+        }
         supplierOrderService.deleteSupplierOrder(id);
+        return "redirect:/order/supplier";
     }
 
     @GetMapping(path="/order/supplier")
@@ -71,6 +77,10 @@ public class SupplierOrderController {
     @GetMapping(path="/order/supplier/{id}/add")
     public String addProductsToSupplierOrder(@PathVariable("id") int id, Model model) {
         // model.addAttribute("products", productService.getAllProducts());
+        SupplierOrder supplierOrder = supplierOrderService.getSupplierOrderById(id);
+        if (!Objects.equals(supplierOrder.getStatus(), "Initiated")) {
+            throw new RuntimeException("Cannot add products to a confirmed or completed order");
+        }
         model.addAttribute("supplierOrder", supplierOrderService.getSupplierOrderById(id));
         model.addAttribute("productTypesOrdered", productTypeService.getAllProductTypesInSupplierOrder(id));
         model.addAttribute("productTypes", productTypeService.getAllProductTypes());
@@ -88,6 +98,10 @@ public class SupplierOrderController {
 
     @PostMapping(path="/order/supplier/{id}/add")
     public String addProductsToSupplierOrder(@PathVariable("id") int supplierOrderId, @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId, Authentication authentication, RedirectAttributes redirectAttributes){
+        SupplierOrder supplierOrder = supplierOrderService.getSupplierOrderById(supplierOrderId);
+        if (!Objects.equals(supplierOrder.getStatus(), "Initiated")) {
+            throw new RuntimeException("Cannot add products to a confirmed or completed order");
+        }
         OrderedProductType orderedProductType = new OrderedProductType();
         orderedProductType.setProductTypeId(productTypeId);
         orderedProductType.setQuantity(quantity);

@@ -45,15 +45,27 @@ public class CustomerOrderDao {
 
 
     public List<CustomerOrder> getAllCustomerOrders() {
-        final String sql = "SELECT c.id as 'id', c.deliveryAgentAssigned as 'deliveryAgentAssigned', c.verificationStatus as 'verificationStatus', c.deliveryDate as 'deliveryDate', c.orderedDate as 'orderedDate', c.customerId as 'customerId', c.employeeId as 'employeeId', (SELECT IF(COUNT(*) > 0, 'true', 'false') "+
-        "FROM payment p WHERE p.customerOrderId = c.id" + 
-        " ) AS 'orderCompleted'" +
-        " from customerOrder c";
+        final String sql = "SELECT c.id as 'id', c.deliveryAgentAssigned as 'deliveryAgentAssigned', c.verificationStatus as 'verificationStatus', c.deliveryDate as 'deliveryDate', c.orderedDate as 'orderedDate', c.customerId as 'customerId', c.employeeId as 'employeeId', " +
+                "(SELECT IF(COUNT(*) > 0, 'true', 'false') "+
+                "FROM payment p WHERE p.customerOrderId = c.id" +
+                " ) AS 'orderCompleted', " +
+                "(SELECT IF(COUNT(t.id) > 0, 'true', 'false') "+
+                "FROM payment p, transaction t WHERE p.customerOrderId = c.id AND t.id = p.transactionId" +
+                " ) AS 'paymentCompleted' " +
+                " from customerOrder c";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CustomerOrder.class));
     }
 
     public CustomerOrder getCustomerOrderById(int id) {
-        final String sql = "SELECT * from customerOrder WHERE id = ?";
+        final String sql = "SELECT c.id as 'id', c.deliveryAgentAssigned as 'deliveryAgentAssigned', c.verificationStatus as 'verificationStatus', c.deliveryDate as 'deliveryDate', c.orderedDate as 'orderedDate', c.customerId as 'customerId', c.employeeId as 'employeeId', " +
+                "(SELECT IF(COUNT(*) > 0, 'true', 'false') "+
+                "FROM payment p WHERE p.customerOrderId = c.id" +
+                " ) AS 'orderCompleted', " +
+                "(SELECT IF(COUNT(t.id) > 0, 'true', 'false') "+
+                "FROM payment p, transaction t WHERE p.customerOrderId = c.id AND t.id = p.transactionId" +
+                " ) AS 'paymentCompleted' " +
+                " from customerOrder c " +
+                "WHERE c.id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[] {id}, new BeanPropertyRowMapper<>(CustomerOrder.class));
     }
 

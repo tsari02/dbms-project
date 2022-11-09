@@ -75,7 +75,10 @@ public class CustomerOrderController {
 
     @GetMapping(path = "/order/customer/{id}/add")
     public String addProductsToCustomerOrder(@PathVariable("id") int id, Model model) {
-        // model.addAttribute("products", productService.getAllProducts());
+        CustomerOrder customerOrder = customerOrderService.getCustomerOrderById(id);
+        if (customerOrder.getOrderCompleted()) {
+            throw new RuntimeException("Cannot add products to a completed order");
+        }
         model.addAttribute("customerOrder", customerOrderService.getCustomerOrderById(id));
         model.addAttribute("productTypesOrdered", productTypeService.getAllProductTypesInCustomerOrder(id));
         model.addAttribute("productTypes", productTypeService.getAllProductTypes());
@@ -84,8 +87,12 @@ public class CustomerOrderController {
 
     @PostMapping(path = "/order/customer/{id}/add")
     public String addProductsToCustomerOrder(@PathVariable("id") int customerOrderId,
-            @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId,
-            Authentication authentication, RedirectAttributes redirectAttributes) {
+                                             @RequestParam("quantity") int quantity, @RequestParam("productTypeId") int productTypeId,
+                                             Authentication authentication, RedirectAttributes redirectAttributes) {
+        CustomerOrder customerOrder = customerOrderService.getCustomerOrderById(customerOrderId);
+        if (customerOrder.getOrderCompleted()) {
+            throw new RuntimeException("Cannot add products to a completed order");
+        }
         productTypeService.addProductTypeToCustomerOrder(productTypeId, quantity, customerOrderId);
         return "redirect:/order/customer/" + customerOrderId + "/add";
     }
@@ -111,15 +118,16 @@ public class CustomerOrderController {
         Bill bill = billService.getBillById(payment.getBillId());
         model.addAttribute("bill", bill);
         model.addAttribute("payment", payment);
+        model.addAttribute("bill", billService.getBillById(payment.getBillId()));
+        model.addAttribute("productTypesOrdered", productTypeService.getAllProductTypesInCustomerOrder(customerOrderId));
+
+
         if (payment.getTransactionId() == null) {
             model.addAttribute("isTransactionPending", true);
+        } else {
+            model.addAttribute("transaction", transactionService.getTransactionById(payment.getTransactionId()));
         }
-        transactionService.getTransactionById(payment.getTransactionId());
         System.out.println("rendering invoice");
-        model.addAttribute("productTypesOrdered", productTypeService.getAllProductTypesInCustomerOrder(customerOrderId));
-//        Payment payment = paymentService.getPaymentByCustomerOrderId(customerOrderId);
-        model.addAttribute("bill", billService.getBillById(payment.getBillId()));
-        model.addAttribute("transaction", transactionService.getTransactionById(payment.getTransactionId()));
         return "invoice";
     }
 
@@ -151,5 +159,16 @@ public class CustomerOrderController {
         payment.setTransactionId(transactionId);
         paymentService.updatePayment(payment.getId(),payment);
         return "redirect:/order/customer/" + customerOrderId + "/bill";
+    }
+
+    @PostMapping(path="/order/customer/{id}/delete")
+    public String deleteCustomerOrder(@PathVariable("id") int customerOrderId, RedirectAttributes redirectAttributes) {
+        CustomerOrder customerOrder = customerOrderService.getCustomerOrderById(customerOrderId);
+        if (customerOrder.getOrderCompleted()) {
+            throw new RuntimeException("Cannot delete a completed order");
+        }
+
+        customerOrderService.deleteCustomerOrder(customerOrderId);
+        return "redirect:/order/customer";
     }
 }
