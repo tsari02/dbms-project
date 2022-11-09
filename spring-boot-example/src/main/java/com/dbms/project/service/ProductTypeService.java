@@ -1,6 +1,7 @@
 package com.dbms.project.service;
 
 import com.dbms.project.dao.ProductTypeDao;
+import com.dbms.project.model.ProductSpecification;
 import com.dbms.project.model.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,10 @@ public class ProductTypeService {
 
     public ProductType getProductTypeById(int id) {
         return productTypeDao.getProductTypeById(id);
+    }
+
+    public List<ProductSpecification> getProductTypeSpecificationsbyid(int id) {
+        return productTypeDao.getProductTypeSpecificationsbyid(id);
     }
 
     public int deleteProductType(int id) {

@@ -1,5 +1,6 @@
 package com.dbms.project.dao;
 
+import com.dbms.project.model.ProductSpecification;
 import com.dbms.project.model.ProductType;
 import com.dbms.project.preparedStatementSetters.InsertIdsPreparedStatementSetter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,12 @@ public class ProductTypeDao {
         List<ProductType> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ProductType.class));
         return products;
     }
+
+    public List<ProductSpecification> getProductTypeSpecificationsbyid(int id) {
+        final String sql = "SELECT * from productSpecification WHERE productTypeId = ?";
+        return jdbcTemplate.query(sql, new Object[] { id }, new BeanPropertyRowMapper<>(ProductSpecification.class));
+    }
+
 
     public ProductType getProductTypeById(int id) {
         final String sql = "SELECT * from productType WHERE id = ?";

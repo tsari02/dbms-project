@@ -2,6 +2,8 @@ package com.dbms.project.service;
 
 import com.dbms.project.dao.ProductDao;
 import com.dbms.project.model.Product;
+import com.dbms.project.model.ProductSpecification;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,8 @@ public class ProductService {
     public int insertProduct(Product product) {
         return productDao.insertProduct(product);
     }
+    
+    
 
     public List<Product> getAllProducts() {
         return productDao.getAllProducts();
