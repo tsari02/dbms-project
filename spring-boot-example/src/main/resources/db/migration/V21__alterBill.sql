@@ -1,2 +1,0 @@
-ALTER TABLE bill
-DROP COLUMN netAmount;

@@ -1,3 +1,0 @@
-DROP TABLE IF EXISTS bill;
-DROP TABLE IF EXISTS feedback;
-ALTER TABLE customerOrder RENAME COLUMN id TO customerOrderId;

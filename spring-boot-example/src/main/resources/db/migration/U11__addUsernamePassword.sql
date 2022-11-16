@@ -1,6 +1,0 @@
-DROP TABLE IF EXISTS user;
-
-ALTER TABLE employee
-DROP COLUMN username;
-ALTER TABLE employee
-DROP COLUMN password;

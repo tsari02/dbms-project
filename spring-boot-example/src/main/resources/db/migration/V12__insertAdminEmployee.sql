@@ -1,2 +1,0 @@
-INSERT INTO employee (firstName, middleName, lastName, contactNumber, designation, salary, dateOfBirth, emailId, city, state, postalCode, country, street, username)
-VALUES ('admin', NULL, NULL, '0000000000', 'Admin', 0, '2000-01-01', 'admin@dbms.com', 'city', 'state', 'postalCode', 'country', 'street', 'admin');
